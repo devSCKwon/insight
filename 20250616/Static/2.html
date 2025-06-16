@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>그룹웨어 문서 공유 및 보안 문서 관리 가이드</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/subsets/Paperlogy-dynamic-subset.css" type="text/css"/>
+    <style>
+        body {
+            font-family: "Paperlogy", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+            background-color: #f8f7f4; /* Vibrant Creative Background */
+            color: #1f2937; /* Vibrant Creative Text */
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background-color: #8A2BE2; /* Vibrant Creative Primary Color */
+            color: white;
+            border-radius: 0.75rem;
+        }
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-top: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #8A2BE2; /* Vibrant Creative Primary Color */
+            border-bottom: 2px solid #FF1493; /* Vibrant Creative Accent Color */
+            padding-bottom: 0.5rem;
+        }
+        h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: #FF1493; /* Vibrant Creative Accent Color */
+        }
+        .section-intro {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: #374151;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #8A2BE2; /* Vibrant Creative Primary Color */
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 0.5rem;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        ul li {
+            background-color: #f8f7f4; /* Light background for list items */
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        ul li:last-child {
+            margin-bottom: 0;
+        }
+        ul li strong {
+            color: #FF1493; /* Vibrant Creative Accent Color */
+        }
+        .table-responsive {
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+            margin-bottom: 2rem;
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            overflow: hidden; /* Ensures border-radius applies to children */
+        }
+        th, td {
+            border: 1px solid #e0e0e0;
+            padding: 1rem;
+            text-align: left;
+            vertical-align: top;
+        }
+        th {
+            background-color: #8A2BE2; /* Vibrant Creative Primary Color */
+            color: white;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        td {
+            background-color: #fcfcfc;
+        }
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+        .outlook-card {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+        .outlook-card button {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 2rem;
+            background-color: #FF1493; /* Vibrant Creative Accent Color */
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+            transition: background-color 0.3s ease;
+        }
+        .outlook-card button:hover {
+            background-color: #c00d6e; /* Darker pink on hover */
+        }
+        .outlook-card button span {
+            transition: transform 0.3s ease;
+        }
+        .outlook-card button span.rotate-180 {
+            transform: rotate(180deg);
+        }
+        .outlook-content {
+            padding: 1.5rem 2rem;
+            border-top: 1px solid #eee;
+            background-color: #fefefe;
+        }
+        .hidden {
+            display: none;
+        }
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e0e0e0;
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>그룹웨어 문서 공유 및 보안 문서 관리 가이드</h1>
+            <p>기업 내 문서 열람 권한 판단 및 안전한 관리 방안</p>
+        </header>
+
+        <section id="overview" class="card">
+            <div class="card-title">개요</div>
+            <p class="section-intro">
+                기업 내 그룹웨어 시스템을 통해 다양한 문서가 작성·결재·공유되는 가운데, 민감도와 활용 목적에 따라 문서의 열람 권한과 공유 방식이 달라질 수 있습니다. 본 문서는 사용자가 자율적으로 문서 열람 권한을 판단하고, 비밀등급 문서를 안전하게 관리하며, 팀 자산에 적합한 서식 환경을 설정할 수 있도록 가이드를 제공합니다.
+            </p>
+        </section>
+
+        <section id="document-access-judgment" class="card">
+            <h2>1. 문서 열람 판단 방법 (작성자 기준)</h2>
+            <p class="section-intro">
+                작성자가 문서 조회 가능 여부를 판단할 수 있는 네 가지 방식과 대표 예시는 다음과 같습니다.
+            </p>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>방법</th>
+                            <th>설명</th>
+                            <th>예시</th>
+                            <th>특이사항</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>① 결재라인 참조(자동동의)</td>
+                            <td>기안 시 참조자로 지정된 사용자는 결재선에 포함되지 않아도 열람 가능</td>
+                            <td>- 그룹웨어 극비/대외비 샘플 서식<br>- 영업비밀 등급 자체확인 서식</td>
+                            <td>문서 열람 시 별도 승인 절차 없음</td>
+                        </tr>
+                        <tr>
+                            <td>② 열람문서 기능</td>
+                            <td>서식 내 열람 권한 내장. 결재라인 외에도 열람 가능</td>
+                            <td>- 지출품의서 (재경부 확인 목적)</td>
+                            <td>결재문서 리포트 통계 활용 시 열람 권한 필수</td>
+                        </tr>
+                        <tr>
+                            <td>③ 문서공유</td>
+                            <td>특정 부서 또는 사용자에게 문서 직접 공유</td>
+                            <td>- 작성부서의 정책안내문을 타부서에 공유</td>
+                            <td>실시간 협업에 적합, 공유 시점 및 범위 통제 가능</td>
+                        </tr>
+                        <tr>
+                            <td>④ 수신함 지정</td>
+                            <td>결재선과 무관하게 업무 수행자(팀 또는 개인) 지정 가능</td>
+                            <td>- 협조전 수신 → 재기안 필요<br>- 팀 단위 수신 시 담당자 지정</td>
+                            <td>수신자별 완료 이력 기록 가능</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="future-improvements" class="card">
+            <h2>2. 향후 개선 계획</h2>
+
+            <h3>2.1 공용서식 내 비밀등급 부여 기능 고도화</h3>
+            <p class="section-intro">
+                목표: 비밀 문서의 무분별한 확산 방지 및 결재권자 중심의 문서 보안 강화
+            </p>
+            <ul>
+                <li><strong>비밀등급 필드 활성화:</strong> 공용서식에 비밀등급 필드 활성화.</li>
+                <li><strong>결재권자 최종 판단:</strong> 결재권자가 문서 민감도를 최종 판단하고 비밀등급 지정.</li>
+                <li><strong>공유 기능 차단:</strong> 비밀등급 문서는 공유 기능 자동 차단, 참조(자동동의)로만 열람 가능.</li>
+                <li><strong>별도 서식 지정:</strong> 일반/비문 혼재 가능성 있는 경우, 별도 서식 지정.</li>
+                <li><strong>예시:</strong> 결재자가 ‘비문’으로 지정한 기안서식은 공유 버튼 비활성화 + 참조자만 열람 가능.</li>
+            </ul>
+
+            <h3>2.2 팀정보자산관리자의 별도 서식 생성</h3>
+            <p class="section-intro">
+                목표: 팀 단위 보안자산의 고유 특성에 맞는 문서관리 환경 구축
+            </p>
+            <ul>
+                <li><strong>팀별 전용 서식 생성:</strong> 팀별 전용 서식을 생성하여 서식 수준에서 공유 범위 제어.</li>
+                <li><strong>공유 대상 임의 변경 불가:</strong> 문서 작성자는 공유 대상자를 임의로 변경할 수 없음.</li>
+                <li><strong>열람 가능 대상 고정:</strong> 민감한 업무는 서식 생성 단계에서 열람 가능 대상만 고정 지정.</li>
+                <li><strong>예시:</strong> 원가영업팀의 ‘OO기안문’은 원가영업팀장만 공유 가능하도록 서식 설정 (타부서 사용자 작성 불가, 공유 범위 변경 불가).</li>
+            </ul>
+        </section>
+
+        <section id="other-considerations" class="card">
+            <h2>3. 기타 고려 사항</h2>
+            <ul>
+                <li>그룹웨어 게시판에 "결재선 이해하기" 가이드 게시.</li>
+                <li>문서 열람/공유 이력 리포트 정기 생성 및 관리자 모니터링.</li>
+                <li>서식 유형별 열람·공유 권한 체계 수립 (일반/대외비/비문 등).</li>
+            </ul>
+        </section>
+
+        <section id="conclusion" class="card">
+            <h2>결론</h2>
+            <p class="section-intro">
+                본 가이드는 그룹웨어 내 문서 열람과 보안 문서 관리에 대한 실무 적용 기준을 정립하고자 작성되었습니다. 향후 기능 개선과 함께 사용자, 부서, 결재권자 간 명확한 역할과 책임 분담이 이루어질 수 있도록 지속적인 개선이 필요합니다.
+            </p>
+        </section>
+
+        <footer>
+            <p>&copy; 2025 문서 관리 가이드. 모든 권리 보유.</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Outlook Accordion (for future use if needed, currently not in this specific layout)
+            const outlookButtons = document.querySelectorAll('.outlook-card button');
+            if (outlookButtons) {
+                outlookButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const targetId = button.dataset.target;
+                        const content = document.getElementById(targetId);
+                        const icon = button.querySelector('span:last-child');
+                        
+                        if (content && icon) {
+                            if (content.classList.contains('hidden')) {
+                                content.classList.remove('hidden');
+                                icon.classList.add('rotate-180');
+                            } else {
+                                content.classList.add('hidden');
+                                icon.classList.remove('rotate-180');
+                            }
+                        }
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>그룹웨어 문서 공유 및 보안 문서 관리 가이드</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/subsets/Paperlogy-dynamic-subset.css" type="text/css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #8A2BE2; /* 보라 */
+            --secondary-color: #FF1493; /* 핑크 */
+            --background-color: #f8f7f4;
+            --text-color: #1f2937;
+        }
+
+        body {
+            font-family: "Paperlogy", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        section {
+            display: flex;
+            align-items: center;
+            min-height: 70vh;
+            padding: 60px 0;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+            margin-bottom: 80px;
+            box-sizing: border-box;
+        }
+
+        section.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        section:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .visual-element {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-sizing: border-box;
+        }
+
+        .text-content {
+            flex: 1;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        h2 {
+            font-size: 2.5em;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        strong {
+            color: var(--secondary-color);
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        ul li {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        ul li::before {
+            content: "\f00c"; /* Font Awesome Checkmark */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--primary-color);
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .hero-section {
+            text-align: center;
+            background-color: var(--primary-color);
+            color: #FFFFFF; /* 지능형 대비 보장 */
+            padding: 100px 20px;
+            min-height: auto;
+            opacity: 1;
+            transform: translateY(0);
+            display: block;
+        }
+
+        .hero-section h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+        }
+
+        .hero-section p {
+            font-size: 1.5em;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .bar-chart-container {
+            width: 80%;
+            height: 300px;
+            margin: 0 auto;
+            display: flex;
+            align-items: flex-end;
+            border-left: 2px solid var(--text-color);
+            border-bottom: 2px solid var(--text-color);
+            padding: 0 10px;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .bar {
+            flex: 1;
+            background-color: var(--secondary-color);
+            margin: 0 5px;
+            position: relative;
+            animation: growBar 1s ease-out forwards;
+        }
+
+        .bar span {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--text-color);
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .bar strong {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--text-color);
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        @keyframes growBar {
+            from {
+                height: 0;
+            }
+            to {
+                height: var(--bar-height);
+            }
+        }
+
+        .stat-block {
+            text-align: center;
+            margin: 20px;
+            padding: 30px;
+            background-color: #FFFFFF;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-width: 250px;
+        }
+
+        .stat-block .icon {
+            font-size: 4em;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .stat-block .number {
+            font-size: 3em;
+            font-weight: bold;
+            color: var(--text-color);
+            margin-bottom: 10px;
+        }
+
+        .stat-block .label {
+            font-size: 1.2em;
+            color: #666;
+        }
+
+        .progress-bar-container {
+            width: 80%;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            height: 40px;
+            overflow: hidden;
+            margin: 20px auto;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: var(--primary-color);
+            width: 0%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFFFFF; /* 지능형 대비 보장 */
+            font-weight: bold;
+            transition: width 1s ease-out;
+            white-space: nowrap;
+        }
+
+        .quote-block {
+            text-align: center;
+            padding: 40px;
+            font-size: 2em;
+            font-style: italic;
+            color: var(--primary-color);
+            background-color: #ffffff;
+            border-left: 5px solid var(--secondary-color);
+            margin: 40px auto;
+            max-width: 80%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            line-height: 1.4;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: var(--primary-color);
+            color: #FFFFFF; /* 지능형 대비 보장 */
+            font-size: 1.1em;
+            margin-top: 50px;
+        }
+        
+        .icon-large {
+            font-size: 8em; /* 거대한 아이콘 */
+            color: var(--primary-color);
+            margin: 20px 0;
+        }
+
+        @media (max-width: 768px) {
+            section {
+                flex-direction: column !important;
+                padding: 40px 0;
+                margin-bottom: 40px;
+            }
+
+            .hero-section h1 {
+                font-size: 2.5em;
+            }
+
+            .hero-section p {
+                font-size: 1.2em;
+            }
+
+            h2 {
+                font-size: 2em;
+            }
+
+            ul li {
+                font-size: 1em;
+            }
+
+            .bar-chart-container {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero-section">
+        <h1>그룹웨어 문서 공유 및 보안 문서 관리 가이드</h1>
+        <p>민감도와 활용 목적에 따라 문서 열람 권한과 공유 방식이 달라질 수 있음을 안내하고, 사용자가 자율적으로 문서를 관리할 수 있도록 지원함.</p>
+    </div>
+
+    <div class="container">
+        <section id="section1">
+            <div class="visual-element">
+                <i class="fas fa-eye icon-large"></i>
+            </div>
+            <div class="text-content">
+                <h2>문서 열람 판단 방법</h2>
+                <ul>
+                    <li><strong>결재라인 참조:</strong> 참조자로 지정된 사용자는 별도 승인 없이 열람 가능함.</li>
+                    <li><strong>열람문서 기능:</strong> 서식 내 열람 권한이 내장되어 결재라인 외 열람 가능함.</li>
+                    <li><strong>문서공유:</strong> 특정 부서 또는 사용자에게 문서 직접 공유 가능함.</li>
+                    <li><strong>수신함 지정:</strong> 결재선과 무관하게 업무 수행자(팀 또는 개인) 지정 가능함.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="section2">
+            <div class="visual-element">
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 85%;" data-progress="85">보안 강화 85% 달성 목표</div>
+                </div>
+            </div>
+            <div class="text-content">
+                <h2>향후 개선 계획</h2>
+                <ul>
+                    <li><strong>비밀등급 부여 기능 고도화:</strong> 비밀 문서 확산을 방지하고 결재권자 중심의 보안을 강화함.</li>
+                    <li><strong>공유 기능 자동 차단:</strong> 비밀등급 문서는 공유가 자동으로 차단되고 참조자로만 열람 가능함.</li>
+                    <li><strong>팀정보자산관리자 서식 생성:</strong> 팀 단위 보안자산의 고유 특성에 맞는 문서 관리 환경을 구축함.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="section3">
+            <div class="visual-element">
+                <i class="fas fa-cogs icon-large"></i>
+            </div>
+            <div class="text-content">
+                <h2>기타 고려 사항</h2>
+                <ul>
+                    <li><strong>"결재선 이해하기" 가이드 게시:</strong> 그룹웨어 게시판에 가이드를 게시함.</li>
+                    <li><strong>문서 이력 리포트 생성:</strong> 열람/공유 이력 리포트를 정기적으로 생성하고 관리자 모니터링을 실시함.</li>
+                    <li><strong>권한 체계 수립:</strong> 서식 유형별 열람·공유 권한 체계를 수립함.</li>
+                </ul>
+            </div>
+        </section>
+    </div>
+
+    <div class="footer">
+        <p>본 가이드는 그룹웨어 내 문서 열람 및 보안 문서 관리에 대한 실무 적용 기준을 정립함.</p>
+        <p>지속적인 개선과 명확한 역할 및 책임 분담이 필요함.</p>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const sections = document.querySelectorAll("section");
+
+            const observerOptions = {
+                root: null,
+                rootMargin: "0px",
+                threshold: 0.2
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("active");
+                    } else {
+                        entry.target.classList.remove("active");
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // ProgressBar Animation
+            const progressBars = document.querySelectorAll(".progress-bar");
+            progressBars.forEach(bar => {
+                const progress = bar.getAttribute("data-progress");
+                if (progress) {
+                    bar.style.width = progress + "%";
+                }
+            });
+        });
+    </script>
+</body>
+</html>

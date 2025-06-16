@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>그룹웨어 문서 관리 및 보안 강화 전략</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/subsets/Paperlogy-dynamic-subset.css" type="text/css"/>
+    <style>
+        body {
+            font-family: "Paperlogy", -apple-system, BlinkMacSystemFont, "Segoe UI",Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5; /* Professional Blue Background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #172b4d; /* Professional Blue Text */
+        }
+        .container {
+            width: 90vw;
+            max-width: 1280px;
+            height: 95vh;
+            max-height: 990px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        header {
+            background-color: #0052cc; /* Professional Blue Main Color */
+            color: #ffffff;
+            padding: 20px 30px;
+            text-align: center;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+            font-weight: 700;
+        }
+        .main-content {
+            display: flex;
+            flex: 1;
+            padding: 20px;
+            gap: 20px;
+            min-height: 0; /* Allow content to shrink */
+        }
+        .left-panel, .right-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .left-panel {
+            flex: 3;
+            min-width: 60%;
+        }
+        .right-panel {
+            flex: 2;
+            min-width: 40%;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden; /* Ensure content within card does not overflow */
+        }
+        .card-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #0052cc; /* Professional Blue Main Color */
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+        }
+        .summary-content {
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #334e68; /* Slightly darker text for readability */
+            flex-grow: 1;
+            max-height: 150px; /* Limit height to prevent overflow */
+            overflow: hidden; /* Hide overflow */
+            text-overflow: ellipsis; /* Add ellipsis for overflow */
+        }
+        .kpis-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+            flex-shrink: 0; /* Prevent shrinking */
+        }
+        .kpi-item {
+            background-color: #f7f9fc; /* Lighter background for KPI */
+            border-left: 4px solid #0052cc; /* Professional Blue accent */
+            padding: 10px 15px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            height: 60px; /* Fixed height for KPI items */
+            overflow: hidden; /* Hide overflow */
+        }
+        .kpi-item .icon {
+            font-size: 1.8em;
+            color: #0052cc; /* Professional Blue Main Color */
+        }
+        .kpi-item .value {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: #172b4d;
+        }
+        .kpi-item .description {
+            font-size: 0.85em;
+            color: #5e6c84;
+            line-height: 1.2;
+            white-space: nowrap; /* Prevent wrapping */
+            overflow: hidden; /* Hide overflow */
+            text-overflow: ellipsis; /* Add ellipsis for overflow */
+        }
+        .chart-container {
+            flex-grow: 1;
+            min-height: 200px; /* Ensure chart has space */
+            position: relative;
+        }
+        .chart-container canvas {
+            max-height: 100%;
+            max-width: 100%;
+        }
+        .key-points ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-grow: 1;
+            overflow-y: auto; /* Scroll for key points if needed */
+        }
+        .key-points li {
+            margin-bottom: 10px;
+            padding-left: 15px;
+            position: relative;
+            font-size: 0.95em;
+            line-height: 1.4;
+            max-height: 40px; /* Limit height for each list item */
+            overflow: hidden; /* Hide overflow */
+            text-overflow: ellipsis; /* Add ellipsis for overflow */
+            white-space: nowrap; /* Prevent wrapping */
+        }
+        .key-points li strong {
+            color: #0052cc; /* Professional Blue Main Color */
+        }
+        .key-points li::before {
+            content: '•';
+            color: #0052cc; /* Professional Blue Main Color */
+            position: absolute;
+            left: 0;
+        }
+        .highlight-message {
+            background-color: #e6f7ff; /* Lighter blue for highlight */
+            border: 1px solid #91d5ff; /* Border matching theme */
+            border-radius: 8px;
+            padding: 15px;
+            font-size: 1.1em;
+            font-weight: 500;
+            text-align: center;
+            color: #0052cc; /* Professional Blue Main Color */
+            flex-shrink: 0; /* Prevent shrinking */
+            max-height: 80px; /* Limit height */
+            overflow: hidden; /* Hide overflow */
+            text-overflow: ellipsis; /* Add ellipsis for overflow */
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                height: auto;
+                min-height: 95vh;
+            }
+            .main-content {
+                flex-direction: column;
+                padding: 15px;
+                gap: 15px;
+            }
+            .left-panel, .right-panel {
+                min-width: auto;
+                flex: none;
+            }
+            .kpis-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>그룹웨어 문서 관리 및 보안 강화 전략</h1>
+        </header>
+        <div class="main-content">
+            <div class="left-panel">
+                <div class="card summary">
+                    <div class="card-title">개요</div>
+                    <p class="summary-content">그룹웨어 내 문서의 민감도와 활용 목적에 따른 열람 권한 및 공유 방식 설정 가이드를 제공합니다. 비밀등급 문서의 안전한 관리와 팀 자산에 맞는 서식 환경 설정을 통해 효율적이고 안전한 문서 관리를 목표로 합니다.</p>
+                </div>
+                <div class="card kpis">
+                    <div class="card-title">주요 지표</div>
+                    <div class="kpis-grid">
+                        <div class="kpi-item">
+                            <span class="icon">📄</span>
+                            <div>
+                                <div class="value">4가지</div>
+                                <div class="description">문서 열람 판단 방식</div>
+                            </div>
+                        </div>
+                        <div class="kpi-item">
+                            <span class="icon">🔒</span>
+                            <div>
+                                <div class="value">2가지</div>
+                                <div class="description">향후 개선 계획 항목</div>
+                            </div>
+                        </div>
+                        <div class="kpi-item">
+                            <span class="icon">📊</span>
+                            <div>
+                                <div class="value">3가지</div>
+                                <div class="description">기타 고려 사항</div>
+                            </div>
+                        </div>
+                        <div class="kpi-item">
+                            <span class="icon">✅</span>
+                            <div>
+                                <div class="value">100%</div>
+                                <div class="description">가이드 준수율 목표</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card chart">
+                    <div class="card-title">문서 유형별 중요도 (가상 데이터)</div>
+                    <div class="chart-container">
+                        <canvas id="myChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="right-panel">
+                <div class="card key-points">
+                    <div class="card-title">핵심 포인트</div>
+                    <ul>
+                        <li><p><strong>자율적 권한 판단:</strong> 작성자가 문서 민감도를 기반으로 열람 권한을 스스로 판단.</p></li>
+                        <li><p><strong>비밀등급 문서 관리:</strong> 결재권자가 비밀등급을 최종 지정하여 무분별한 확산 방지.</p></li>
+                        <li><p><strong>팀 전용 서식 활용:</strong> 팀 단위 보안 자산에 특화된 서식으로 공유 범위 제어.</p></li>
+                        <li><p><strong>지속적 모니터링:</strong> 열람/공유 이력 리포트 생성 및 관리자 모니터링으로 보안 강화.</p></li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-title">전략적 제언</div>
+                    <div class="highlight-message">
+                        본 가이드는 그룹웨어 문서 관리의 명확한 기준을 제시하며, 지속적인 기능 개선과 역할 분담을 통해 보안 및 효율성을 높여야 합니다.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Chart.js Configuration
+            const ctx = document.getElementById('myChart');
+            if (ctx) {
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['일반', '대외비', '비문'],
+                        datasets: [{
+                            label: '중요도 (%)',
+                            data: [30, 45, 25],
+                            backgroundColor: [
+                                'rgba(0, 82, 204, 0.7)', /* Professional Blue */
+                                'rgba(0, 82, 204, 0.8)',
+                                'rgba(0, 82, 204, 0.9)'
+                            ],
+                            borderColor: [
+                                'rgba(0, 82, 204, 1)',
+                                'rgba(0, 82, 204, 1)',
+                                'rgba(0, 82, 204, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100,
+                                ticks: {
+                                    callback: function(value) {
+                                        return value + '%';
+                                    }
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return context.dataset.label + ': ' + context.raw + '%';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
