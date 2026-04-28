@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>영어 단어 학습</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .header {
+            margin-bottom: 30px;
+        }
+        
+        .progress {
+            font-size: 18px;
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .word-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 40px;
+            margin: 20px 0;
+        }
+        
+        .word-english {
+            font-size: 48px;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 20px;
+            filter: blur(12px);
+            user-select: none;
+            transition: filter 0.3s ease;
+        }
+        
+        .word-english.revealed {
+            filter: blur(0);
+            user-select: text;
+        }
+        
+        .word-pronunciation {
+            font-size: 24px;
+            color: #718096;
+            margin-bottom: 15px;
+            font-style: italic;
+            filter: blur(8px);
+            user-select: none;
+            transition: filter 0.3s ease;
+        }
+        
+        .word-pronunciation.revealed {
+            filter: blur(0);
+            user-select: text;
+        }
+        
+        .word-meaning {
+            font-size: 28px;
+            color: #4a5568;
+            margin-top: 20px;
+            font-weight: 500;
+        }
+        
+        .button-container {
+            margin: 30px 0;
+        }
+        
+        .speak-button {
+            background: #48bb78;
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            font-size: 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(72, 187, 120, 0.4);
+            margin: 10px;
+        }
+        
+        .speak-button:hover {
+            background: #38a169;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(72, 187, 120, 0.6);
+        }
+        
+        .speak-button:active {
+            transform: translateY(0);
+        }
+        
+        .reveal-button {
+            background: #f6ad55;
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            font-size: 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(246, 173, 85, 0.4);
+            margin: 10px;
+        }
+        
+        .reveal-button:hover {
+            background: #ed8936;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(246, 173, 85, 0.6);
+        }
+        
+        .reveal-button.active {
+            background: #dd6b20;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        .nav-button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-width: 120px;
+        }
+        
+        .nav-button:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+        }
+        
+        .nav-button:disabled {
+            background: #cbd5e0;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .instruction {
+            background: #edf2f7;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-size: 16px;
+            color: #4a5568;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 style="color: #667eea; margin-bottom: 10px;">영어 단어 학습</h1>
+            <div class="progress">
+                <span id="current">1</span> / <span id="total">22</span>
+            </div>
+        </div>
+        
+        <div class="word-card">
+            <div class="word-english" id="word"></div>
+            <div class="word-pronunciation" id="pronunciation"></div>
+            <div class="word-meaning" id="meaning"></div>
+        </div>
+        
+        <div class="button-container">
+            <button class="speak-button" id="speakBtn">🔊 발음 듣기</button>
+            <button class="reveal-button" id="revealBtn">👁️ 영어단어 보기</button>
+        </div>
+        
+        <div class="instruction">
+            💡 발음을 듣고 시험지에 단어를 적어보세요!
+        </div>
+        
+        <div class="nav-buttons">
+            <button class="nav-button" id="prevBtn">◀ 이전</button>
+            <button class="nav-button" id="nextBtn">다음 ▶</button>
+        </div>
+    </div>
+
+    <script>
+        // 단어 목록 (영어, 발음기호, 한글 뜻)
+        const vocabulary = [
+            { word: 'snack', pronunciation: '/snæk/', meaning: '간식' },
+            { word: 'grill', pronunciation: '/ɡrɪl/', meaning: '석쇠, 굽다' },
+            { word: 'shop', pronunciation: '/ʃɑːp/', meaning: '가게' },
+            { word: 'knob', pronunciation: '/nɑːb/', meaning: '손잡이, 둥근 손잡이' },
+            { word: 'clock', pronunciation: '/klɑːk/', meaning: '시계' },
+            { word: 'wren', pronunciation: '/ren/', meaning: '굴뚝새' },
+            { word: 'skunk', pronunciation: '/skʌŋk/', meaning: '스컹크' },
+            { word: 'witch', pronunciation: '/wɪtʃ/', meaning: '마녀' },
+            { word: 'blind', pronunciation: '/blaɪnd/', meaning: '눈먼, 블라인드' },
+            { word: 'hockey', pronunciation: '/ˈhɑːki/', meaning: '하키' },
+            { word: 'crazy', pronunciation: '/ˈkreɪzi/', meaning: '미친, 열광적인' },
+            { word: 'float', pronunciation: '/floʊt/', meaning: '뜨다, 떠다니다' },
+            { word: 'sail', pronunciation: '/seɪl/', meaning: '항해하다, 돛' },
+            { word: 'night', pronunciation: '/naɪt/', meaning: '밤' },
+            { word: 'yard', pronunciation: '/jɑːrd/', meaning: '마당, 야드' },
+            { word: 'girl', pronunciation: '/ɡɜːrl/', meaning: '소녀' },
+            { word: 'coin', pronunciation: '/kɔɪn/', meaning: '동전' },
+            { word: 'toy', pronunciation: '/tɔɪ/', meaning: '장난감' },
+            { word: 'lawn', pronunciation: '/lɔːn/', meaning: '잔디밭' },
+            { word: 'blue', pronunciation: '/bluː/', meaning: '파란색' },
+            { word: 'fruit', pronunciation: '/fruːt/', meaning: '과일' },
+            { word: 'stew', pronunciation: '/stuː/', meaning: '스튜, 찌개' }
+        ];
+
+        let currentIndex = 0;
+        let isWordRevealed = false;
+
+        // 요소 가져오기
+        const wordEl = document.getElementById('word');
+        const pronunciationEl = document.getElementById('pronunciation');
+        const meaningEl = document.getElementById('meaning');
+        const currentEl = document.getElementById('current');
+        const totalEl = document.getElementById('total');
+        const speakBtn = document.getElementById('speakBtn');
+        const revealBtn = document.getElementById('revealBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        // 전체 단어 개수 표시
+        totalEl.textContent = vocabulary.length;
+
+        // 단어 표시 함수
+        function displayWord() {
+            const currentWord = vocabulary[currentIndex];
+            wordEl.textContent = currentWord.word;
+            pronunciationEl.textContent = currentWord.pronunciation;
+            meaningEl.textContent = currentWord.meaning;
+            currentEl.textContent = currentIndex + 1;
+
+            // 단어와 발음기호 마스킹 초기화
+            isWordRevealed = false;
+            wordEl.classList.remove('revealed');
+            pronunciationEl.classList.remove('revealed');
+            revealBtn.textContent = '👁️ 영어단어 보기';
+            revealBtn.classList.remove('active');
+
+            // 버튼 활성화/비활성화
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === vocabulary.length - 1;
+
+            // 자동으로 발음 재생
+            setTimeout(() => {
+                speakWord();
+            }, 300);
+        }
+
+        // 음성 재생 함수 (미국식 영어)
+        function speakWord() {
+            const word = vocabulary[currentIndex].word;
+            const utterance = new SpeechSynthesisUtterance(word);
+            
+            // 미국식 영어 음성 찾기
+            const voices = speechSynthesis.getVoices();
+            const usVoice = voices.find(voice => 
+                voice.lang === 'en-US' || voice.lang.startsWith('en-US')
+            );
+            
+            if (usVoice) {
+                utterance.voice = usVoice;
+            }
+            
+            utterance.lang = 'en-US';
+            utterance.rate = 0.8; // 조금 천천히
+            utterance.pitch = 1.0;
+            
+            speechSynthesis.speak(utterance);
+        }
+
+        // 영어 단어 및 발음기호 보기/숨기기 토글 함수
+        function toggleWordVisibility() {
+            isWordRevealed = !isWordRevealed;
+            
+            if (isWordRevealed) {
+                wordEl.classList.add('revealed');
+                pronunciationEl.classList.add('revealed');
+                revealBtn.textContent = '🙈 영어단어 숨기기';
+                revealBtn.classList.add('active');
+            } else {
+                wordEl.classList.remove('revealed');
+                pronunciationEl.classList.remove('revealed');
+                revealBtn.textContent = '👁️ 영어단어 보기';
+                revealBtn.classList.remove('active');
+            }
+        }
+
+        // 음성 목록 로드 (브라우저에 따라 필요)
+        if (speechSynthesis.onvoiceschanged !== undefined) {
+            speechSynthesis.onvoiceschanged = () => {
+                speechSynthesis.getVoices();
+            };
+        }
+
+        // 이벤트 리스너
+        speakBtn.addEventListener('click', speakWord);
+        revealBtn.addEventListener('click', toggleWordVisibility);
+
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                displayWord();
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentIndex < vocabulary.length - 1) {
+                currentIndex++;
+                displayWord();
+            }
+        });
+
+        // 키보드 단축키
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft' && currentIndex > 0) {
+                currentIndex--;
+                displayWord();
+            } else if (e.key === 'ArrowRight' && currentIndex < vocabulary.length - 1) {
+                currentIndex++;
+                displayWord();
+            } else if (e.key === ' ' || e.key === 'Enter') {
+                e.preventDefault();
+                speakWord();
+            }
+        });
+
+        // 초기 단어 표시 (최초 로드 시)
+        displayWord();
+    </script>
+</body>
+</html>
