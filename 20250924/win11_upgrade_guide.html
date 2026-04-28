@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows 11 필수 업그레이드 가이드</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/subsets/Paperlogy-dynamic-subset.css" type="text/css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .hamburger-button {
+            display: none; /* 기본적으로 숨김 */
+        }
+
+        /* 데스크톱 화면용 햄버거 버튼 */
+        @media (min-width: 993px) {
+            .hamburger-button {
+                display: block;
+                font-size: 20px;
+                background: none;
+                border: none;
+                color: var(--header-text-color);
+                cursor: pointer;
+                padding: 15px;
+                position: fixed;
+                top: 10px;
+                left: 15px;
+                z-index: 1002;
+                transition: left 0.3s ease;
+                margin-bottom: 10px; /* Add margin to the bottom */
+            }
+
+            .sidebar.collapsed + main {
+                margin-left: 80px;
+            }
+            
+            .sidebar.collapsed .hamburger-button {
+                left: 15px;
+            }
+        }
+
+        /* 사이드바 축소 스타일 */
+        .sidebar.collapsed {
+            width: 80px;
+        }
+
+        .sidebar.collapsed .sidebar-header h1,
+        .sidebar.collapsed .sidebar-header p,
+        .sidebar.collapsed .sidebar-nav span,
+        .sidebar.collapsed .sidebar-footer {
+            display: none;
+        }
+
+        .sidebar.collapsed .sidebar-nav li a {
+            justify-content: center;
+        }
+
+        .sidebar.collapsed .sidebar-nav li a i {
+            margin-right: 0;
+        }
+        
+        main.expanded {
+            margin-left: 80px;
+        }
+        /* ------------------- */
+        /* 1. 디자인 시스템 (테마: Professional Blue) */
+        /* ------------------- */
+        :root {
+            --primary-color: #0052cc;
+            --primary-color-dark: #0040a3;
+            --background-color: #f0f2f5;
+            --text-color: #172b4d;
+            --text-color-light: #5e6c84;
+            --card-bg-color: #ffffff;
+            --border-color: #dfe1e6;
+            --header-bg-color: #0747a6;
+            --header-text-color: #ffffff;
+            --sidebar-width: 250px;
+        }
+
+        /* ------------------- */
+        /* 2. 기본 및 레이아웃 */
+        /* ------------------- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Paperlogy", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            display: flex;
+        }
+
+        /* ------------------- */
+        /* 3. 사이드바 내비게이션 */
+        /* ------------------- */
+        .sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: var(--header-bg-color);
+            color: var(--header-text-color);
+            padding: 2rem 0;
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+        }
+
+        .sidebar-header {
+            padding: 2.5rem 1.5rem 1.5rem 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-header a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .sidebar-header p {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .sidebar-nav {
+            list-style: none;
+            margin-top: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .sidebar-nav li a {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            text-decoration: none;
+            color: var(--header-text-color);
+            font-weight: 500;
+            transition: background-color 0.3s, padding-left 0.3s;
+            border-left: 4px solid transparent;
+        }
+
+        .sidebar-nav li a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .sidebar-nav li a.active {
+            background-color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .sidebar-nav li a i {
+            margin-right: 1rem;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .sidebar-footer {
+            padding: 1.5rem;
+            font-size: 0.8rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* ------------------- */
+        /* 4. 메인 콘텐츠 영역 */
+        /* ------------------- */
+        main {
+            margin-left: 270px; /* Sidebar width + padding */
+            padding: 40px; /* Gutter */
+            flex-grow: 1;
+            transition: margin-left 0.3s ease;
+        }
+
+        .main-header {
+            margin-bottom: 2rem;
+        }
+        
+        .main-header h1 {
+            font-size: 2.2rem;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .main-header .meta {
+            color: var(--text-color-light);
+            font-size: 0.9rem;
+        }
+
+        /* ------------------- */
+        /* 5. 컴포넌트: 대분류 섹션 (Section) - UI 개선 */
+        /* ------------------- */
+        .content-section {
+            background-color: var(--card-bg-color);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        .content-section-header {
+            display: flex;
+            align-items: center;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 1rem;
+        }
+        
+        .content-section-header i {
+            margin-right: 1rem;
+            font-size: 1.6rem;
+        }
+        
+        .content-section-header h2 {
+            margin: 0;
+        }
+
+        /* ------------------- */
+        /* 6. 컴포넌트: 카드(Card) */
+        /* ------------------- */
+        .card {
+            background-color: #fafbfc;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+        
+        .card:last-child {
+            margin-bottom: 0;
+        }
+
+        .card-header {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .card-header h3 {
+            font-size: 1.25rem;
+            color: var(--text-color);
+            margin: 0;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+        
+        .card-body p {
+            margin-bottom: 1rem;
+        }
+
+        .card-body ul {
+            list-style-position: outside;
+            padding-left: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .card-body ul li {
+            margin-bottom: 0.75rem;
+            color: var(--text-color-light);
+        }
+        
+        .card-body ul li strong {
+            color: var(--text-color);
+            font-weight: 600;
+        }
+
+        /* ------------------- */
+        /* 7. 컴포넌트: 테이블(Table) */
+        /* ------------------- */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 0.9em;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: #FFFFFF; /* 강제 지정: 배경과 대비 */
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* ------------------- */
+        /* 8. 기타 유틸리티 */
+        /* ------------------- */
+        .highlight {
+            background-color: #deebff;
+            color: var(--primary-color-dark);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        
+        /* ------------------- */
+        /* 8a. 컴포넌트: 이미지 갤러리 및 모달 */
+        /* ------------------- */
+        .image-gallery {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: flex-start;
+        }
+
+        .gallery-item {
+            text-align: center;
+        }
+
+        .gallery-image {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            cursor: pointer;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background-color: #e9ecef; /* Placeholder background */
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .gallery-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .gallery-caption {
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--text-color-light);
+            width: 150px;
+            word-wrap: break-word;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            padding-top: 60px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.9);
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: auto;
+            height: auto;
+            max-width: 90vw;
+            max-height: 90vh;
+            animation-name: zoom;
+            animation-duration: 0.6s;
+        }
+
+        #caption {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            text-align: center;
+            color: #ccc;
+            padding: 10px 0;
+            height: 150px;
+        }
+
+        @keyframes zoom {
+            from {transform: scale(0.1)}
+            to {transform: scale(1)}
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* ------------------- */
+        /* 9. 반응형 디자인 */
+        /* ------------------- */
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            main {
+                width: 100%;
+                margin-left: 0;
+                padding: 1.5rem;
+            }
+            .content-section-header {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="hamburger-button" id="hamburger-btn">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="#">
+                <h1>Windows 11 필수 업그레이드</h1>
+                <p>전 임직원을 위한 가이드</p>
+            </a>
+        </div>
+        <ul class="sidebar-nav">
+            <li><a href="#necessity" class="nav-link active"><i class="fas fa-arrow-up"></i> <span>필요성 및 이점</span></a></li>
+            <li><a href="#checklist" class="nav-link"><i class="fas fa-check-square"></i> <span>사전 준비 체크리스트</span></a></li>
+            <li><a href="#procedure" class="nav-link"><i class="fas fa-list-ol"></i> <span>업그레이드 절차</span></a></li>
+            <li><a href="#faq" class="nav-link"><i class="fas fa-question-circle"></i> <span>자주 묻는 질문</span></a></li>
+            <li><a href="#contact" class="nav-link"><i class="fas fa-headset"></i> <span>문의 및 기술 지원</span></a></li>
+        </ul>
+        <div class="sidebar-footer">
+            <p>© 2025 IT Support Team.</p>
+        </div>
+    </nav>
+
+    <main id="main-content">
+            <header class="main-header">
+                <h1>Windows 10 기술 지원 종료에 따른 Windows 11 필수 업그레이드 안내</h1>
+                <h3>모든 업무용 PC의 보안 강화를 위한 필수 조치</h3>
+                <p class="meta">시행일: <strong>2025년 10월 14일 기술 지원 종료</strong></p>
+            </header>
+
+            <section id="necessity" class="content-section">
+                <div class="content-section-header">
+                    <i class="fas fa-arrow-up"></i>
+                    <h2>Windows 11 업그레이드의 필요성 및 핵심 이점</h2>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>전환의 중요성</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>Windows 11로의 전환은 기술 지원 종료에 대응하는 수동적인 조치를 넘어, 임직원 여러분의 업무 환경을 더욱 안전하고 생산적으로 만들기 위한 선제적인 전략입니다. 최신 운영체제는 보안 강화는 물론, 업무 효율성을 높여 회사의 경쟁력을 제고하는 핵심 이점을 제공합니다.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3>주요 이점</h3>
+                    </div>
+                    <div class="card-body">
+                        <ul>
+                            <li><strong>강화된 보안:</strong> Windows 10의 지원이 종료되면 새로운 보안 패치가 제공되지 않아 악성 코드, 랜섬웨어 등 각종 사이버 공격에 취약해집니다. Windows 11은 지속적인 최신 보안 업데이트를 통해 이러한 위협으로부터 회사의 중요한 정보 자산을 보호합니다.</li>
+                            <li><strong>향상된 생산성:</strong> Windows 11은 하이브리드 업무 환경에 최적화된 스냅 레이아웃, 위젯 등 다양한 기능을 제공하여 멀티태스킹 환경에서 업무 집중도를 극대화하고 효율을 향상시킵니다.</li>
+                            <li><strong>미래 기술과의 호환성:</strong> 최신 운영체제 사용은 향후 도입될 새로운 업무용 소프트웨어나 하드웨어와의 원활한 호환성을 보장하여 지속적인 업무 혁신을 위한 안정적인 기반이 됩니다.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="checklist" class="content-section">
+                <div class="content-section-header">
+                    <i class="fas fa-check-square"></i>
+                    <h2>업그레이드 사전 준비: 필수 체크리스트</h2>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>PC 호환성 확인</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>가장 먼저 현재 사용 중인 PC가 Windows 11을 설치할 수 있는지 공식적으로 확인해야 합니다. Microsoft의 <span class="highlight">'PC 상태 검사'</span> 앱을 다운로드하여 실행하면 업그레이드 가능 여부를 즉시 확인할 수 있습니다.</p>
+                        <p>PC 상태 검사 앱 다운로드: <a href="https://aka.ms/GetPCHealthCheckApp" target="_blank">https://aka.ms/GetPCHealthCheckApp</a></p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3>최소 시스템 요구사항</h3>
+                    </div>
+                    <div class="card-body table-container">
+                        <p>'PC 상태 검사' 앱에서 PC가 호환되지 않는다고 표시될 경우, 아래의 최소 시스템 요구사항 표를 참고하여 어떤 항목이 충족되지 않는지 확인하시기 바랍니다.</p>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>항목</th>
+                                    <th>최소 요구사항</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>프로세서</strong></td>
+                                    <td>1GHz 이상 속도, 2개 이상의 코어를 갖춘 호환되는 64비트 프로세서 또는 SoC(System on a Chip)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>RAM</strong></td>
+                                    <td>4GB 이상</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>저장 공간</strong></td>
+                                    <td>64GB 이상의 저장 디바이스</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>시스템 펌웨어</strong></td>
+                                    <td>UEFI, 보안 부팅(Secure Boot) 가능</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>TPM</strong></td>
+                                    <td>신뢰할 수 있는 플랫폼 모듈(TPM) 버전 2.0</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>그래픽 카드</strong></td>
+                                    <td>DirectX 12 이상 호환 (WDDM 2.0 드라이버)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>디스플레이</strong></td>
+                                    <td>9인치 이상, HD 해상도(720p), 컬러 채널당 8비트</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3>중요 데이터 백업 (권장)</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>업그레이드 시 기본적으로 개인 파일과 데이터는 그대로 유지됩니다. 하지만 만일의 사태에 대비하여 중요 업무 자료는 반드시 C 드라이브가 아닌 논리적/물리적으로 다른 드라이브로 백업해 주시기 바랍니다.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>참고 이미지</h3>
+                    </div>
+                    <div class="card-body image-gallery">
+                        <div class="gallery-item">
+                            <img src="https://via.placeholder.com/150/f0f2f5/172b4d?text=PC+호환성+확인" alt="PC 호환성 확인" class="gallery-image">
+                            <div class="gallery-caption">PC 호환성 확인 화면 예시</div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://via.placeholder.com/150/f0f2f5/172b4d?text=업그레이드+준비" alt="업그레이드 준비 화면" class="gallery-image">
+                            <div class="gallery-caption">업그레이드 준비 알림</div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://via.placeholder.com/150/f0f2f5/172b4d?text=시스템+요구사항" alt="시스템 요구사항" class="gallery-image">
+                            <div class="gallery-caption">시스템 요구사항 표</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="procedure" class="content-section">
+                <div class="content-section-header">
+                    <i class="fas fa-list-ol"></i>
+                    <h2>Windows 11 업그레이드 절차</h2>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3>권장 방법: 'Windows 업데이트'를 통한 업그레이드</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>이 방법은 시스템 안정성이 가장 높고 전산팀에서 공식적으로 권장하는 절차입니다.</p>
+                        <ol>
+                            <li>현재 사용 중인 Windows 10 PC에서 <strong>'시작' &gt; '설정' &gt; '업데이트 및 보안' &gt; 'Windows 업데이트'</strong> 메뉴로 이동합니다.</li>
+                            <li><strong>'업데이트 확인'</strong> 버튼을 클릭하여 시스템이 최신 상태인지 확인합니다.</li>
+                            <li>PC가 업그레이드 준비되면, Windows 11 업그레이드 안내가 표시됩니다. 이때 <strong>'다운로드 및 설치'</strong> 버튼을 클릭합니다.</li>
+                            <li>화면에 나타나는 소프트웨어 사용 조건에 동의하고 설치를 계속 진행합니다.</li>
+                            <li>설치 과정에서 PC가 여러 번 다시 시작됩니다. 이는 정상적인 과정이므로, 절대 전원을 끄지 말고 기다려 주십시오.</li>
+                            <li>모든 과정이 완료되면 Windows 로그인 화면이 나타납니다. 기존 계정으로 로그인하면 업그레이드가 최종 완료됩니다.</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3>대안 방법: 'Windows 업데이트'가 표시되지 않을 경우</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>권장 방법으로 업그레이드 옵션이 나타나지 않는 경우에만 다음 방법을 사용해 주십시오.</p>
+                        <ul>
+                            <li><strong>대안 1: Windows 11 설치 도우미 사용</strong><br>Microsoft에서 제공하는 전용 응용 프로그램을 통해 업그레이드를 시작하는 방법입니다. <strong>'Windows 11 설치 도우미'</strong>를 다운로드하여 실행하면, PC 호환성 확인 후 화면의 안내에 따라 설치를 진행할 수 있습니다.</li>
+                            <li><strong>대안 2: Windows 11 설치 미디어 제작</strong><br>부팅 가능한 USB 드라이브 제작에 익숙한 사용자를 위한 고급 옵션입니다. 설치 미디어를 제작한 후, Windows 10이 실행 중인 상태에서 해당 미디어의 <code>setup.exe</code> 파일을 실행하면 개인 파일과 앱을 유지하는 업그레이드를 시작할 수 있습니다.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="faq" class="content-section">
+                <div class="content-section-header">
+                    <i class="fas fa-question-circle"></i>
+                    <h2>자주 묻는 질문 (FAQ)</h2>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3>업그레이드 관련 궁금증</h3>
+                    </div>
+                    <div class="card-body">
+                        <ul>
+                            <li><strong>Q:</strong> Windows 11 업그레이드에 비용이 드나요?<br><strong>A:</strong> 아니요, 현재 사용 중인 정품 Windows 10 PC가 최소 시스템 요구사항을 충족하면 무료로 업그레이드할 수 있습니다.</li>
+                            <li><strong>Q:</strong> 업그레이드하면 기존 파일과 프로그램은 어떻게 되나요?<br><strong>A:</strong> 기본적으로 개인 파일은 그대로 유지됩니다. 하지만 일부 오래된 프로그램이나 호환되지 않는 앱은 업그레이드 과정에서 제거될 수 있습니다. 중요 자료는 사전에 OneDrive로 백업하는 것을 권장합니다.</li>
+                            <li><strong>Q:</strong> 업그레이드하는 데 시간이 얼마나 걸리나요?<br><strong>A:</strong> PC 사양과 인터넷 속도에 따라 다르며, 일반적인 업데이트보다 시간이 더 소요될 수 있습니다. 단, 업그레이드 파일을 다운로드하는 동안에는 PC를 계속 사용할 수 있습니다.</li>
+                            <li><strong>Q:</strong> 업그레이드 후, 다시 Windows 10으로 돌아갈 수 있나요?<br><strong>A:</strong> 네, 업그레이드 후 10일 이내에는 파일과 데이터를 유지한 채로 Windows 10으로 돌아갈 수 있습니다.</li>
+                            <li><strong>Q:</strong> 2025년 10월 14일 이후에도 Windows 10을 계속 사용하면 어떻게 되나요?<br><strong>A:</strong> PC는 계속 작동하지만, 새로운 보안 위협을 막아주는 보안 업데이트가 중단됩니다. 이는 해킹, 랜섬웨어 등 각종 사이버 공격에 매우 취약해져 회사의 중요 데이터가 유출될 수 있는 심각한 보안 문제입니다.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contact" class="content-section">
+                <div class="content-section-header">
+                    <i class="fas fa-headset"></i>
+                    <h2>문의 및 기술 지원 안내</h2>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3>문의처</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>안내된 절차에 따라 업그레이드를 시도했으나 문제가 발생했거나, 사용 중인 PC가 최소 요구사항을 충족하지 못하는 경우 아래 IT 지원팀으로 문의해 주시기 바랍니다.</p>
+                        <ul>
+                            <li><strong>문의처:</strong> 전산팀 (IT Support), 책임 권세창, 책임 신명관</li>
+                            <li><strong>CP:</strong> 010-6565-2351, 010-3151-5642</li>
+                            <li><strong>이메일:</strong> shry19@sejin-c.co.kr, coolbrains@sejin-c.co.kr</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <div id="imageModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div id="caption"></div>
+    </div>
+
+    <script>
+        // DOM이 완전히 로드된 후 스크립트 실행
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburgerBtn = document.getElementById('hamburger-btn');
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('main-content');
+
+            if (hamburgerBtn && sidebar && mainContent) {
+                hamburgerBtn.addEventListener('click', () => {
+                    sidebar.classList.toggle('collapsed');
+                    mainContent.classList.toggle('expanded');
+                });
+            }
+
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('main .content-section');
+
+            // Null-Safe DOM Access
+            if (!navLinks.length || !sections.length) {
+                console.error("Navigation links or sections not found.");
+                return;
+            }
+
+            // 스크롤에 따라 활성 내비게이션 링크 업데이트
+            const onScroll = () => {
+                let currentSectionId = '';
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (window.scrollY >= sectionTop - 100) {
+                        currentSectionId = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    const href = link.getAttribute('href');
+                    if (href && currentSectionId && href.includes(currentSectionId)) {
+                        link.classList.add('active');
+                    }
+                });
+            };
+
+            // 스크롤 이벤트 리스너 추가
+            window.addEventListener('scroll', onScroll);
+
+            // 초기 로드 시 한 번 실행하여 올바른 링크 활성화
+            onScroll();
+
+            // 이미지 모달 스크립트
+            const modal = document.getElementById("imageModal");
+            if (modal) {
+                const modalImg = document.getElementById("modalImage");
+                const captionText = document.getElementById("caption");
+                const galleryImages = document.querySelectorAll(".gallery-image");
+                const span = modal.querySelector(".close");
+
+                galleryImages.forEach(img => {
+                    img.addEventListener('click', () => {
+                        // src가 비어있지 않고, 현재 페이지 URL이 아닌 경우에만 모달 표시
+                        if (img.getAttribute('src') && img.getAttribute('src').trim() !== '') {
+                            modal.style.display = "block";
+                            modalImg.src = img.src;
+                            captionText.innerHTML = img.alt;
+                        }
+                    });
+                });
+
+                if (span) {
+                    span.onclick = function() {
+                        modal.style.display = "none";
+                    }
+                }
+
+                window.onclick = function(event) {
+                    if (event.target == modal) {
+                        modal.style.display = "none";
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
