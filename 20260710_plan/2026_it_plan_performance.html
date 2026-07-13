@@ -1,0 +1,1721 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026년 전산팀 사업계획 실적보고</title>
+    <!-- Paperlogy 폰트 로드 -->
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/subsets/Paperlogy-dynamic-subset.css"
+        type="text/css" />
+    <!-- Font Awesome 아이콘 로드 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* 햄버거 토글 버튼 스타일 */
+        .hamburger-button {
+            display: none;
+        }
+
+        @media (min-width: 993px) {
+            .hamburger-button {
+                display: block;
+                font-size: 20px;
+                background: none;
+                border: none;
+                color: var(--header-text-color);
+                cursor: pointer;
+                padding: 15px;
+                position: fixed;
+                top: 10px;
+                left: 15px;
+                z-index: 1002;
+                transition: left 0.3s ease;
+                margin-bottom: 10px;
+            }
+
+            .sidebar.collapsed+main {
+                margin-left: 80px;
+            }
+
+            .sidebar.collapsed .hamburger-button {
+                left: 15px;
+            }
+        }
+
+        .sidebar.collapsed {
+            width: 80px;
+        }
+
+        .sidebar.collapsed .sidebar-header h1,
+        .sidebar.collapsed .sidebar-header p,
+        .sidebar.collapsed .sidebar-nav span,
+        .sidebar.collapsed .sidebar-footer {
+            display: none;
+        }
+
+        .sidebar.collapsed .sidebar-nav li a {
+            justify-content: center;
+        }
+
+        .sidebar.collapsed .sidebar-nav li a i {
+            margin-right: 0;
+        }
+
+        main.expanded {
+            margin-left: 80px;
+        }
+
+        /* 전역 변수 설정 (신뢰감을 주는 Deep Blue & Clean Light 테마) */
+        :root {
+            --primary-color: #0747a6;
+            --primary-color-dark: #002e73;
+            --background-color: #f4f5f7;
+            --text-color: #172b4d;
+            --text-color-light: #5e6c84;
+            --card-bg-color: #ffffff;
+            --border-color: #dfe1e6;
+            --header-bg-color: #0747a6;
+            --header-text-color: #ffffff;
+            --sidebar-width: 260px;
+            --danger-color: #de350b;
+            --warning-color: #ffab00;
+            --success-color: #36b37e;
+            --info-color: #0052cc;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Paperlogy", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            display: flex;
+        }
+
+        /* 사이드바 스타일 */
+        .sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: var(--header-bg-color);
+            color: var(--header-text-color);
+            padding: 2rem 0;
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+            transition: width 0.3s ease;
+        }
+
+        .sidebar-header {
+            padding: 2.5rem 1.5rem 1.5rem 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-header a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .sidebar-header p {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 0.3rem;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+            margin-top: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .sidebar-nav li a {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            text-decoration: none;
+            color: var(--header-text-color);
+            font-weight: 500;
+            transition: background-color 0.3s, padding-left 0.3s;
+            border-left: 4px solid transparent;
+        }
+
+        .sidebar-nav li a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-left: 4px solid var(--info-color);
+        }
+
+        .sidebar-nav li a.active {
+            background-color: var(--info-color);
+            font-weight: 700;
+        }
+
+        .sidebar-nav li a i {
+            margin-right: 1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .sidebar-footer {
+            padding: 1.5rem;
+            font-size: 0.8rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* 메인 콘텐츠 영역 스타일 */
+        main {
+            margin-left: var(--sidebar-width);
+            padding: 40px;
+            flex-grow: 1;
+            transition: margin-left 0.3s ease;
+        }
+
+        .main-header {
+            margin-bottom: 2.5rem;
+            border-left: 5px solid var(--info-color);
+            padding-left: 1.5rem;
+        }
+
+        .main-header h1 {
+            font-size: 2.2rem;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .main-header h3 {
+            color: var(--info-color);
+            font-weight: 500;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .main-header .meta {
+            color: var(--text-color-light);
+            font-size: 0.95rem;
+        }
+
+        .content-section {
+            background-color: var(--card-bg-color);
+            padding: 2.5rem;
+            margin-bottom: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--border-color);
+        }
+
+        .content-section-header {
+            display: flex;
+            align-items: center;
+            color: var(--info-color);
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 1rem;
+        }
+
+        .content-section-header i {
+            margin-right: 1rem;
+            font-size: 1.7rem;
+        }
+
+        .card {
+            background-color: #fafbfc;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .card-header {
+            padding: 1.2rem 1.8rem;
+            background-color: #ebecf0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .card-header h3 {
+            font-size: 1.15rem;
+            color: var(--text-color);
+            margin: 0;
+        }
+
+        .card-body {
+            padding: 2rem;
+        }
+
+        .card-body p {
+            margin-bottom: 1.2rem;
+        }
+
+        .card-body ul {
+            list-style-position: outside;
+            padding-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-body ul li {
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+
+
+        .highlight-danger {
+            color: var(--danger-color);
+            font-weight: 700;
+            background-color: #ffebe6;
+            padding: 0.1rem 0.4rem;
+            border-radius: 3px;
+        }
+
+        .highlight-warning {
+            color: #b77c00;
+            font-weight: 700;
+            background-color: #fffae6;
+            padding: 0.1rem 0.4rem;
+            border-radius: 3px;
+        }
+
+        .highlight-success {
+            color: #172b4d;
+            font-weight: 700;
+            background-color: #e3fcef;
+            padding: 0.1rem 0.4rem;
+            border-radius: 3px;
+        }
+
+        .highlight-info {
+            color: var(--info-color);
+            font-weight: 700;
+            background-color: #deebff;
+            padding: 0.1rem 0.4rem;
+            border-radius: 3px;
+        }
+
+        /* 이미지 플레이스홀더 및 갤러리 */
+        .image-gallery {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin: 1.5rem 0;
+        }
+
+        .gallery-item {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+
+        .gallery-image-placeholder {
+            width: 100%;
+            height: 200px;
+            background-color: #e9ecef;
+            border: 2px dashed #adb5bd;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.3s, background-color 0.3s;
+            padding: 1rem;
+        }
+
+        .gallery-image-placeholder:hover {
+            transform: translateY(-5px);
+            background-color: #dee2e6;
+        }
+
+        .gallery-image-placeholder i {
+            font-size: 2.5rem;
+            color: var(--text-color-light);
+            margin-bottom: 1rem;
+        }
+
+        .gallery-image-placeholder p.img-alt {
+            font-size: 0.85rem;
+            color: #495057;
+            font-weight: 600;
+            line-height: 1.4;
+            margin-bottom: 0.5rem;
+        }
+
+        .gallery-image-placeholder span.placeholder-badge {
+            font-size: 0.75rem;
+            background-color: var(--info-color);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+
+        .gallery-caption {
+            margin-top: 0.8rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 6px;
+            display: none;
+        }
+
+        /* 인용 상자 */
+        .quote-box {
+            background-color: #deebff;
+            border-left: 4px solid var(--info-color);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            font-size: 1rem;
+            color: var(--text-color);
+            border-radius: 0 8px 8px 0;
+        }
+
+        .quote-box strong {
+            color: var(--primary-color-dark);
+        }
+
+        /* 모달 스타일 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            width: 80%;
+            max-width: 700px;
+            max-height: 90vh;
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .modal-content i.modal-icon {
+            font-size: 3.5rem;
+            color: var(--info-color);
+            margin-bottom: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .modal-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+            flex-shrink: 0;
+        }
+
+        #modalImgContainer {
+            flex: 1;
+            min-height: 0;
+            margin-top: 1rem;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f8fafc;
+            border: 1px solid var(--border-color);
+        }
+
+        #modalImg {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 6px;
+            display: none;
+        }
+
+        .modal-content p.modal-desc {
+            font-size: 0.95rem;
+            color: var(--text-color-light);
+            line-height: 1.6;
+            background-color: #f4f5f7;
+            padding: 1.2rem;
+            border-radius: 6px;
+            border-left: 4px solid var(--info-color);
+            text-align: left;
+            margin-top: 1.5rem;
+            flex-shrink: 0;
+            overflow-y: auto;
+            max-height: 15vh;
+        }
+
+        /* 줌인 시 기본 모달 스타일 */
+        .modal.zoomed .modal-content {
+            max-width: 95vw;
+            width: 95vw;
+            height: 95vh;
+            max-height: 95vh;
+        }
+
+        /* 모바일 이미지 전용 모달 스타일 */
+        .modal.mobile-modal-mode .modal-content {
+            max-width: 400px;
+            width: 90%;
+            padding: 1.5rem;
+        }
+
+        .modal.mobile-modal-mode #modalImgContainer {
+            flex: 0 0 auto;
+            height: 50vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f8fafc;
+        }
+
+        .modal.mobile-modal-mode #modalImg {
+            height: 100%;
+            width: auto !important;
+            max-width: 100%;
+            object-fit: contain;
+        }
+
+        /* 모바일 모달 줌인 시 스타일 */
+        .modal.mobile-modal-mode.zoomed .modal-content {
+            max-width: 95vw;
+            width: 95vw;
+            height: 95vh;
+            max-height: 95vh;
+        }
+
+        .modal.mobile-modal-mode.zoomed #modalImgContainer {
+            flex: 1;
+            height: auto;
+        }
+
+        .modal.mobile-modal-mode.zoomed #modalImg {
+            height: 70vh;
+        }
+
+        /* 모달 네비게이션 화살표 스타일 */
+        .modal-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.4);
+            border: none;
+            color: #fff;
+            font-size: 2.5rem;
+            padding: 1.5rem 1rem;
+            cursor: pointer;
+            transition: background 0.2s, opacity 0.2s, transform 0.2s;
+            z-index: 2010;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .modal-nav:hover {
+            background: rgba(0, 0, 0, 0.7);
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        .modal-nav:active {
+            transform: translateY(-50%) scale(0.95);
+        }
+
+        .modal-prev {
+            left: 20px;
+        }
+
+        .modal-next {
+            right: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .modal-nav {
+                font-size: 2rem;
+                padding: 1rem 0.5rem;
+            }
+
+            .modal-prev {
+                left: 10px;
+            }
+
+            .modal-next {
+                right: 10px;
+            }
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .close:hover {
+            color: #000;
+        }
+
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            main {
+                margin-left: 0;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 모바일 및 토글 햄버거 버튼 -->
+    <button class="hamburger-button" id="hamburger-btn">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- 사이드바 내비게이션 -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="#">
+                <h1>2026년 실적보고서</h1>
+                <p>경영지원본부 전산팀</p>
+            </a>
+        </div>
+        <ul class="sidebar-nav">
+            <li><a href="#system-overview" class="nav-link active"><i class="fas fa-info-circle"></i> <span>종합 요약 및
+                        개요</span></a></li>
+            <li><a href="#system-features" class="nav-link"><i class="fas fa-cogs"></i> <span>시스템 고도화 실적</span></a></li>
+            <li><a href="#hw-features" class="nav-link"><i class="fas fa-server"></i> <span>H/W 인프라 개선</span></a></li>
+            <li><a href="#security-eval" class="nav-link"><i class="fas fa-shield-alt"></i> <span>보안 강화 및 인증</span></a>
+            </li>
+        </ul>
+        <div class="sidebar-footer">
+            <p>© 2026 경영지원본부 전산팀</p>
+        </div>
+    </nav>
+
+    <!-- 메인 콘텐츠 영역 -->
+    <main id="main-content">
+        <header class="main-header">
+            <h1>2026년 전산팀 사업계획 실적보고</h1>
+            <h3>"효율적 투자로 지속 가능한 IT 시스템 안정성 확보"</h3>
+            <p class="meta">작성일: <strong>2026년 7월 10일</strong> | 부서: <strong>경영지원본부 전산팀</strong></p>
+        </header>
+
+        <!-- 섹션 1: 종합 요약 및 달성 현황 -->
+        <section id="system-overview" class="content-section">
+            <div class="content-section-header">
+                <i class="fas fa-info-circle"></i>
+                <h2>종합 요약 및 달성 현황</h2>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3>2026년도 사업 목표 및 방향</h3>
+                </div>
+                <div class="card-body">
+                    <p>전산팀은 2026년도 사업목표인 <strong>"효율적 투자로 지속 가능한 IT 시스템 안정성 확보"</strong>를 완수하기 위하여, 기존 운영 중인 핵심 업무 시스템의
+                        고도화와 H/W 자원 합리화, 그리고 보안 인증 체계의 혁신을 추진하였습니다.</p>
+
+                    <div class="quote-box">
+                        "선택과 집중을 통한 인프라 투자 최적화로 <strong>IT 리스크를 제거</strong>하고, 전사 보안/시스템 신뢰도를 <strong>향상시킨다.</strong>"
+                    </div>
+
+                    <ul>
+                        <li><span class="highlight-info">시스템 업무 고도화</span>: ERP-그룹웨어 간 데이터 실시간 동기화를 구축하여 수작업 공수를 80% 이상
+                            절감하였고, 모바일 챗봇 및 자동화 모듈(Cost Generator 등) 도입을 통해 사용자 편의성을 극대화하였습니다. 또한 기존 재경/인사 부문의 결재 연동 성과를
+                            바탕으로 2026년에는 근태 결재 서비스 연동 범위를 대폭 확대했습니다. 휴가계등 근태 결재 완료 시 ERP 데이터로 상호연동되도록 정확성 및 신속성을 높였습니다.
+                        </li>
+                        <li><span class="highlight-warning">인프라 최적화 및 리스크 관리</span>: 노후 서버(Win 2008 등)의 폐기 및 내부 자원 통합을
+                            성공적으로 수행하였으며, 대규모 예산이 수반되는 SCM 윈도우 전환 및 일부 장비 교체 건은 투자 효율성을 고려하여 하반기 및 차년도 로드맵으로 전략적 이월/조정
+                            조치하였습니다.</li>
+                        <li><span class="highlight-success">보안/인증 체계 한단계 도약</span>: 협력사 보안수준 평가에서 목표(Lv3)를 초과한 등급(Lv4)을
+                            획득하여 향후 3년간 정기 평가 유예를 확보하였으며, SSO 통합 인증 체계 구축으로 전사적 정보 보안 수준을 대폭 상향시켰습니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+
+        </section>
+
+        <!-- 섹션 2: 시스템 고도화 실적 -->
+        <section id="system-features" class="content-section">
+            <div class="content-section-header">
+                <i class="fas fa-cogs"></i>
+                <h2>시스템 고도화 실적</h2>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3>① 반복 작업 최소화를 위한 ERP 연동코드 관리 기능 구축</h3>
+                </div>
+                <div class="card-body">
+                    <div style="margin-bottom:1rem;">
+                        <span class="highlight-success">달성율 100%</span>
+                        <span style="font-size:0.9rem; color:var(--text-color-light); margin-left:10px;">(비고: 업무 효율 증대 및
+                            이중 수작업 제거)</span>
+                    </div>
+                    <p>ERP의 마스터 데이터를 그룹웨어 내에서 직접 연계 및 관리할 수 있는 전용 인터페이스를 개발하여 등록 프로세스를 대폭 간소화했습니다. 동일 데이터를 양방향으로 중복 수작업
+                        입력하던 기존 프로세스를 제거하여 입력 공수를 <strong>80% 절감</strong>하였습니다. 또한 그룹웨어내에서 ERP와 상이한 데이터가 입력되는 휴먼에러를 최소화
+                        하였습니다</p>
+
+                    <ul>
+                        <li><strong>연동 코드 통합 UI 구현</strong>: ERP 등록후 그룹웨어 내에서 연동 대상 ERP 코드를 자동 동기화할 수 있도록 구현했습니다. (예:
+                            ERP 차종 코드의 경우 매일 특정 시간 이후 그룹웨어 내 자동 동기화 수행)</li>
+                        <li><strong>ERP 핵심 연동 코드 매핑 완료</strong>: <code>ERP휴가계코드 / ERP인사정보</code>,
+                            <code>단가구분 / 입찰관리업체</code>, <code>월별유류대 / ERP사업장거래정보</code>, <code>ERP차종코드 / 금융기관</code> 등
+                            주요 영역에 대해 정합성 및 휴먼에러 감소를 위해 동기화를 수행합니다.
+                        </li>
+                    </ul>
+
+                    <div class="image-gallery">
+                        <!-- ERP 연동코드의 차종코드 -->
+                        <div class="gallery-item">
+                            <div class="gallery-image-placeholder" data-img-title="[시스템 화면] ERP 연동코드 - 차종코드 연계 사례"
+                                data-img-desc="ERP에서 등록된 마스터 차종코드를 그룹웨어와 매핑하여 실시간 연계 및 관리할 수 있도록 구축된 화면입니다. 데이터 무결성이 검증된 동기화 상태를 지원합니다.">
+                                <img src="images/차종코드.jpg" alt="[시스템 화면] ERP 연동코드 - 차종코드 연계 사례" class="gallery-image"
+                                    onload="this.style.display='block'; this.nextElementSibling.style.display='none';"
+                                    onerror="this.style.display='none';">
+                                <div class="placeholder-content">
+                                    <i class="fas fa-car"></i>
+                                    <p class="img-alt">차종코드.jpg</p>
+                                    <p class="img-alt" style="font-weight: normal; color: #6c757d;">[클릭 시 가이드 기획 확인]</p>
+                                    <span class="placeholder-badge">차종코드 연동 화면</span>
+                                </div>
+                            </div>
+                            <div class="gallery-caption">ERP 연동코드 - 차종코드 연계 사례</div>
+                        </div>
+
+                        <!-- ERP 휴가계코드 -->
+                        <div class="gallery-item">
+                            <div class="gallery-image-placeholder" data-img-title="[시스템 화면] ERP 연동코드 - 휴가계코드 연계 사례"
+                                data-img-desc="인사 및 근태 부분 결재 연동 확대를 위해 ERP 휴가계코드를 그룹웨어 연동코드와 매핑한 구성도 및 관리 화면입니다. 최종 결재 완료 시 ERP에 즉시 연동됩니다.">
+                                <img src="images/ERP휴가계코드.jpg" alt="[시스템 화면] ERP 연동코드 - 휴가계코드 연계 사례"
+                                    class="gallery-image"
+                                    onload="this.style.display='block'; this.nextElementSibling.style.display='none';"
+                                    onerror="this.style.display='none';">
+                                <div class="placeholder-content">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <p class="img-alt">ERP휴가계코드.jpg</p>
+                                    <p class="img-alt" style="font-weight: normal; color: #6c757d;">[클릭 시 가이드 기획 확인]</p>
+                                    <span class="placeholder-badge">휴가계코드 연동 화면</span>
+                                </div>
+                            </div>
+                            <div class="gallery-caption">ERP 연동코드 - 휴가계코드 연계 사례</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3>② 그룹웨어 사용자 질의 응답형 BOT 개발 (연차정보알리미)</h3>
+                </div>
+                <div class="card-body">
+                    <div style="margin-bottom:1rem;">
+                        <span class="highlight-success">달성율 100%</span>
+                        <span style="font-size:0.9rem; color:var(--text-color-light); margin-left:10px;">(비고: 사용자 편의성
+                            제고, 연월차 사용률 증가 도모)</span>
+                    </div>
+                    <p>모바일 및 PC 그룹웨어 메신저(Naver Works 연계)를 통해 실시간으로 개인 연차 및 부서 내 근태 상태를 조회할 수 있는 대화형 챗봇 서비스를 성공적으로 개발하여
+                        전사 배포 완료하였습니다.</p>
+
+                    <ul>
+                        <li><strong>사용자 맞춤형 연차 현황 조회</strong>: 개인별 당해 발생, 사용, 잔여 일수 실시간 출력 및 예정 내역과 상세 이력 피드백 제공.</li>
+                        <li><strong>부서장 전용 조직별 연차 현황 요약</strong>: 그룹웨어 미사용자(현장 생산직군)까지 포함하여 하위 조직원의 연차 사용 현황 일괄 조회 및
+                            모니터링 기능 구축. 조직장의 선제적 연차 사용 독려 유도.</li>
+                        <li><strong>금일 조직 연차 현황 실시간 모니터링</strong>: 당일 부서 내 휴가계 대상자 실시간 조회를 통해 원활한 업무 대행 체계 수립 기여.</li>
+                        <li><strong>관리자 전용 연차정보 일괄 발송 시스템</strong>: 대상자별 일괄 푸시(Push) 메시지 발송 및 스케줄러를 통한 매주/매월 자동 발송 고도화
+                            완료.</li>
+                    </ul>
+
+                    <div class="image-gallery">
+                        <!-- image1.png: 메뉴 및 지정 명령어 -->
+                        <div class="gallery-item">
+                            <div class="gallery-image-placeholder" data-is-mobile="true"
+                                data-img-title="[서비스 화면] 연차정보알리미 BOT - 메뉴 및 명령어 제공"
+                                data-img-desc="모바일 및 PC 메신저(Naver Works) 상에서 '연차조회', '조직연차조회', '금일연차조회' 등의 텍스트를 직접 입력하거나 하단 명령어 버튼을 클릭하여 서비스를 호출하는 화면입니다.">
+                                <img src="images/image1.png" alt="[서비스 화면] 연차정보알리미 BOT - 메뉴 및 명령어 제공"
+                                    class="gallery-image"
+                                    onload="this.style.display='block'; this.nextElementSibling.style.display='none';"
+                                    onerror="this.style.display='none';">
+                                <div class="placeholder-content">
+                                    <i class="fas fa-bars"></i>
+                                    <p class="img-alt">image1.png</p>
+                                    <p class="img-alt" style="font-weight: normal; color: #6c757d;">[클릭 시 가이드 기획 확인]</p>
+                                    <span class="placeholder-badge">메뉴 및 명령어 화면</span>
+                                </div>
+                            </div>
+                            <div class="gallery-caption">BOT 메뉴 및 기본 명령어 사례</div>
+                        </div>
+
+                        <!-- image2.png: 개인별 연차 현황 조회 -->
+                        <div class="gallery-item">
+                            <div class="gallery-image-placeholder" data-is-mobile="true"
+                                data-img-title="[서비스 화면] 연차정보알리미 BOT - 개인별 연차 현황 조회"
+                                data-img-desc="개인별 당해 발생 일수, 현재 기준 사용 일수, 미래 예정 일수, 잔여 일수를 제공하고, 연차 사용 상세 리스트를 카드 UI 형태로 보여줍니다.">
+                                <img src="images/image2.png" alt="[서비스 화면] 연차정보알리미 BOT - 개인별 연차 현황 조회"
+                                    class="gallery-image"
+                                    onload="this.style.display='block'; this.nextElementSibling.style.display='none';"
+                                    onerror="this.style.display='none';">
+                                <div class="placeholder-content">
+                                    <i class="fas fa-user"></i>
+                                    <p class="img-alt">image2.png</p>
+                                    <p class="img-alt" style="font-weight: normal; color: #6c757d;">[클릭 시 가이드 기획 확인]</p>
+                                    <span class="placeholder-badge">개인 연차 조회 화면</span>
+                                </div>
+                            </div>
+                            <div class="gallery-caption">개인별 연차 조회 결과 사례</div>
+                        </div>
+
+                        <!-- image3.png: 하위 조직원 연차 현황 요약 -->
+                        <div class="gallery-item">
+                            <div class="gallery-image-placeholder" data-is-mobile="true"
+                                data-img-title="[서비스 화면] 연차정보알리미 BOT - 하위 조직원 연차 현황 요약"
+                                data-img-desc="조직장이 부서원(현장 생산직군 포함)의 발생, 사용, 잔여 연차 정보를 일괄 조회하여 적극적으로 연차 사용을 독려할 수 있도록 돕는 요약 리스트입니다.">
+                                <img src="images/image3.png" alt="[서비스 화면] 연차정보알리미 BOT - 하위 조직원 연차 현황 요약"
+                                    class="gallery-image"
+                                    onload="this.style.display='block'; this.nextElementSibling.style.display='none';"
+                                    onerror="this.style.display='none';">
+                                <div class="placeholder-content">
+                                    <i class="fas fa-users"></i>
+                                    <p class="img-alt">image3.png</p>
+                                    <p class="img-alt" style="font-weight: normal; color: #6c757d;">[클릭 시 가이드 기획 확인]</p>
+                                    <span class="placeholder-badge">조직 연차 요약 화면</span>
+                                </div>
+                            </div>
+                            <div class="gallery-caption">부서장용 조직원 연차 요약 사례</div>
+                        </div>
+
+                        <!-- image4.png: 금일 부서 연차 및 부재자 모니터링 -->
+                        <div class="gallery-item">
+                            <div class="gallery-image-placeholder" data-is-mobile="true"
+                                data-img-title="[서비스 화면] 연차정보알리미 BOT - 금일 부서 연차 및 부재자 모니터링"
+                                data-img-desc="오늘 부서 내 부재자(출장, 교육, 연차 포함)를 실시간 모니터링하여 원활한 업무 대행 체계 수립과 조직원 관리를 가능케 하는 화면입니다.">
+                                <img src="images/image4.png" alt="[서비스 화면] 연차정보알리미 BOT - 금일 부서 연차 및 부재자 모니터링"
+                                    class="gallery-image"
+                                    onload="this.style.display='block'; this.nextElementSibling.style.display='none';"
+                                    onerror="this.style.display='none';">
+                                <div class="placeholder-content">
+                                    <i class="fas fa-calendar-check"></i>
+                                    <p class="img-alt">image4.png</p>
+                                    <p class="img-alt" style="font-weight: normal; color: #6c757d;">[클릭 시 가이드 기획 확인]</p>
+                                    <span class="placeholder-badge">금일 부재자 모니터링</span>
+                                </div>
+                            </div>
+                            <div class="gallery-caption">금일 부서원 부재 현황 조회 사례</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3>③ 인사, 근태 부분 ERP 연동 확대 적용</h3>
+                </div>
+                <div class="card-body">
+                    <div style="margin-bottom:1rem;">
+                        <span class="highlight-success">달성율 100%</span>
+                        <span style="font-size:0.9rem; color:var(--text-color-light); margin-left:10px;">(비고: 근태 처리 자동화
+                            및 이중 입력 방지)</span>
+                    </div>
+                    <p>기존 재경/인사 부문의 결재 연동 성과를 바탕으로 2026년에는 근태 결재 서비스 연동 범위를 대폭 확대했습니다. 최종 결재 완료 시 ERP 데이터로 즉각 반영되며 종이 없는
+                        페이퍼리스(Paperless) 업무 환경 및 규정 준수 이력 상시 관리 체계를 마련하였습니다.</p>
+
+                    <ul>
+                        <li><strong>그룹웨어 휴가계 연동 양식 개발</strong>: ERP 휴가계 코드와 연동되는 양식을 그룹웨어에 구축하여 사용자가 반차 시각 구분 및 ERP 코드를
+                            직접 선택해 작성하고 결재/합의 프로세스를 진행할 수 있도록 구현했습니다.</li>
+                        <li><strong>근태 결재 문서 API 실시간 연동</strong>: 그룹웨어에서 최종 결재 완료 시 ERP 시스템으로 데이터를 전송하는 연동 모듈을 구현하여, 발송
+                            성공 여부 및 이력을 관리 화면에서 실시간 조회 가능하도록 하였습니다.</li>
+                        <li><strong>ERP 일근태 처리 자동 반영</strong>: API로 전송받은 그룹웨어 결재 데이터를 기반으로 ERP 일근태처리 모듈에 대상자의 근태 정보가 수작업
+                            없이 자동으로 즉각 등록되는 체계를 마련했습니다.</li>
+                        <li><strong>ERP 데이터 기반의 실시간 정보 조회</strong>: ERP에 반영된 최신 연차/근태 정보를 메신저(Naver Works) 챗봇과 실시간 연동하여
+                            사용자가 모바일 등에서 즉시 본인의 연차 현황을 파악할 수 있도록 구현했습니다.</li>
+                    </ul>
+
+                    <div class="image-gallery">
+                        <!-- 1단계: 그룹웨어 휴가계 작성 -->
+                        <div class="gallery-item">
+                            <div class="gallery-image-placeholder"
+                                data-img-title="[서비스 화면] 인사/근태 ERP 연동 - 1단계: 그룹웨어 휴가계(시스템) 작성"
+                                data-img-desc="ERP 휴가계 코드와 매핑된 입력란 및 반차 시각 구분, 결재/합의 라인을 지정하여 그룹웨어에서 휴가계 결재 문서를 기안하는 화면입니다.">
+                                <img src="images/3_Step1.그룹웨어휴가계.jpg"
+                                    alt="[서비스 화면] 인사/근태 ERP 연동 - 1단계: 그룹웨어 휴가계(시스템) 작성" class="gallery-image"
+                                    onload="this.style.display='block'; this.nextElementSibling.style.display='none';"
+                                    onerror="this.style.display='none';">
+                                <div class="placeholder-content">
+                                    <i class="fas fa-file-signature"></i>
+                                    <p class="img-alt">3_Step1.그룹웨어휴가계.jpg</p>
+                                    <p class="img-alt" style="font-weight: normal; color: #6c757d;">[클릭 시 가이드 기획 확인]</p>
+                                    <span class="placeholder-badge">1단계: 휴가계 기안 양식</span>
+                                </div>
+                            </div>
+                            <div class="gallery-caption">1단계: 그룹웨어 휴가계 작성 및 결재 상신</div>
+                        </div>
+
+                        <!-- 2단계: API 전송 완료 -->
+                        <div class="gallery-item">
+                            <div class="gallery-image-placeholder"
+                                data-img-title="[서비스 화면] 인사/근태 ERP 연동 - 2단계: API 전송 및 발송 내역 조회"
+                                data-img-desc="그룹웨어 결재가 완료된 근태원 문서가 API를 통해 ERP로 실시간 전송되어 발송 성공(완료) 처리된 내역을 보여주는 모듈 관리 화면입니다.">
+                                <img src="images/3_Step2.그룹웨어API연동jpg.jpg"
+                                    alt="[서비스 화면] 인사/근태 ERP 연동 - 2단계: API 전송 및 발송 내역 조회" class="gallery-image"
+                                    onload="this.style.display='block'; this.nextElementSibling.style.display='none';"
+                                    onerror="this.style.display='none';">
+                                <div class="placeholder-content">
+                                    <i class="fas fa-network-wired"></i>
+                                    <p class="img-alt">3_Step2.그룹웨어API연동jpg.jpg</p>
+                                    <p class="img-alt" style="font-weight: normal; color: #6c757d;">[클릭 시 가이드 기획 확인]</p>
+                                    <span class="placeholder-badge">2단계: API 발송 내역 성공 확인</span>
+                                </div>
+                            </div>
+                            <div class="gallery-caption">2단계: 그룹웨어 결재 연동 API 발송 성공 이력</div>
+                        </div>
+
+                        <!-- 3단계: ERP 일근태처리 자동 반영 -->
+                        <div class="gallery-item">
+                            <div class="gallery-image-placeholder"
+                                data-img-title="[시스템 화면] 인사/근태 ERP 연동 - 3단계: ERP 일근태처리 반영 결과"
+                                data-img-desc="API를 통해 전송된 결재 데이터를 기반으로 ERP 일근태처리 모듈에 대상자(백창훈 책임)의 외근 근태가 수작업 없이 자동으로 등록되어 반영된 화면입니다.">
+                                <img src="images/3_Step3.ERP일근태처리연동.jpg"
+                                    alt="[시스템 화면] 인사/근태 ERP 연동 - 3단계: ERP 일근태처리 반영 결과" class="gallery-image"
+                                    onload="this.style.display='block'; this.nextElementSibling.style.display='none';"
+                                    onerror="this.style.display='none';">
+                                <div class="placeholder-content">
+                                    <i class="fas fa-database"></i>
+                                    <p class="img-alt">3_Step3.ERP일근태처리연동.jpg</p>
+                                    <p class="img-alt" style="font-weight: normal; color: #6c757d;">[클릭 시 가이드 기획 확인]</p>
+                                    <span class="placeholder-badge">3단계: ERP 일근태 자동 등록</span>
+                                </div>
+                            </div>
+                            <div class="gallery-caption">3단계: ERP 일근태처리 화면 자동 반영 결과</div>
+                        </div>
+
+                        <!-- 4단계: 모바일 메신저 연차조회 연동 -->
+                        <div class="gallery-item">
+                            <div class="gallery-image-placeholder" data-is-mobile="true"
+                                data-img-title="[서비스 화면] 인사/근태 ERP 연동 - 4단계: 모바일 메신저 연차정보알리미 연동"
+                                data-img-desc="ERP에 반영된 결과를 실시간 동기화하여, 모바일 메신저 챗봇(Naver Works)을 통해 사용자가 즉시 본인의 실시간 연차 및 사용 상세 현황을 조회하는 화면입니다.">
+                                <img src="images/3_Step4.ERP처리결과그룹웨어실시간연동.jpg"
+                                    alt="[서비스 화면] 인사/근태 ERP 연동 - 4단계: 모바일 메신저 연차정보알리미 연동" class="gallery-image"
+                                    onload="this.style.display='block'; this.nextElementSibling.style.display='none';"
+                                    onerror="this.style.display='none';">
+                                <div class="placeholder-content">
+                                    <i class="fas fa-comment-dots"></i>
+                                    <p class="img-alt">3_Step4.ERP처리결과그룹웨어실시간연동.jpg</p>
+                                    <p class="img-alt" style="font-weight: normal; color: #6c757d;">[클릭 시 가이드 기획 확인]</p>
+                                    <span class="placeholder-badge">4단계: 모바일 연차 알리미 BOT</span>
+                                </div>
+                            </div>
+                            <div class="gallery-caption">4단계: 모바일 메신저 연차정보알리미 조회 화면</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3>④ 원가/구매 소급 업무 시스템 개선</h3>
+                </div>
+                <div class="card-body">
+                    <p>작년 하반기에 도입된 Cost Generator 시스템을 구매/원가 업무 인수인계 절차에 맞게 개선하였으며, 그룹웨어 전자결재와 연동하여 결재권자의 승인을 통해 ERP
+                        데이터가 반영되도록 정합성을 대폭 높였습니다. (프로그램 릴리즈 정보: <a
+                            href="https://github.com/devSCKwon/sejin_costgenerator_releases/blob/main/Program_Guide.md"
+                            target="_blank" rel="noopener noreferrer">sejin_costgenerator_releases</a>)</p>
+
+                    <ul>
+                        <li><strong>Excel 오류 검증 및 휴먼에러 최소화</strong>: 사용자 Excel 파일 업로드 전 오류 검증(Validation) 기능을 제공하여 수작업
+                            계산 및 입력 과정의 휴먼에러를 방지하며, 비정상적인 소급 적용 단가 입력 시 시스템에서 실시간으로 필터링하고 차단합니다.</li>
+                        <li><strong>결재 연동 및 데이터 정합성 강화</strong>: 그룹웨어 전자결재 프로세스를 시스템화하여, 부서 간 크로스 체크 후 최종 결재 단계에서 전산팀이
+                            ERP 반영의 정상 여부를 수신받아 검증함으로써 데이터의 무결성을 확보하였습니다.</li>
+                        <li><strong>ClickOnce 배포 방식 도입</strong>: 실사용 부서(구매팀)의 편의와 기능 반영 속도 향상을 위해 ClickOnce 배포 형태를 적용하여,
+                            별도 설치 절차 없이 웹 브라우저를 통해 구동 시 항상 최신 연산 로직이 반영되도록 인프라를 보완하였습니다.</li>
+                    </ul>
+
+                    <div class="image-gallery">
+                        <!-- 1단계: 가격결정 품의서 그룹웨어 결재선 정립 -->
+                        <div class="gallery-item">
+                            <div class="gallery-image-placeholder"
+                                data-img-title="[서비스 화면] Cost Generator 가격결정 품의서 그룹웨어 기안 및 합의 프로세스"
+                                data-img-desc="원재료 및 가공비 단가 연계 과정의 정합성 확보를 위해, 실사용 부서(구매팀)에서 가격결정 품의서를 기안하면 원가영업팀 등 관련 부서 간 교차 검증 및 합의 단계를 거쳐 최종 승인(회사총괄)에 이르는 체계적인 결재 프로세스를 정립하였습니다. 합의 의견 기재 및 투명 한 가격 산정 내역 공유로 결재 신뢰성을 향상시켰습니다.">
+                                <img src="images/4_Step1.그룹웨어결제프로세스정립.jpg"
+                                    alt="[서비스 화면] Cost Generator 가격결정 품의서 그룹웨어 기안 및 합의 프로세스" class="gallery-image"
+                                    onload="this.style.display='block'; this.nextElementSibling.style.display='none';"
+                                    onerror="this.style.display='none';">
+                                <div class="placeholder-content">
+                                    <i class="fas fa-file-invoice-dollar"></i>
+                                    <p class="img-alt">4_Step1.그룹웨어결제프로세스정립.jpg</p>
+                                    <p class="img-alt" style="font-weight: normal; color: #6c757d;">[클릭 시 가이드 기획 확인]</p>
+                                    <span class="placeholder-badge">1단계: 그룹웨어 품의 및 합의</span>
+                                </div>
+                            </div>
+                            <div class="gallery-caption">1단계: 가격결정 품의서 및 합의 프로세스</div>
+                        </div>
+
+                        <!-- 2단계: 결재 단계별 API 발송 및 ERP 자동 반영 -->
+                        <div class="gallery-item">
+                            <div class="gallery-image-placeholder"
+                                data-img-title="[시스템 화면] 그룹웨어 결재 단계별 API 발송 및 ERP 연동 내역 조회"
+                                data-img-desc="가격결정 품의서의 결재 단계(합의, 결재, 완료)에 맞춰 ERP 연동 API가 실시간 호출되어 성공적으로 전송된 이력을 보여주는 발송 내역 조회 화면입니다. 최종결재 시점에 ERP 단가 테이블에 정보가 즉각 자동 반영되므로, 과거의 수작업 이중 입력 공수 및 데이터 누락/휴먼에러를 원천 차단합니다.">
+                                <img src="images/4_Step3.결재단계별그룹웨어ERP연동API.jpg"
+                                    alt="[시스템 화면] 그룹웨어 결재 단계별 API 발송 및 ERP 연동 내역 조회" class="gallery-image"
+                                    onload="this.style.display='block'; this.nextElementSibling.style.display='none';"
+                                    onerror="this.style.display='none';">
+                                <div class="placeholder-content">
+                                    <i class="fas fa-network-wired"></i>
+                                    <p class="img-alt">4_Step3.결재단계별그룹웨어ERP연동API.jpg</p>
+                                    <p class="img-alt" style="font-weight: normal; color: #6c757d;">[클릭 시 가이드 기획 확인]</p>
+                                    <span class="placeholder-badge">2단계: 결재 단계별 API 발송 로그</span>
+                                </div>
+                            </div>
+                            <div class="gallery-caption">2단계: 결재 단계별 API 연동 내역 조회</div>
+                        </div>
+
+                        <!-- 3단계: 최종 결재 후 2차 데이터 무결성 검증 -->
+                        <div class="gallery-item">
+                            <div class="gallery-image-placeholder"
+                                data-img-title="[시스템 화면] 최종 결재 후 ERP 단가 반영 결과 및 전산팀 2차 검증"
+                                data-img-desc="그룹웨어 최종 결재가 완료된 건(예: 문서번호 2026_CUS00045_00153의 58건 단가적용)에 대해 ERP 시스템에 정보가 정상 반영되었는지를 확인하고, 전산팀 담당자의 추가 검증 의견(29건 단가종료, 29건 신규입력 등)을 그룹웨어 문서에 기입함으로써 데이터 반영 과정에서의 최종 오류 및 누락 여부를 2중으로 점검하여 데이터 무결성을 검증합니다.">
+                                <img src="images/4_Step4.결재최종수신후2차데이터검증.jpg"
+                                    alt="[시스템 화면] 최종 결재 후 ERP 단가 반영 결과 및 전산팀 2차 검증" class="gallery-image"
+                                    onload="this.style.display='block'; this.nextElementSibling.style.display='none';"
+                                    onerror="this.style.display='none';">
+                                <div class="placeholder-content">
+                                    <i class="fas fa-clipboard-check"></i>
+                                    <p class="img-alt">4_Step4.결재최종수신후2차데이터검증.jpg</p>
+                                    <p class="img-alt" style="font-weight: normal; color: #6c757d;">[클릭 시 가이드 기획 확인]</p>
+                                    <span class="placeholder-badge">3단계: 전산팀 2차 검증 및 의견 기재</span>
+                                </div>
+                            </div>
+                            <div class="gallery-caption">3단계: ERP 반영 결과 전산팀 2차 무결성 검증</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3>⑤ 보안 강화를 위한 SSO 인증방식 개발 (진행률 80%)</h3>
+                </div>
+                <div class="card-body">
+                    <div style="margin-bottom:1rem;">
+                        <span class="highlight-info">달성율 80% (진행중)</span>
+                        <span style="font-size:0.9rem; color:var(--text-color-light); margin-left:10px;">(비고: 사내 로그인 체계
+                            일원화 및 2차 인증 도입)</span>
+                    </div>
+                    <p>사내 주요 기간계 및 웹 서비스의 인증 환경을 통합하여 로그인 구조를 간소화하고 보안을 강화하기 위해 Single Sign-On(SSO) 통합 인증 방식을 개발하고 있습니다.
+                        쉬운이해로 "카카오톡으로 로그인하기" 와 유사한 OAuth 2.0 표준 기술을 적용하여, 사용자가 한 번의 로그인만으로 추가 인증 과정 없이 연동된 여러 사내 웹 서비스를
+                        안전하게 즉시 이용할 수 있도록 인증방식을 구축 중입니다.</p>
+
+                    <ul>
+                        <li><strong>네이버웍스(Naver Works) 계정 연동</strong>: 별도의 로그인 비밀번호 관리 없이 네이버웍스 세션을 기반으로 1차 즉시 로그인 연동을
+                            수행하며, 현재 전산팀 내부에서 시범 운영 중인 <strong>전산자산관리시스템</strong>에 선제 적용하여 테스트를 완료하였습니다.</li>
+                        <li><strong>비용 절감형 보안 시스템 구축</strong>: 별도의 유료 외부 인증 시스템 솔루션을 도입하지 않고, 기존에 운영 중인 그룹웨어의 보안 인증 인프라와
+                            사내 메신저(Naver Works) 인증 체계를 연동하여 <strong>도입/유지 비용 없이 안전한 보안 연동 시스템을 구현</strong>하고 있습니다.</li>
+                        <li><strong>보안 아키텍처 및 OTP 2차 인증 설계</strong>: 공통 인증 모듈을 설계하여 향후 추가되는 서비스에 신속하게 확대 적용할 수 있으며, 2차
+                            OTP 인증 도입 기반을 마련해 계정 도용 리스크를 완화하고 외부 보안 심사 적합성 등급 상향 기반을 조성하였습니다.</li>
+                    </ul>
+
+                    <div class="image-gallery">
+                        <!-- 1단계: SSO 로그인 적용 및 간편 인증 버튼 제공 -->
+                        <div class="gallery-item">
+                            <div class="gallery-image-placeholder"
+                                data-img-title="[서비스 화면] SSO 로그인 적용 및 간편 인증 버튼 제공 (1단계)"
+                                data-img-desc="전산자산관리시스템 로그인 화면에 탑재된 SSO 간편 인증 UI입니다. 대중적인 '카카오톡으로 로그인하기'처럼 네이버웍스 계정으로 비밀번호 입력 없이 즉시 간편 로그인을 개시할 수 있도록 연동 버튼을 배치했습니다.">
+                                <img src="images/5_Step1.SSO로그인적용jpg.jpg" alt="[서비스 화면] SSO 로그인 적용 및 간편 인증 버튼 제공 (1단계)"
+                                    class="gallery-image"
+                                    onload="this.style.display='block'; this.nextElementSibling.style.display='none';"
+                                    onerror="this.style.display='none';">
+                                <div class="placeholder-content">
+                                    <i class="fas fa-sign-in-alt"></i>
+                                    <p class="img-alt">5_Step1.SSO로그인적용jpg.jpg</p>
+                                    <p class="img-alt" style="font-weight: normal; color: #6c757d;">[클릭 시 가이드 기획 확인]</p>
+                                    <span class="placeholder-badge">1단계: SSO 로그인 적용 화면</span>
+                                </div>
+                            </div>
+                            <div class="gallery-caption">1단계: 간편 인증 버튼 UI 및 진입</div>
+                        </div>
+
+                        <!-- 2단계: 네이버웍스 권한 위임 및 OTP 2차 보안 인증 -->
+                        <div class="gallery-item">
+                            <div class="gallery-image-placeholder"
+                                data-img-title="[시스템 화면] 네이버웍스(Naver Works) 권한 위임 및 OTP 2차 보안 인증 (2단계)"
+                                data-img-desc="사용자가 SSO 로그인 버튼을 클릭하면 네이버웍스 API와 연동되어 사내 메신저 로그인 세션 검증과 시스템 접근 권한 위임을 처리하고(좌측), 관리자 등 주요 계정에 대해서는 모바일 OTP(Google Authenticator 등) 2차 추가 보안 인증을 팝업 형태로 함께 처리하여 2중 보안을 구현하는 단계입니다(우측).">
+                                <img src="images/5_Step2.NaverWorks로그인요청jpg-side.jpg"
+                                    alt="[시스템 화면] 네이버웍스(Naver Works) 권한 위임 및 OTP 2차 보안 인증 (2단계)" class="gallery-image"
+                                    onload="this.style.display='block'; this.nextElementSibling.style.display='none';"
+                                    onerror="this.style.display='none';">
+                                <div class="placeholder-content">
+                                    <i class="fas fa-user-shield"></i>
+                                    <p class="img-alt">5_Step2.NaverWorks로그인요청jpg-side.jpg</p>
+                                    <p class="img-alt" style="font-weight: normal; color: #6c757d;">[클릭 시 가이드 기획 확인]</p>
+                                    <span class="placeholder-badge">2단계: 권한 위임 및 OTP 인증</span>
+                                </div>
+                            </div>
+                            <div class="gallery-caption">2단계: 권한 승인 및 OTP 2차 보안 인증</div>
+                        </div>
+
+                        <!-- 3단계: SSO 로그인 세션 유지 -->
+                        <div class="gallery-item">
+                            <div class="gallery-image-placeholder"
+                                data-img-title="[시스템 화면] SSO 로그인 성공 후 시스템 세션 연동 및 유지 (3단계)"
+                                data-img-desc="1~2차 인증 완료 후 전산자산관리시스템의 메인 화면으로 진입한 상태입니다. 그룹웨어 및 네이버웍스 세션을 안전하게 상속받아 세션이 유지되며, 별도의 내부 로그인 없이 업무를 정상 수행할 수 있습니다.">
+                                <img src="images/5_Step4.SSO로그인세션유지.jpg"
+                                    alt="[시스템 화면] SSO 로그인 성공 후 시스템 세션 연동 및 유지 (3단계)" class="gallery-image"
+                                    onload="this.style.display='block'; this.nextElementSibling.style.display='none';"
+                                    onerror="this.style.display='none';">
+                                <div class="placeholder-content">
+                                    <i class="fas fa-desktop"></i>
+                                    <p class="img-alt">5_Step4.SSO로그인세션유지.jpg</p>
+                                    <p class="img-alt" style="font-weight: normal; color: #6c757d;">[클릭 시 가이드 기획 확인]</p>
+                                    <span class="placeholder-badge">3단계: 로그인 성공 및 메인 세션 상속</span>
+                                </div>
+                            </div>
+                            <div class="gallery-caption">3단계: 로그인 세션 유지 및 시스템 사용</div>
+                        </div>
+
+                        <!-- 4단계: SSO 로그인 로그 기록 -->
+                        <div class="gallery-item">
+                            <div class="gallery-image-placeholder"
+                                data-img-title="[시스템 화면] SSO 로그인 성공 이력 및 세션 로그 관리 (4단계)"
+                                data-img-desc="사용자가 SSO를 통해 접속한 이력을 모니터링하기 위한 관리자용 로그 확인 화면입니다. 로그인 성공 여부, 접속 IP, 연동 토큰 정보 및 세션 로그를 남겨 향후 보안 감사 대응 및 추적성을 확보했습니다.">
+                                <img src="images/5_Step5.SSO로그인로그기록.jpg" alt="[시스템 화면] SSO 로그인 성공 이력 및 세션 로그 관리 (4단계)"
+                                    class="gallery-image"
+                                    onload="this.style.display='block'; this.nextElementSibling.style.display='none';"
+                                    onerror="this.style.display='none';">
+                                <div class="placeholder-content">
+                                    <i class="fas fa-history"></i>
+                                    <p class="img-alt">5_Step5.SSO로그인로그기록.jpg</p>
+                                    <p class="img-alt" style="font-weight: normal; color: #6c757d;">[클릭 시 가이드 기획 확인]</p>
+                                    <span class="placeholder-badge">4단계: 접속 IP 및 세션 로그 적재</span>
+                                </div>
+                            </div>
+                            <div class="gallery-caption">4단계: 보안 감사용 연동 로그 기록 보관</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 섹션 3: H/W 인프라 개선 실적 -->
+        <section id="hw-features" class="content-section">
+            <div class="content-section-header">
+                <i class="fas fa-server"></i>
+                <h2>H/W 인프라 개선 실적</h2>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3>Windows 및 Linux 서버 자원 합리화 조치</h3>
+                </div>
+                <div class="card-body">
+                    <div style="margin-bottom:1rem;">
+                        <span class="highlight-warning">Windows 교체 달성율 50%</span>
+                        <span style="font-size:0.9rem; color:var(--text-color-light); margin-left:10px;">(비고: WIN SVR
+                            2012 2EA 미실시, 차년도 이월 검토)</span>
+                        <br>
+                        <span class="highlight-warning" style="margin-top:5px; display:inline-block;">Linux 교체 달성율
+                            50%</span>
+                        <span style="font-size:0.9rem; color:var(--text-color-light); margin-left:10px;">(비고: SCM 1EA
+                            미실시, 하반기 윈도우 기반 변경 검토 등 비용 9천만원 예상)</span>
+                    </div>
+                    <p>전산팀은 신규 물리 서버 도입 비용을 억제하고 안정성을 개선하기 위해, <strong>기간시스템 개편 일정</strong>에 맞춰 서버 가동 현황을 합리화하였습니다.</p>
+
+                    <ul>
+                        <li><strong>Windows MS-SQL DB 서버 이전</strong>: 사내 DLP(데이터 유출 방지) 시스템 도입과 연계하여, 기존 노후화된 DB 서버를
+                            폐기하고 안정적인 용도전환 및 라이선스 이관 조치를 완료했습니다.</li>
+                        <li><strong>IIS 웹 서비스 통합 운영</strong>: 기존 내부 IIS 웹 서비스 서버를 노후 서버 폐기 정책에 따라 PLM(제품 수명주기 관리) 서버 자원
+                            내로 통합 이관 완료하였습니다. (더존 아마란스 연동에 맞춘 서비스 재배치 완료)</li>
+                        <li><strong>Linux DMS 서버 폐기 및 ERP 업무 통합</strong>: DMS 서버를 최종 폐기 완료하고 관련 ERP 관리 업무를 상반기 PLM 시스템
+                            고도화 일정에 맞추어 ERP 서버 자원 내로 완벽하게 이관 완료했습니다.</li>
+                    </ul>
+
+                    <div class="quote-box">
+                        <strong>[미실시 조치 사유 및 이월 계획]</strong><br>
+                        - <strong>SCM 시스템 개선 및 윈도우 전환 보류 (하반기 진행 예정)</strong>: SCM 시스템 구조 개편(윈도우 기반 변경)이 2026년도 하반기에 진행
+                        예정이며, 관련 BIZ SCM WAS 리눅스 서버 교체 및 SCM 구축 투자금 90,000천원이 예상됩니다.<br>
+                        - <strong>Windows SVR 2012 서버 교체 미실시</strong>: 기존 File 서버 및 Application 서버의 긴급성 및 개편 로드맵과의 연계를
+                        고려해 전략적으로 올해 교체 사업을 현재 보류하고 2026년도 하반기 이후 후순위 계획으로 이월 조치하였습니다.
+                    </div>
+
+                    <div class="image-gallery">
+                        <!-- 서버 자원 이관 및 통합 인프라 구성도 -->
+                        <div class="gallery-item" style="max-width: 600px; margin: 0 auto;">
+                            <div class="gallery-image-placeholder"
+                                data-img-title="[인프라 구성도] Windows 및 Linux 서버 자원 합리화 (이관/통합 구성)"
+                                data-img-desc="노후 물리 서버들의 폐기 및 자원 통합 구성도입니다. Windows 영역의 노후화된 Win2008 MS-SQL 서버는 폐기 완료 후 기존 유휴장비로 서비스를 이전하였으며, 내부 IIS 웹 서비스 서버는 노후 서버 폐기 정책에 따라 PLM(제품 수명주기 관리) 서버 자원 내로 통합 이관 완료하였습니다. Linux 영역의 DMS 서버는 PLM 고도화 작업과 연계해 ERP 업무로 기능을 통합하여 장비를 최종 폐기 완료하였고, BIZ(SCM) 서버는 하반기 윈도우 전환 통합 도입을 검토 중입니다.">
+                                <img src="images/6.png" alt="[인프라 구성도] Windows 및 Linux 서버 자원 합리화 (이관/통합 구성)"
+                                    class="gallery-image"
+                                    onload="this.style.display='block'; this.nextElementSibling.style.display='none';"
+                                    onerror="this.style.display='none';">
+                                <div class="placeholder-content">
+                                    <i class="fas fa-server"></i>
+                                    <p class="img-alt">6.png</p>
+                                    <p class="img-alt" style="font-weight: normal; color: #6c757d;">[클릭 시 가이드 기획 확인]</p>
+                                    <span class="placeholder-badge">서버 자원 이관/통합 구성도</span>
+                                </div>
+                            </div>
+                            <div class="gallery-caption">Windows 및 Linux 서버 자원 이관/통합 구성도</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 섹션 4: 보안 강화 및 인증/평가 실적 -->
+        <section id="security-eval" class="content-section">
+            <div class="content-section-header">
+                <i class="fas fa-shield-alt"></i>
+                <h2>보안 강화 및 인증/평가 실적</h2>
+            </div>
+
+            <!-- 카드 1: 고객사 보안 평가 -->
+            <div class="card">
+                <div class="card-header">
+                    <h3>고객사 보안 평가 목표 초과 달성 (보안수준 등급 Lv4 획득)</h3>
+                </div>
+                <div class="card-body">
+                    <div style="margin-bottom:1rem;">
+                        <span class="highlight-success">달성율 120%</span>
+                        <span style="font-size:0.9rem; color:var(--text-color-light); margin-left:10px;">(비고: 기존
+                            51.6점(Lv3) 대비 초과 달성 및 3개년 평가 유예)</span>
+                    </div>
+                    <p>2026년 3월 공지된 대외문에 따라, 보안수준평가를 26년 상반기에 사전신청하여 대응하였습니다. 기존 51.6점의 Lv3 수준에서 목표 이상의 <strong>Lv4 평가
+                            결과</strong>를 획득하였습니다.</p>
+
+                    <div class="quote-box">
+                        "이번 Lv4 등급 획득 성과를 바탕으로 <strong>대외 고객사 보안 신뢰도가 크게 향상</strong>되었으며, 대외문 기준 <strong>향후 3년간 정기 수준평가
+                            유예(면제)</strong>가 될 예정입니다. 이를 통해 고객사 심사에 따른 보안 실무 행정 공수를 줄일 수 있을 것으로 예상됩니다."
+                    </div>
+
+                    <div class="image-gallery">
+                        <!-- 1단계: 고객사 보안수준 평가기준 -->
+                        <div class="gallery-item">
+                            <div class="gallery-image-placeholder" data-img-title="[보안] 고객사 보안수준 평가기준"
+                                data-img-desc="2026년 3월 공지된 대외문에 따른 고객사 보안수준 평가의 영역별 평가 항목 및 세부 평가기준 안내 화면입니다.">
+                                <img src="images/7.고객사보안수준평가기준.jpg" alt="[보안] 고객사 보안수준 평가기준" class="gallery-image"
+                                    onload="this.style.display='block'; this.nextElementSibling.style.display='none';"
+                                    onerror="this.style.display='none';">
+                                <div class="placeholder-content">
+                                    <i class="fas fa-list-check"></i>
+                                    <p class="img-alt">7.고객사보안수준평가기준.jpg</p>
+                                    <p class="img-alt" style="font-weight: normal; color: #6c757d;">[클릭 시 가이드 기획 확인]</p>
+                                    <span class="placeholder-badge">1단계: 보안수준 평가기준</span>
+                                </div>
+                            </div>
+                            <div class="gallery-caption">고객사 보안수준 평가기준</div>
+                        </div>
+
+                        <!-- 2단계: 고객사 보안수준 평가결과 (Lv4) -->
+                        <div class="gallery-item">
+                            <div class="gallery-image-placeholder" data-img-title="[보안] 고객사 보안수준 평가결과 (Lv4)"
+                                data-img-desc="기존 51.6점의 Lv3 등급에서 대폭 향상되어 목표 이상의 Lv4 등급을 최종 획득한 공식 평가결과 인증서 화면입니다. 대외문 기준 향후 3년간 정기 수준평가 유예가 될 예정입니다.">
+                                <img src="images/7.고객사보안수준평가결과.jpg" alt="[보안] 고객사 보안수준 평가결과 (Lv4)" class="gallery-image"
+                                    onload="this.style.display='block'; this.nextElementSibling.style.display='none';"
+                                    onerror="this.style.display='none';">
+                                <div class="placeholder-content">
+                                    <i class="fas fa-award"></i>
+                                    <p class="img-alt">7.고객사보안수준평가결과.jpg</p>
+                                    <p class="img-alt" style="font-weight: normal; color: #6c757d;">[클릭 시 가이드 기획 확인]</p>
+                                    <span class="placeholder-badge">2단계: 보안평가 결과서(Lv4)</span>
+                                </div>
+                            </div>
+                            <div class="gallery-caption">고객사 보안수준 평가결과 (Lv4)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 카드 2: 사내 보안 시스템 고도화 -->
+            <div class="card" style="margin-top:2rem;">
+                <div class="card-header">
+                    <h3>사내 보안 시스템 및 제어 체계 고도화</h3>
+                </div>
+                <div class="card-body">
+                    <div style="margin-bottom:1rem;">
+                        <span class="highlight-success">달성율 100%</span>
+                        <span style="font-size:0.9rem; color:var(--text-color-light); margin-left:10px;">(비고: 사내 보안 정책
+                            전사 적용 완료)</span>
+                    </div>
+                    <p>사내 주요 전산 자산 및 사용자 단말의 보안 취약점을 개선하고, 전사적 보안 가이드라인 제공을 위한 통제 체계를 강화하였습니다.</p>
+
+                    <ul>
+                        <li><strong>전사적 온라인 업무 규정 가이드 포털 구축</strong>: 임직원들이 보안 규정 및 절차 가이드, 반복적인 교육자료 양식을 원클릭으로 열람할 수
+                            있도록 <strong>manual.sejin-c.co.kr</strong>을 통하여 온라인 규정 사이트를 개설하고, 사용자 보안 교육자료를 온라인상에 지속적으로
+                            공유하여 보안 인식을 개선하였습니다.</li>
+                        <li><strong>AD 계정 기반 PC 정책 강화</strong>: AD(Active Directory) 계정 기반의 접근 통제를 강화하여 보안 취약점인 기존 로컬
+                            네트워크 드라이브(SMB 서비스) 개별 공유 연결을 전면 차단/제거하였으며, 이를 회피하고 업무 편의성을 유지하도록 바로가기(LNK) 형태의 연결 정책으로 변경하여
+                            전사 PC 정책에 적용 완료했습니다.</li>
+                    </ul>
+
+                    <div class="image-gallery">
+                        <!-- 1단계: 온라인 규정 사이트 개설 -->
+                        <div class="gallery-item">
+                            <div class="gallery-image-placeholder" data-img-title="[보안] 온라인 규정 사이트 개설"
+                                data-img-desc="manual.sejin-c.co.kr 도메인을 통해 구축된 온라인 업무 규정 가이드 포털의 레이아웃 화면입니다. 임직원들이 언제든 보안 규정 및 관련 신청서 양식을 원클릭으로 확인할 수 있는 통합 포털 환경을 구축했습니다.">
+                                <img src="images/8.온라인규정사이트개설.jpg" alt="[보안] 온라인 규정 사이트 개설" class="gallery-image"
+                                    onload="this.style.display='block'; this.nextElementSibling.style.display='none';"
+                                    onerror="this.style.display='none';">
+                                <div class="placeholder-content">
+                                    <i class="fas fa-globe"></i>
+                                    <p class="img-alt">8.온라인규정사이트개설.jpg</p>
+                                    <p class="img-alt" style="font-weight: normal; color: #6c757d;">[클릭 시 가이드 기획 확인]</p>
+                                    <span class="placeholder-badge">1단계: 온라인 규정 사이트 개설</span>
+                                </div>
+                            </div>
+                            <div class="gallery-caption">온라인 규정 사이트 개설</div>
+                        </div>
+
+                        <!-- 2단계: 사용자 교육자료 지속 공유 -->
+                        <div class="gallery-item">
+                            <div class="gallery-image-placeholder" data-img-title="[보안] 사용자 교육자료 온라인 지속 공유"
+                                data-img-desc="개설된 온라인 포털 내에 지속적으로 사용자용 보안 교육 및 IT 가이드 문서(그룹웨어 문서 공유 및 보안 문서 관리 가이드 등)를 탑재하여 전사 공유하고 교육을 진행하는 화면입니다.">
+                                <img src="images/8.2_사용자교육자료지속갱신.jpg" alt="[보안] 사용자 교육자료 온라인 지속 공유"
+                                    class="gallery-image"
+                                    onload="this.style.display='block'; this.nextElementSibling.style.display='none';"
+                                    onerror="this.style.display='none';">
+                                <div class="placeholder-content">
+                                    <i class="fas fa-book-open"></i>
+                                    <p class="img-alt">8.2_사용자교육자료지속갱신.jpg</p>
+                                    <p class="img-alt" style="font-weight: normal; color: #6c757d;">[클릭 시 가이드 기획 확인]</p>
+                                    <span class="placeholder-badge">2단계: 교육자료 지속 갱신</span>
+                                </div>
+                            </div>
+                            <div class="gallery-caption">사용자 교육자료 지속 공유</div>
+                        </div>
+
+                        <!-- 3단계: AD 정책 강화 SMB 회피 바로가기 적용 -->
+                        <div class="gallery-item">
+                            <div class="gallery-image-placeholder" data-img-title="[보안] AD 정책 기반 SMB 회피 및 바로가기 정책 적용"
+                                data-img-desc="AD PC 그룹 정책을 통해 기존 취약한 로컬 SMB 공유 드라이브 연결을 전면 차단/제거하고, 대신 화면과 같이 안전한 업무용 바로가기 형태의 연결 정책으로 전사 전환 적용한 모습입니다.">
+                                <img src="images/8_3_AD정책_SMB회피.png" alt="[보안] AD 정책 기반 SMB 회피 및 바로가기 정책 적용"
+                                    class="gallery-image"
+                                    onload="this.style.display='block'; this.nextElementSibling.style.display='none';"
+                                    onerror="this.style.display='none';">
+                                <div class="placeholder-content">
+                                    <i class="fas fa-user-shield"></i>
+                                    <p class="img-alt">8_3_AD정책_SMB회피.png</p>
+                                    <p class="img-alt" style="font-weight: normal; color: #6c757d;">[클릭 시 가이드 기획 확인]</p>
+                                    <span class="placeholder-badge">3단계: AD 바로가기 정책 적용</span>
+                                </div>
+                            </div>
+                            <div class="gallery-caption">AD 바로가기 전사 정책 적용</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 카드 3: 사내 Windows 서버 통합 제어 환경 구축 (WAC) -->
+            <div class="card" style="margin-top:2rem;">
+                <div class="card-header">
+                    <h3>사내 Windows 서버 통합 제어 환경 구축 (WAC)</h3>
+                </div>
+                <div class="card-body">
+                    <div style="margin-bottom:1rem;">
+                        <span class="highlight-success">달성율 80%</span>
+                        <span style="font-size:0.9rem; color:var(--text-color-light); margin-left:10px;">(비고: Windows
+                            서버군 기능별 검토 및 단계적 적용 중)</span>
+                    </div>
+                    <p>전사 Windows 서버군의 원격 관리 환경을 통합 제어하여, 불필요한 접근 경로를 원천 차단하고 사내 인프라의 보안 등급을 향상시키고자 개발 및 단계적 적용을 진행하고
+                        있습니다.</p>
+
+                    <ul>
+                        <li><strong>Windows 서버 IP 직접 접근 차단</strong>: WAC(Windows Admin Center) 기능을 도입하여, 모든 Windows 서버의
+                            직접적인 IP 포트 접근을 차단하기 위한 포트 제어 설정을 Windows 서버군별로 기능 검토하여 단계적으로 적용하고 있습니다.</li>
+                        <li><strong>보안서버 SSL 1차 인증 통제</strong>: 웹 브라우저를 통한 보안 인증서버 진입 시 강력한 SSL 암호화 인증을 거치도록 1차 접근 제어
+                            장치를 도입 및 검토하고 있습니다.</li>
+                        <li><strong>서버별 세부 기능 제어 및 다중 로그인 강제</strong>: Windows 서버군별로 서비스/기능에 따른 최소 권한 부여 체계를 기능적으로 검토하여
+                            단계적 적용 중이며, 관리 작업 직전 다중 로그인을 강제하는 제어 방안을 수립하고 있습니다.</li>
+                        <li><strong>원격 데스크톱 및 원격 접속 전면 통제</strong>: RDP 등 개별 원격 접속 수단을 차단하고, 오직 WAC 서버의 SSL 웹 화면을 통해서만
+                            보안 통제 하에 접속이 가능하도록 각 Windows 서버군의 RDP 통제 기능을 검토 및 적용 중에 있습니다.</li>
+                        <li><strong>URL 기반 WAC 서버 접근 제한</strong>: 개별 서버로의 무분별한 우회 직접 접근을 차단하기 위해, 지정된 WAC 서버의 SSL URL을
+                            통해서만 서버 접근 및 원격 제어가 가능하도록 Windows 서버군 기능별로 검토하여 단계적으로 적용하고 있습니다.</li>
+                        <li><strong>자체 구축을 통한 예산 절감</strong>: 추가 라이선스 비용이 발생하는 고가의 유료 솔루션 대신 WAC 기반의 자체적인 보안 관리 워크플로우를
+                            독자적으로 설계 및 구축하여 단계적으로 현업 적용 테스트를 진행 중입니다.</li>
+                    </ul>
+
+                    <div class="image-gallery">
+                        <!-- 1단계: WAC 통합 제어 SSL 인증 로그인 -->
+                        <div class="gallery-item">
+                            <div class="gallery-image-placeholder" data-img-title="[보안] WAC 통합 제어 보안서버 SSL 인증 로그인 화면"
+                                data-img-desc="보안서버의 인증화면을 통해 SSL 인증을 거쳐 1차적으로 모든 Windows 서버로의 접근을 통제하고 권한을 부여하는 인증 화면입니다. 모든 Windows 서버의 직접적인 IP 접근은 전면 차단됩니다.">
+                                <img src="images/9_WAC Login.png" alt="[보안] WAC 통합 제어 보안서버 SSL 인증 로그인 화면"
+                                    class="gallery-image"
+                                    onload="this.style.display='block'; this.nextElementSibling.style.display='none';"
+                                    onerror="this.style.display='none';">
+                                <div class="placeholder-content">
+                                    <i class="fas fa-key"></i>
+                                    <p class="img-alt">9_WAC Login.png</p>
+                                    <p class="img-alt" style="font-weight: normal; color: #6c757d;">[클릭 시 가이드 기획 확인]</p>
+                                    <span class="placeholder-badge">1단계: WAC 보안서버 SSL 로그인</span>
+                                </div>
+                            </div>
+                            <div class="gallery-caption">WAC SSL 1차 인증 화면</div>
+                        </div>
+
+                        <!-- 2단계: WAC 서버별 기능 통제 및 로그인 재요구 -->
+                        <div class="gallery-item">
+                            <div class="gallery-image-placeholder" data-img-title="[보안] WAC 서버별 기능 통제 및 로그인 재요구 화면"
+                                data-img-desc="각 서버별로 기능마다 최소한의 권한 통제를 적용하며, 주요 명령어 수행 직전에 대상 서버의 로그인을 재요구하여 다중 보안 검증을 거치도록 설계하고 검토 중인 화면입니다.">
+                                <img src="images/9_WAC 제어.png" alt="[보안] WAC 서버별 기능 통제 및 로그인 재요구 화면"
+                                    class="gallery-image"
+                                    onload="this.style.display='block'; this.nextElementSibling.style.display='none';"
+                                    onerror="this.style.display='none';">
+                                <div class="placeholder-content">
+                                    <i class="fas fa-sliders"></i>
+                                    <p class="img-alt">9_WAC 제어.png</p>
+                                    <p class="img-alt" style="font-weight: normal; color: #6c757d;">[클릭 시 가이드 기획 확인]</p>
+                                    <span class="placeholder-badge">2단계: WAC 서버 통제 및 다중 인증</span>
+                                </div>
+                            </div>
+                            <div class="gallery-caption">WAC 기능 통제 및 추가 로그인 강제</div>
+                        </div>
+
+                        <!-- 3단계: WAC 원격 데스크탑 제어 -->
+                        <div class="gallery-item">
+                            <div class="gallery-image-placeholder" data-img-title="[보안] WAC 기반 원격 제어 및 RDP 차단 화면"
+                                data-img-desc="Windows 서버들의 개별 RDP 접속을 전면 차단하고 WAC의 SSL 웹 포털 주소를 통해 원격 제어되도록 각 서버군별 RDP 통제를 검토 및 적용 중인 화면입니다.">
+                                <img src="images/9_WAC 원격제어.png" alt="[보안] WAC 기반 원격 제어 및 RDP 차단 화면"
+                                    class="gallery-image"
+                                    onload="this.style.display='block'; this.nextElementSibling.style.display='none';"
+                                    onerror="this.style.display='none';">
+                                <div class="placeholder-content">
+                                    <i class="fas fa-desktop"></i>
+                                    <p class="img-alt">9_WAC 원격제어.png</p>
+                                    <p class="img-alt" style="font-weight: normal; color: #6c757d;">[클릭 시 가이드 기획 확인]</p>
+                                    <span class="placeholder-badge">3단계: WAC 원격 제어 및 RDP 통제</span>
+                                </div>
+                            </div>
+                            <div class="gallery-caption">WAC 원격 제어 및 RDP 통제</div>
+                        </div>
+
+                        <!-- 4단계: WAC SSL URL 접근 통제 -->
+                        <div class="gallery-item">
+                            <div class="gallery-image-placeholder"
+                                data-img-title="[보안] WAC 서버 SSL URL을 통한 접근 및 우회 차단 제어 화면"
+                                data-img-desc="지정된 WAC 서버 SSL URL을 거쳐서만 접근하도록 허용하고 개별 서버 우회 접속을 통제하기 위해 Windows 서버군별 통제 정책을 적용 및 개발 중인 화면입니다.">
+                                <img src="images/9_WAC 원격제어_통제.png" alt="[보안] WAC 서버 SSL URL을 통한 접근 및 우회 차단 제어 화면"
+                                    class="gallery-image"
+                                    onload="this.style.display='block'; this.nextElementSibling.style.display='none';"
+                                    onerror="this.style.display='none';">
+                                <div class="placeholder-content">
+                                    <i class="fas fa-network-wired"></i>
+                                    <p class="img-alt">9_WAC 원격제어_통제.png</p>
+                                    <p class="img-alt" style="font-weight: normal; color: #6c757d;">[클릭 시 가이드 기획 확인]</p>
+                                    <span class="placeholder-badge">4단계: WAC SSL URL 접근 통제</span>
+                                </div>
+                            </div>
+                            <div class="gallery-caption">WAC SSL URL 접근 통제</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 이미지 가이드 확인용 모달 영역 -->
+    <div id="imageModal" class="modal">
+        <button id="modalPrev" class="modal-nav modal-prev" title="이전 이미지"><i class="fas fa-chevron-left"></i></button>
+        <button id="modalNext" class="modal-nav modal-next" title="다음 이미지"><i class="fas fa-chevron-right"></i></button>
+        <div class="modal-content" style="transition: max-width 0.3s ease, width 0.3s ease;">
+            <span class="close" style="z-index: 10;">&times;</span>
+            <button id="modalZoom"
+                style="display:none; position: absolute; top: 15px; right: 65px; background: none; border: none; color: #aaa; font-size: 22px; cursor: pointer; transition: color 0.2s, transform 0.2s; z-index: 10;"
+                title="전체화면 보기">
+                <i class="fas fa-search-plus"></i>
+            </button>
+            <i class="modal-icon fas fa-image"></i>
+            <h3 id="modalTitle">이미지 영역 기획 안내</h3>
+            <div id="modalImgContainer"
+                style="overflow: auto; max-height: 60vh; margin-top: 1rem; border-radius: 8px; transition: max-height 0.3s ease;">
+                <img id="modalImg"
+                    style="display:none; width:100%; height:auto; border-radius:8px; border:1px solid var(--border-color);"
+                    alt="확대 이미지">
+            </div>
+            <p id="modalDesc" class="modal-desc" style="margin-top: 1.5rem;"></p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // 사이드바 토글 동작
+            const hamburgerBtn = document.getElementById('hamburger-btn');
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('main-content');
+
+            if (hamburgerBtn && sidebar && mainContent) {
+                hamburgerBtn.addEventListener('click', () => {
+                    sidebar.classList.toggle('collapsed');
+                    mainContent.classList.toggle('expanded');
+                });
+            }
+
+            // 스크롤 연동 사이드바 활성화 상태 업데이트
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('main .content-section');
+
+            const onScroll = () => {
+                let currentSectionId = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (window.scrollY >= sectionTop - 150) {
+                        currentSectionId = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    const href = link.getAttribute('href');
+                    if (href && currentSectionId && href.includes(currentSectionId)) {
+                        link.classList.add('active');
+                    }
+                });
+            };
+
+            window.addEventListener('scroll', onScroll);
+            onScroll();
+
+            // 이미지 가이드 확인용 모달 처리
+            const modal = document.getElementById("imageModal");
+            const modalContent = modal.querySelector(".modal-content");
+            const modalTitle = document.getElementById("modalTitle");
+            const modalDesc = document.getElementById("modalDesc");
+            const modalImg = document.getElementById("modalImg");
+            const modalImgContainer = document.getElementById("modalImgContainer");
+            const modalIcon = document.querySelector(".modal-content .modal-icon");
+            const modalZoom = document.getElementById("modalZoom");
+            const placeholders = document.querySelectorAll(".gallery-image-placeholder");
+            const closeBtn = document.querySelector(".modal-content .close");
+
+            // 이미지 이동 버튼
+            const modalPrev = document.getElementById("modalPrev");
+            const modalNext = document.getElementById("modalNext");
+
+            let isZoomed = false;
+            let currentGalleryPlaceholders = [];
+            let currentPlaceholderIndex = -1;
+
+            // 줌 상태 초기화 함수
+            function resetZoom() {
+                isZoomed = false;
+                modal.classList.remove("zoomed");
+                modalContent.style.maxWidth = "";
+                modalContent.style.width = "";
+                modalImgContainer.style.maxHeight = "";
+                modalDesc.style.display = "block"; // 항상 노출로 복원
+                if (modalZoom) {
+                    const icon = modalZoom.querySelector("i");
+                    if (icon) icon.className = "fas fa-search-plus";
+                    modalZoom.title = "전체화면 보기";
+                }
+            }
+
+            // 특정 인덱스의 이미지로 모달 내용 업데이트
+            function updateModalContent(index, keepZoom = false) {
+                if (index < 0 || index >= currentGalleryPlaceholders.length) return;
+                currentPlaceholderIndex = index;
+
+                const placeholder = currentGalleryPlaceholders[index];
+                const title = placeholder.getAttribute('data-img-title');
+                const desc = placeholder.getAttribute('data-img-desc');
+                const img = placeholder.querySelector('.gallery-image');
+                const isMobile = placeholder.getAttribute('data-is-mobile') === 'true';
+
+                if (isMobile) {
+                    modal.classList.add("mobile-modal-mode");
+                } else {
+                    modal.classList.remove("mobile-modal-mode");
+                }
+
+                modalTitle.textContent = title;
+
+                if (!keepZoom) {
+                    resetZoom(); // keepZoom이 false일 때만 줌 상태 리셋
+                }
+
+                // 실제 이미지가 존재해 렌더링된 경우
+                if (img && img.style.display === 'block') {
+                    modalDesc.textContent = desc; // 하단 설명글 주입
+
+                    if (isZoomed) {
+                        modalDesc.style.display = 'none'; // 줌 상태에서는 설명글 숨김
+                    } else {
+                        modalDesc.style.display = 'block';
+                    }
+
+                    modalIcon.style.display = 'none';
+                    modalImg.src = img.src;
+                    modalImg.style.display = 'block';
+                    modalZoom.style.display = 'block'; // 돋보기 버튼 노출
+
+                    // 돋보기 버튼 상태 동기화
+                    if (modalZoom) {
+                        const icon = modalZoom.querySelector("i");
+                        if (isZoomed) {
+                            if (icon) icon.className = "fas fa-search-minus";
+                            modalZoom.title = "원래 크기로 보기";
+                        } else {
+                            if (icon) icon.className = "fas fa-search-plus";
+                            modalZoom.title = "전체화면 보기";
+                        }
+                    }
+                } else {
+                    // 이미지가 없어 플레이스홀더가 노출된 경우
+                    modalDesc.textContent = desc;
+                    modalDesc.style.display = 'block';
+                    modalIcon.style.display = 'block';
+                    modalImg.style.display = 'none';
+                    modalZoom.style.display = 'none'; // 돋보기 버튼 숨김
+                    resetZoom(); // 이미지 부재 시 줌 리셋
+                }
+
+                // 화살표 네비게이션 노출 여부 결정
+                const total = currentGalleryPlaceholders.length;
+                if (total <= 1) {
+                    modalPrev.style.display = 'none';
+                    modalNext.style.display = 'none';
+                } else {
+                    if (index === 0) {
+                        modalPrev.style.display = 'none';
+                        modalNext.style.display = 'block';
+                    } else if (index === total - 1) {
+                        modalPrev.style.display = 'block';
+                        modalNext.style.display = 'none';
+                    } else {
+                        modalPrev.style.display = 'block';
+                        modalNext.style.display = 'block';
+                    }
+                }
+            }
+
+            placeholders.forEach(placeholder => {
+                placeholder.addEventListener('click', () => {
+                    // 클릭한 플레이스홀더가 속한 갤러리 영역 안에서만 작동하도록 제한
+                    const gallery = placeholder.closest('.image-gallery');
+                    if (gallery) {
+                        currentGalleryPlaceholders = Array.from(gallery.querySelectorAll('.gallery-image-placeholder'));
+                    } else {
+                        currentGalleryPlaceholders = [placeholder];
+                    }
+
+                    const index = currentGalleryPlaceholders.indexOf(placeholder);
+                    updateModalContent(index >= 0 ? index : 0, false); // 팝업을 처음 열 때는 줌 아웃 초기화
+
+                    modal.style.display = "flex";
+                });
+            });
+
+            // 이전/다음 버튼 클릭 이벤트 바인딩
+            if (modalPrev) {
+                modalPrev.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    if (currentPlaceholderIndex > 0) {
+                        updateModalContent(currentPlaceholderIndex - 1, true); // 좌우 이동 시 줌 상태 유지
+                    }
+                });
+            }
+
+            if (modalNext) {
+                modalNext.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    if (currentPlaceholderIndex < currentGalleryPlaceholders.length - 1) {
+                        updateModalContent(currentPlaceholderIndex + 1, true); // 좌우 이동 시 줌 상태 유지
+                    }
+                });
+            }
+
+            // 키보드 좌우 방향키 및 ESC 조작 추가
+            document.addEventListener('keydown', (e) => {
+                if (modal.style.display === 'flex') {
+                    if (e.key === 'ArrowLeft') {
+                        if (currentPlaceholderIndex > 0) {
+                            updateModalContent(currentPlaceholderIndex - 1, true); // 좌우 이동 시 줌 상태 유지
+                        }
+                    } else if (e.key === 'ArrowRight') {
+                        if (currentPlaceholderIndex < currentGalleryPlaceholders.length - 1) {
+                            updateModalContent(currentPlaceholderIndex + 1, true); // 좌우 이동 시 줌 상태 유지
+                        }
+                    } else if (e.key === 'Escape') {
+                        modal.style.display = "none";
+                        resetZoom();
+                    }
+                }
+            });
+
+            // 돋보기 버튼 클릭 시 줌 토글 작동
+            if (modalZoom) {
+                modalZoom.addEventListener('click', (e) => {
+                    e.stopPropagation(); // 모달창 외부 클릭 닫힘 방지
+                    isZoomed = !isZoomed;
+                    const icon = modalZoom.querySelector("i");
+
+                    if (isZoomed) {
+                        modal.classList.add("zoomed");
+                        // 줌인: 너비와 높이 영역 대폭 확장
+                        modalDesc.style.display = 'none'; // 줌인 시 설명글 숨김
+                        if (icon) icon.className = "fas fa-search-minus";
+                        modalZoom.title = "원래 크기로 보기";
+                    } else {
+                        // 원래 크기로 축소
+                        resetZoom();
+                    }
+                });
+            }
+
+            // 모달 닫기 이벤트들
+            if (closeBtn) {
+                closeBtn.onclick = () => {
+                    modal.style.display = "none";
+                    resetZoom();
+                };
+            }
+            window.onclick = (event) => {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                    resetZoom();
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
