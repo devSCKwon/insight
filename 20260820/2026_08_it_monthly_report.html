@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026년 08월 전산팀 월간 실적보고</title>
+    <!-- Paperlogy 폰트 로드 -->
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/subsets/Paperlogy-dynamic-subset.css"
+        type="text/css" />
+    <!-- Font Awesome 아이콘 로드 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* 햄버거 토글 버튼 스타일 */
+        .hamburger-button {
+            display: none;
+        }
+
+        @media (min-width: 993px) {
+            .hamburger-button {
+                display: block;
+                font-size: 20px;
+                background: none;
+                border: none;
+                color: var(--header-text-color);
+                cursor: pointer;
+                padding: 15px;
+                position: fixed;
+                top: 10px;
+                left: 15px;
+                z-index: 1002;
+                transition: left 0.3s ease;
+                margin-bottom: 10px;
+            }
+
+            .sidebar.collapsed+main {
+                margin-left: 80px;
+            }
+
+            .sidebar.collapsed .hamburger-button {
+                left: 15px;
+            }
+        }
+
+        .sidebar.collapsed {
+            width: 80px;
+        }
+
+        .sidebar.collapsed .sidebar-header h1,
+        .sidebar.collapsed .sidebar-header p,
+        .sidebar.collapsed .sidebar-nav span,
+        .sidebar.collapsed .sidebar-footer {
+            display: none;
+        }
+
+        .sidebar.collapsed .sidebar-nav li a {
+            justify-content: center;
+        }
+
+        .sidebar.collapsed .sidebar-nav li a i {
+            margin-right: 0;
+        }
+
+        main.expanded {
+            margin-left: 80px;
+        }
+
+        /* 전역 변수 설정 (신뢰감을 주는 Deep Blue & Clean Light 테마) */
+        :root {
+            --primary-color: #0747a6;
+            --primary-color-dark: #002e73;
+            --background-color: #f4f5f7;
+            --text-color: #172b4d;
+            --text-color-light: #5e6c84;
+            --card-bg-color: #ffffff;
+            --border-color: #dfe1e6;
+            --header-bg-color: #0747a6;
+            --header-text-color: #ffffff;
+            --sidebar-width: 260px;
+            --danger-color: #de350b;
+            --warning-color: #ffab00;
+            --success-color: #36b37e;
+            --info-color: #0052cc;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Paperlogy", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            display: flex;
+        }
+
+        /* 사이드바 스타일 */
+        .sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: var(--header-bg-color);
+            color: var(--header-text-color);
+            padding: 2rem 0;
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+            transition: width 0.3s ease;
+        }
+
+        .sidebar-header {
+            padding: 2.5rem 1.5rem 1.5rem 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-header a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .sidebar-header p {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 0.3rem;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+            margin-top: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .sidebar-nav li a {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            text-decoration: none;
+            color: var(--header-text-color);
+            font-weight: 500;
+            transition: background-color 0.3s, padding-left 0.3s;
+            border-left: 4px solid transparent;
+        }
+
+        .sidebar-nav li a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-left: 4px solid var(--info-color);
+        }
+
+        .sidebar-nav li a.active {
+            background-color: var(--info-color);
+            font-weight: 700;
+        }
+
+        .sidebar-nav li a i {
+            margin-right: 1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .sidebar-footer {
+            padding: 1.5rem;
+            font-size: 0.8rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* 메인 콘텐츠 영역 스타일 */
+        main {
+            margin-left: var(--sidebar-width);
+            padding: 40px;
+            flex-grow: 1;
+            transition: margin-left 0.3s ease;
+        }
+
+        .main-header {
+            margin-bottom: 2.5rem;
+            border-left: 5px solid var(--info-color);
+            padding-left: 1.5rem;
+        }
+
+        .main-header h1 {
+            font-size: 2.2rem;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .main-header h3 {
+            color: var(--info-color);
+            font-weight: 500;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .main-header .meta {
+            color: var(--text-color-light);
+            font-size: 0.95rem;
+        }
+
+        .content-section {
+            background-color: var(--card-bg-color);
+            padding: 2.5rem;
+            margin-bottom: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--border-color);
+        }
+
+        .content-section-header {
+            display: flex;
+            align-items: center;
+            color: var(--info-color);
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 1rem;
+        }
+
+        .content-section-header i {
+            margin-right: 1rem;
+            font-size: 1.7rem;
+        }
+
+        .card {
+            background-color: #fafbfc;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .card-header {
+            padding: 1.2rem 1.8rem;
+            background-color: #ebecf0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .card-header h3 {
+            font-size: 1.15rem;
+            color: var(--text-color);
+            margin: 0;
+        }
+
+        .card-body {
+            padding: 2rem;
+        }
+
+        .card-body p {
+            margin-bottom: 1.2rem;
+        }
+
+        .card-body ul {
+            list-style-position: outside;
+            padding-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-body ul li {
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .highlight-danger {
+            color: var(--danger-color);
+            font-weight: 700;
+            background-color: #ffebe6;
+            padding: 0.1rem 0.4rem;
+            border-radius: 3px;
+        }
+
+        .highlight-warning {
+            color: #b77c00;
+            font-weight: 700;
+            background-color: #fffae6;
+            padding: 0.1rem 0.4rem;
+            border-radius: 3px;
+        }
+
+        .highlight-success {
+            color: #172b4d;
+            font-weight: 700;
+            background-color: #e3fcef;
+            padding: 0.1rem 0.4rem;
+            border-radius: 3px;
+        }
+
+        .highlight-info {
+            color: var(--info-color);
+            font-weight: 700;
+            background-color: #deebff;
+            padding: 0.1rem 0.4rem;
+            border-radius: 3px;
+        }
+
+        /* 이미지 플레이스홀더 및 갤러리 */
+        .image-gallery {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin: 1.5rem 0;
+        }
+
+        .gallery-item {
+            flex: 1;
+            min-width: 260px;
+            text-align: center;
+        }
+
+        .gallery-image-placeholder {
+            width: 100%;
+            height: 200px;
+            background-color: #e9ecef;
+            border: 2px dashed #adb5bd;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.3s, background-color 0.3s;
+            padding: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-image-placeholder:hover {
+            transform: translateY(-5px);
+            background-color: #dee2e6;
+        }
+
+        .gallery-image-placeholder i {
+            font-size: 2.5rem;
+            color: var(--text-color-light);
+            margin-bottom: 1rem;
+        }
+
+        .gallery-image-placeholder p.img-alt {
+            font-size: 0.85rem;
+            color: #495057;
+            font-weight: 600;
+            line-height: 1.4;
+            margin-bottom: 0.5rem;
+        }
+
+        .gallery-image-placeholder span.placeholder-badge {
+            font-size: 0.75rem;
+            background-color: var(--info-color);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+
+        .gallery-caption {
+            margin-top: 0.8rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 6px;
+            display: none;
+        }
+
+        /* 인용 상자 */
+        .quote-box {
+            background-color: #deebff;
+            border-left: 4px solid var(--info-color);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            font-size: 1rem;
+            color: var(--text-color);
+            border-radius: 0 8px 8px 0;
+        }
+
+        .quote-box strong {
+            color: var(--primary-color-dark);
+        }
+
+        /* 모달 스타일 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            width: 80%;
+            max-width: 700px;
+            max-height: 90vh;
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .modal-content i.modal-icon {
+            font-size: 3.5rem;
+            color: var(--info-color);
+            margin-bottom: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .modal-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+            flex-shrink: 0;
+        }
+
+        #modalImgContainer {
+            flex: 1;
+            min-height: 0;
+            margin-top: 1rem;
+            overflow-y: auto;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #modalImg {
+            max-height: 60vh;
+            max-width: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .modal-desc {
+            font-size: 1rem;
+            color: var(--text-color);
+            line-height: 1.6;
+            background-color: #f4f5f7;
+            padding: 1.2rem;
+            border-radius: 6px;
+            text-align: left;
+            margin-top: 1.5rem;
+            flex-shrink: 0;
+            max-height: 120px;
+            overflow-y: auto;
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s;
+            line-height: 1;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: var(--text-color);
+        }
+
+        /* 줌 기능 */
+        .modal.zoomed .modal-content {
+            max-width: 95vw;
+            width: 95vw;
+            height: 92vh;
+            max-height: 92vh;
+        }
+
+        .modal.zoomed #modalImg {
+            max-height: 80vh;
+            width: 100%;
+            object-fit: contain;
+        }
+
+        /* 모바일 챗봇 화면 모드 */
+        .modal.mobile-modal-mode .modal-content {
+            max-width: 480px;
+        }
+
+        .modal.mobile-modal-mode #modalImg {
+            max-height: 50vh;
+            object-fit: contain;
+        }
+
+        .modal.mobile-modal-mode.zoomed .modal-content {
+            max-width: 700px;
+            width: 90vw;
+            height: 90vh;
+        }
+
+        .modal.mobile-modal-mode.zoomed #modalImg {
+            max-height: 75vh;
+        }
+
+        /* 모달 네비게이션 좌우 화살표 */
+        .modal-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            font-size: 2rem;
+            padding: 1rem 1.2rem;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: background 0.2s, transform 0.2s;
+            z-index: 2010;
+        }
+
+        .modal-nav:hover {
+            background: rgba(255, 255, 255, 0.5);
+            color: #172b4d;
+        }
+
+        .modal-prev {
+            left: 20px;
+        }
+
+        .modal-next {
+            right: 20px;
+        }
+
+        /* 반응형 디자인 */
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                padding: 1rem 0;
+            }
+
+            .sidebar-header {
+                padding: 1rem 1.5rem;
+            }
+
+            .sidebar-nav {
+                display: flex;
+                flex-wrap: wrap;
+                margin-top: 0.5rem;
+            }
+
+            .sidebar-nav li {
+                flex: 1 1 auto;
+            }
+
+            .sidebar-nav li a {
+                padding: 0.8rem 1rem;
+                font-size: 0.9rem;
+                border-left: none;
+                border-bottom: 3px solid transparent;
+            }
+
+            .sidebar-nav li a:hover,
+            .sidebar-nav li a.active {
+                border-left: none;
+                border-bottom: 3px solid var(--info-color);
+            }
+
+            .sidebar-footer {
+                display: none;
+            }
+
+            main {
+                margin-left: 0;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 모바일 및 토글 햄버거 버튼 -->
+    <button class="hamburger-button" id="hamburger-btn">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- 사이드바 내비게이션 -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="#">
+                <h1>2026년 08월 월간보고</h1>
+                <p>경영지원본부 전산팀</p>
+            </a>
+        </div>
+        <ul class="sidebar-nav">
+            <li><a href="#summary-overview" class="nav-link active"><i class="fas fa-info-circle"></i> <span>종합 요약 및 개요</span></a></li>
+            <li><a href="#sso-auth" class="nav-link"><i class="fas fa-key"></i> <span>SSO 인증방식 개발</span></a></li>
+            <li><a href="#wac-system" class="nav-link"><i class="fas fa-server"></i> <span>Windows 서버 WAC 제어</span></a></li>
+            <li><a href="#expected-effects" class="nav-link"><i class="fas fa-chart-line"></i> <span>도입 기대효과</span></a></li>
+        </ul>
+        <div class="sidebar-footer">
+            <p>© 2026 경영지원본부 전산팀</p>
+        </div>
+    </nav>
+
+    <!-- 메인 콘텐츠 영역 -->
+    <main id="main-content">
+        <header class="main-header">
+            <h1>2026년 08월 전산팀 월간 실적보고</h1>
+            <h3>"전사 정보보안 강화 및 인프라 통합 제어 체계 구축"</h3>
+            <p class="meta">작성일: <strong>2026년 8월 20일</strong> | 부서: <strong>경영지원본부 전산팀</strong></p>
+        </header>
+
+        <!-- 섹션 1: 종합 요약 및 달성 현황 -->
+        <section id="summary-overview" class="content-section">
+            <div class="content-section-header">
+                <i class="fas fa-info-circle"></i>
+                <h2>종합 요약 및 개발 현황</h2>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3>2026년 08월 중점 목표 및 실적 방향</h3>
+                </div>
+                <div class="card-body">
+                    <p>전산팀은 2026년 08월 전사 보안 강화 및 인프라 관리 효율성 제고를 목표로, <strong>"보안 강화를 위한 SSO 인증방식 개발"</strong> 및
+                        <strong>"사내 Windows 서버 통합 제어 환경 구축 (WAC)"</strong>을 추진하고 있습니다.</p>
+
+                    <div class="quote-box">
+                        "선제적 보안 체계 구축과 인증·서버 인프라 통합 제어로 <strong>안전하고 신뢰할 수 있는 IT 업무 환경 조성</strong>"
+                    </div>
+
+                    <ul>
+                        <li><span class="highlight-info">보안 강화를 위한 SSO 인증방식 개발 (진행률 80%)</span>: 사내 주요 웹 시스템 간 다중 로그인
+                            번거로움을 해소하고 계정 탈취 리스크를 방어하기 위해 네이버웍스(Naver Works) 기반 OAuth 2.0 표준 연동 및 모바일 OTP 2차 인증 체계를
+                            개발하였습니다. 시범 대상인 전산자산관리시스템에 선제 적용하여 1~2차 연동 및 세션 상속 테스트를 성공적으로 완료하였습니다.</li>
+                        <li><span class="highlight-info">사내 Windows 서버 통합 제어 환경 구축 (WAC) (진행률 80%)</span>: 전사 Windows
+                            서버군의 개별 RDP 및 IP 직접 접근을 차단하고, WAC(Windows Admin Center) 기반의 SSL 암호화 단일 진입로를 통해 중앙 통제하는 통합 제어
+                            환경을 구축하고 있습니다. 서버군별 세부 기능 제어 및 다중 로그인 강제 방안을 수립하여 단계적으로 현업 적용을 진행 중입니다.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 섹션 2: SSO 인증방식 개발 -->
+        <section id="sso-auth" class="content-section">
+            <div class="content-section-header">
+                <i class="fas fa-key"></i>
+                <h2>보안 강화를 위한 SSO 인증방식 개발</h2>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3>① 보안 강화를 위한 SSO 인증방식 개발 (진행률 80%)</h3>
+                </div>
+                <div class="card-body">
+                    <div style="margin-bottom:1rem;">
+                        <span class="highlight-info">달성율 80% (진행중)</span>
+                        <span style="font-size:0.9rem; color:var(--text-color-light); margin-left:10px;">(비고: 사내 로그인 체계
+                            일원화 및 2차 인증 도입)</span>
+                    </div>
+                    <p>사내 주요 기간계 및 웹 서비스의 인증 환경을 통합하여 로그인 구조를 간소화하고 보안을 강화하기 위해 Single Sign-On(SSO) 통합 인증 방식을 개발하고 있습니다.
+                        쉬운이해로 "카카오톡으로 로그인하기" 와 유사한 OAuth 2.0 표준 기술을 적용하여, 사용자가 한 번의 로그인만으로 추가 인증 과정 없이 연동된 여러 사내 웹 서비스를
+                        안전하게 즉시 이용할 수 있도록 인증방식을 구축 중입니다.</p>
+
+                    <ul>
+                        <li><strong>네이버웍스(Naver Works) 계정 연동</strong>: 별도의 로그인 비밀번호 관리 없이 네이버웍스 세션을 기반으로 1차 즉시 로그인 연동을
+                            수행하며, 현재 전산팀 내부에서 시범 운영 중인 <strong>전산자산관리시스템</strong>에 선제 적용하여 테스트를 완료하였습니다.</li>
+                        <li><strong>비용 절감형 보안 시스템 구축</strong>: 별도의 유료 외부 인증 시스템 솔루션을 도입하지 않고, 기존에 운영 중인 그룹웨어의 보안 인증 인프라와
+                            사내 메신저(Naver Works) 인증 체계를 연동하여 <strong>도입/유지 비용 없이 안전한 보안 연동 시스템을 구현</strong>하고 있습니다.</li>
+                        <li><strong>보안 아키텍처 및 OTP 2차 인증 설계</strong>: 공통 인증 모듈을 설계하여 향후 추가되는 서비스에 신속하게 확대 적용할 수 있으며, 2차
+                            OTP 인증 도입 기반을 마련해 계정 도용 리스크를 완화하고 외부 보안 심사 적합성 등급 상향 기반을 조성하였습니다.</li>
+                    </ul>
+
+                    <div class="image-gallery">
+                        <!-- 1단계: SSO 로그인 적용 및 간편 인증 버튼 제공 -->
+                        <div class="gallery-item">
+                            <div class="gallery-image-placeholder"
+                                data-img-title="[서비스 화면] SSO 로그인 적용 및 간편 인증 버튼 제공 (1단계)"
+                                data-img-desc="전산자산관리시스템 로그인 화면에 탑재된 SSO 간편 인증 UI입니다. 대중적인 '카카오톡으로 로그인하기'처럼 네이버웍스 계정으로 비밀번호 입력 없이 즉시 간편 로그인을 개시할 수 있도록 연동 버튼을 배치했습니다.">
+                                <img src="images/5_Step1.SSO로그인적용jpg.jpg" alt="[서비스 화면] SSO 로그인 적용 및 간편 인증 버튼 제공 (1단계)"
+                                    class="gallery-image"
+                                    onload="this.style.display='block'; this.nextElementSibling.style.display='none';"
+                                    onerror="this.style.display='none';">
+                                <div class="placeholder-content">
+                                    <i class="fas fa-sign-in-alt"></i>
+                                    <p class="img-alt">5_Step1.SSO로그인적용jpg.jpg</p>
+                                    <p class="img-alt" style="font-weight: normal; color: #6c757d;">[클릭 시 가이드 기획 확인]</p>
+                                    <span class="placeholder-badge">1단계: SSO 로그인 적용 화면</span>
+                                </div>
+                            </div>
+                            <div class="gallery-caption">1단계: 간편 인증 버튼 UI 및 진입</div>
+                        </div>
+
+                        <!-- 2단계: 네이버웍스 권한 위임 및 OTP 2차 보안 인증 -->
+                        <div class="gallery-item">
+                            <div class="gallery-image-placeholder"
+                                data-img-title="[시스템 화면] 네이버웍스(Naver Works) 권한 위임 및 OTP 2차 보안 인증 (2단계)"
+                                data-img-desc="사용자가 SSO 로그인 버튼을 클릭하면 네이버웍스 API와 연동되어 사내 메신저 로그인 세션 검증과 시스템 접근 권한 위임을 처리하고(좌측), 관리자 등 주요 계정에 대해서는 모바일 OTP(Google Authenticator 등) 2차 추가 보안 인증을 팝업 형태로 함께 처리하여 2중 보안을 구현하는 단계입니다(우측).">
+                                <img src="images/5_Step2.NaverWorks로그인요청jpg-side.jpg"
+                                    alt="[시스템 화면] 네이버웍스(Naver Works) 권한 위임 및 OTP 2차 보안 인증 (2단계)" class="gallery-image"
+                                    onload="this.style.display='block'; this.nextElementSibling.style.display='none';"
+                                    onerror="this.style.display='none';">
+                                <div class="placeholder-content">
+                                    <i class="fas fa-user-shield"></i>
+                                    <p class="img-alt">5_Step2.NaverWorks로그인요청jpg-side.jpg</p>
+                                    <p class="img-alt" style="font-weight: normal; color: #6c757d;">[클릭 시 가이드 기획 확인]</p>
+                                    <span class="placeholder-badge">2단계: 권한 위임 및 OTP 인증</span>
+                                </div>
+                            </div>
+                            <div class="gallery-caption">2단계: 권한 승인 및 OTP 2차 보안 인증</div>
+                        </div>
+
+                        <!-- 3단계: SSO 로그인 세션 유지 -->
+                        <div class="gallery-item">
+                            <div class="gallery-image-placeholder"
+                                data-img-title="[시스템 화면] SSO 로그인 성공 후 시스템 세션 연동 및 유지 (3단계)"
+                                data-img-desc="1~2차 인증 완료 후 전산자산관리시스템의 메인 화면으로 진입한 상태입니다. 그룹웨어 및 네이버웍스 세션을 안전하게 상속받아 세션이 유지되며, 별도의 내부 로그인 없이 업무를 정상 수행할 수 있습니다.">
+                                <img src="images/5_Step4.SSO로그인세션유지.jpg"
+                                    alt="[시스템 화면] SSO 로그인 성공 후 시스템 세션 연동 및 유지 (3단계)" class="gallery-image"
+                                    onload="this.style.display='block'; this.nextElementSibling.style.display='none';"
+                                    onerror="this.style.display='none';">
+                                <div class="placeholder-content">
+                                    <i class="fas fa-desktop"></i>
+                                    <p class="img-alt">5_Step4.SSO로그인세션유지.jpg</p>
+                                    <p class="img-alt" style="font-weight: normal; color: #6c757d;">[클릭 시 가이드 기획 확인]</p>
+                                    <span class="placeholder-badge">3단계: 로그인 성공 및 메인 세션 상속</span>
+                                </div>
+                            </div>
+                            <div class="gallery-caption">3단계: 로그인 세션 유지 및 시스템 사용</div>
+                        </div>
+
+                        <!-- 4단계: SSO 로그인 로그 기록 -->
+                        <div class="gallery-item">
+                            <div class="gallery-image-placeholder"
+                                data-img-title="[시스템 화면] SSO 로그인 성공 이력 및 세션 로그 관리 (4단계)"
+                                data-img-desc="사용자가 SSO를 통해 접속한 이력을 모니터링하기 위한 관리자용 로그 확인 화면입니다. 로그인 성공 여부, 접속 IP, 연동 토큰 정보 및 세션 로그를 남겨 향후 보안 감사 대응 및 추적성을 확보했습니다.">
+                                <img src="images/5_Step5.SSO로그인로그기록.jpg" alt="[시스템 화면] SSO 로그인 성공 이력 및 세션 로그 관리 (4단계)"
+                                    class="gallery-image"
+                                    onload="this.style.display='block'; this.nextElementSibling.style.display='none';"
+                                    onerror="this.style.display='none';">
+                                <div class="placeholder-content">
+                                    <i class="fas fa-history"></i>
+                                    <p class="img-alt">5_Step5.SSO로그인로그기록.jpg</p>
+                                    <p class="img-alt" style="font-weight: normal; color: #6c757d;">[클릭 시 가이드 기획 확인]</p>
+                                    <span class="placeholder-badge">4단계: 접속 IP 및 세션 로그 적재</span>
+                                </div>
+                            </div>
+                            <div class="gallery-caption">4단계: 보안 감사용 연동 로그 기록 보관</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 섹션 3: Windows 서버 WAC 통합 제어 -->
+        <section id="wac-system" class="content-section">
+            <div class="content-section-header">
+                <i class="fas fa-server"></i>
+                <h2>사내 Windows 서버 통합 제어 환경 구축 (WAC)</h2>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3>① 사내 Windows 서버 통합 제어 환경 구축 (WAC) (진행률 80%)</h3>
+                </div>
+                <div class="card-body">
+                    <div style="margin-bottom:1rem;">
+                        <span class="highlight-info">달성율 80% (진행중)</span>
+                        <span style="font-size:0.9rem; color:var(--text-color-light); margin-left:10px;">(비고: Windows
+                            서버군 기능별 검토 및 단계적 적용 중)</span>
+                    </div>
+                    <p>전사 Windows 서버군의 원격 관리 환경을 통합 제어하여, 불필요한 접근 경로를 원천 차단하고 사내 인프라의 보안 등급을 향상시키고자 개발 및 단계적 적용을 진행하고
+                        있습니다.</p>
+
+                    <ul>
+                        <li><strong>Windows 서버 IP 직접 접근 차단</strong>: WAC(Windows Admin Center) 기능을 도입하여, 모든 Windows 서버의
+                            직접적인 IP 포트 접근을 차단하기 위한 포트 제어 설정을 Windows 서버군별로 기능 검토하여 단계적으로 적용하고 있습니다.</li>
+                        <li><strong>보안서버 SSL 1차 인증 통제 (도입 검토 중)</strong>: 현재 외부 접속 시에는 SSL VPN을 통해 인가된 사용자만 안전하게 접속하도록
+                            통제하고 있으며, 향후 웹 브라우저를 통한 보안 인증서버 진입 시 강력한 자체 SSL 암호화 인증을 거치도록 1차 접근 제어 장치 도입을 검토하고 있습니다.</li>
+                        <li><strong>서버별 세부 기능 제어 및 다중 로그인 강제</strong>: Windows 서버군별로 서비스/기능에 따른 최소 권한 부여 체계를 기능적으로 검토하여
+                            단계적 적용 중이며, 관리 작업 직전 다중 로그인을 강제하는 제어 방안을 수립하고 있습니다.</li>
+                        <li><strong>원격 데스크톱 및 원격 접속 전면 통제</strong>: RDP 등 개별 원격 접속 수단을 차단하고, 오직 WAC 서버의 웹 화면을 통해서만
+                            보안 통제 하에 접속이 가능하도록 각 Windows 서버군의 RDP 통제 기능을 검토 및 적용 중에 있습니다.</li>
+                        <li><strong>URL 기반 WAC 서버 접근 제한</strong>: 개별 서버로의 무분별한 우회 직접 접근을 차단하기 위해, 지정된 WAC 서버의 URL을
+                            통해서만 서버 접근 및 원격 제어가 가능하도록 Windows 서버군 기능별로 검토하여 단계적으로 적용하고 있습니다.</li>
+                        <li><strong>자체 구축을 통한 예산 절감</strong>: 추가 라이선스 비용이 발생하는 고가의 유료 솔루션 대신 WAC 기반의 자체적인 보안 관리 워크플로우를
+                            독자적으로 설계 및 구축하여 단계적으로 현업 적용 테스트를 진행 중입니다.</li>
+                    </ul>
+
+                    <div class="image-gallery">
+                        <!-- 1단계: WAC 통합 제어 SSL 인증 로그인 -->
+                        <div class="gallery-item">
+                            <div class="gallery-image-placeholder" data-img-title="[보안] WAC 통합 제어 보안서버 SSL 인증 로그인 화면 (도입 검토 화면)"
+                                data-img-desc="보안서버의 웹 포털 진입 시 SSL 보안 인증을 거쳐 1차적으로 모든 Windows 서버로의 접근 권한을 획득하도록 통제하는 로그인 인터페이스 화면입니다(향후 도입 검토 중). 현재 외부에서는 SSL VPN을 통해 인가된 사용자만 안전하게 접근하도록 통제하고 있습니다.">
+                                <img src="images/9_WAC Login.png" alt="[보안] WAC 통합 제어 보안서버 SSL 인증 로그인 화면"
+                                    class="gallery-image"
+                                    onload="this.style.display='block'; this.nextElementSibling.style.display='none';"
+                                    onerror="this.style.display='none';">
+                                <div class="placeholder-content">
+                                    <i class="fas fa-key"></i>
+                                    <p class="img-alt">9_WAC Login.png</p>
+                                    <p class="img-alt" style="font-weight: normal; color: #6c757d;">[클릭 시 가이드 기획 확인]</p>
+                                    <span class="placeholder-badge">1단계: WAC 보안서버 SSL 로그인</span>
+                                </div>
+                            </div>
+                            <div class="gallery-caption">1단계: WAC SSL 1차 인증 화면 (검토)</div>
+                        </div>
+
+                        <!-- 2단계: WAC 서버별 기능 통제 및 로그인 재요구 -->
+                        <div class="gallery-item">
+                            <div class="gallery-image-placeholder" data-img-title="[보안] WAC 서버별 기능 통제 및 로그인 재요구 화면"
+                                data-img-desc="각 서버별로 기능마다 최소한의 권한 통제를 적용하며, 주요 명령어 수행 직전에 대상 서버의 로그인을 재요구하여 다중 보안 검증을 거치도록 설계하고 검토 중인 화면입니다.">
+                                <img src="images/9_WAC 제어.png" alt="[보안] WAC 서버별 기능 통제 및 로그인 재요구 화면"
+                                    class="gallery-image"
+                                    onload="this.style.display='block'; this.nextElementSibling.style.display='none';"
+                                    onerror="this.style.display='none';">
+                                <div class="placeholder-content">
+                                    <i class="fas fa-sliders"></i>
+                                    <p class="img-alt">9_WAC 제어.png</p>
+                                    <p class="img-alt" style="font-weight: normal; color: #6c757d;">[클릭 시 가이드 기획 확인]</p>
+                                    <span class="placeholder-badge">2단계: WAC 서버 통제 및 다중 인증</span>
+                                </div>
+                            </div>
+                            <div class="gallery-caption">2단계: 기능 통제 및 추가 로그인 강제</div>
+                        </div>
+
+                        <!-- 3단계: WAC 원격 데스크탑 제어 -->
+                        <div class="gallery-item">
+                            <div class="gallery-image-placeholder" data-img-title="[보안] WAC 기반 원격 제어 및 RDP 차단 화면"
+                                data-img-desc="Windows 서버들의 개별 RDP 접속을 전면 차단하고 WAC의 웹 포털 주소를 통해 원격 제어되도록 각 서버군별 RDP 통제를 검토 및 적용 중인 화면입니다.">
+                                <img src="images/9_WAC 원격제어.png" alt="[보안] WAC 기반 원격 제어 및 RDP 차단 화면"
+                                    class="gallery-image"
+                                    onload="this.style.display='block'; this.nextElementSibling.style.display='none';"
+                                    onerror="this.style.display='none';">
+                                <div class="placeholder-content">
+                                    <i class="fas fa-desktop"></i>
+                                    <p class="img-alt">9_WAC 원격제어.png</p>
+                                    <p class="img-alt" style="font-weight: normal; color: #6c757d;">[클릭 시 가이드 기획 확인]</p>
+                                    <span class="placeholder-badge">3단계: WAC 원격 제어 및 RDP 통제</span>
+                                </div>
+                            </div>
+                            <div class="gallery-caption">3단계: WAC 원격 제어 및 RDP 통제</div>
+                        </div>
+
+                        <!-- 4단계: WAC SSL URL 접근 통제 -->
+                        <div class="gallery-item">
+                            <div class="gallery-image-placeholder"
+                                data-img-title="[보안] WAC 서버 웹 URL을 통한 접근 및 우회 차단 제어 화면"
+                                data-img-desc="지정된 WAC 서버 웹 URL을 거쳐서만 접근하도록 허용하고 개별 서버 우회 접속을 통제하기 위해 Windows 서버군별 통제 정책을 적용 및 개발 중인 화면입니다.">
+                                <img src="images/9_WAC 원격제어_통제.png" alt="[보안] WAC 서버 웹 URL을 통한 접근 및 우회 차단 제어 화면"
+                                    class="gallery-image"
+                                    onload="this.style.display='block'; this.nextElementSibling.style.display='none';"
+                                    onerror="this.style.display='none';">
+                                <div class="placeholder-content">
+                                    <i class="fas fa-network-wired"></i>
+                                    <p class="img-alt">9_WAC 원격제어_통제.png</p>
+                                    <p class="img-alt" style="font-weight: normal; color: #6c757d;">[클릭 시 가이드 기획 확인]</p>
+                                    <span class="placeholder-badge">4단계: WAC 웹 URL 접근 통제</span>
+                                </div>
+                            </div>
+                            <div class="gallery-caption">4단계: WAC 웹 URL 접근 통제</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 섹션 4: 도입 기대효과 -->
+        <section id="expected-effects" class="content-section">
+            <div class="content-section-header">
+                <i class="fas fa-chart-line"></i>
+                <h2>프로젝트 도입 기대효과</h2>
+            </div>
+
+            <!-- 기대효과 1: SSO 통합 인증 -->
+            <div class="card">
+                <div class="card-header">
+                    <h3>① SSO 통합 인증체계 도입에 따른 기대효과</h3>
+                </div>
+                <div class="card-body">
+                    <div class="quote-box">
+                        "검증된 외부 <strong>SaaS(Naver Works) 보안 인프라 연계</strong>로 추가 도입 비용 없이 <strong>개인정보 보호 강화 및 계정 라이프사이클 통합</strong> 달성"
+                    </div>
+
+                    <ul>
+                        <li><span class="highlight-info">개인정보 유출 및 보안사고 원천 예방</span>: 개별 시스템마다 사용자 계정/비밀번호를 별도로 저장·관리할 때 발생하는 데이터 노출 및 취약점 공격을 일원화된 표준 인증 체계로 사전에 완벽히 차단합니다.</li>
+                        <li><span class="highlight-success">신뢰성 높은 대외 포털(NAVER) 보안 체계 활용</span>: 국내 최고 수준의 네이버(NAVER) 클라우드 보안 인프라와 OAuth 2.0 표준 인증 기술을 연동하여, 고가의 유료 보안 솔루션 추가 구매 없이도 엔터프라이즈급 신뢰성과 안정성을 확보합니다.</li>
+                        <li><span class="highlight-warning">입·퇴사자 계정 라이프사이클 원스톱 관리</span>: 그룹웨어 계정과 1:1 연동되어 인사 변동(퇴사, 휴직 등) 시 그룹웨어 계정 차단만으로 사내 모든 연동 시스템의 권한이 즉각 회수되므로, 퇴사자 계정 도용 및 기업 기밀 유출을 원천 방지합니다.</li>
+                        <li><span class="highlight-info">시스템 구축 및 유지보수 비용 획기적 절감</span>: 향후 신규 사내 웹 시스템 개발 시 개별 로그인/보안 모듈을 중복 구축할 필요 없이 표준 SSO 모듈만 즉시 탑재하여 개발 공수 단축 및 운영 비용을 최소화합니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 기대효과 2: WAC 서버 통합 제어 -->
+            <div class="card" style="margin-top:2rem;">
+                <div class="card-header">
+                    <h3>② 사내 Windows 서버 통합 제어(WAC) 구축에 따른 기대효과</h3>
+                </div>
+                <div class="card-body">
+                    <div class="quote-box">
+                        "<strong>WAC 게이트웨이 기반 포트 통제</strong>와 <strong>사내 유휴장비 활용</strong>으로 무차별 침해 차단 및 인프라 운영 비용 절감"
+                    </div>
+
+                    <ul>
+                        <li><span class="highlight-danger">RDP 포트 직접 노출 차단 및 랜섬웨어 침투 방어</span>: 모든 Windows 서버의 개별 RDP(3389) 및 직접 IP 접근을 전면 차단하고, 외부에서는 SSL VPN 및 WAC 단일 웹 채널을 통해서만 접근하도록 강제함으로써 무차별 대입 공격(Brute Force) 및 랜섬웨어 내부 전파 위협을 사전에 봉쇄합니다.</li>
+                        <li><span class="highlight-success">사내 유휴장비 재활용을 통한 예산 절감</span>: 고가의 외산 서버 관리/원격 제어 상용 솔루션을 도입하지 않고, 기존 사내 유휴 서버 장비에 WAC 게이트웨이를 구성하여 단일 진입로로 운영함으로써 하드웨어 자원 효율화 및 도입 비용 0원을 달성합니다.</li>
+                        <li><span class="highlight-info">기능별 최소 권한 통제 및 다중 인증 강제</span>: 관리 작업 시 서버 전체 관리자 권한 대신 업무 목적에 맞는 최소 권한(RBAC)만을 부여하고, 주요 변경 작업 직전 다중 인증(추가 로그인 강제)을 적용하여 관리자 권한 오남용 방지 및 추적성을 확보합니다.</li>
+                        <li><span class="highlight-warning">웹 브라우저 기반 중앙 통제 및 운영 생산성 극대화</span>: 별도 프로그램 설치 없이 웹 브라우저에서 전사 Windows 서버군의 리소스 상태, 이벤트 로그, 서비스 관리, 인증서 갱신 등을 일괄 모니터링 및 제어하여 전산 관리 공수를 획기적으로 절감합니다.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 이미지 가이드 확인용 모달 영역 -->
+    <div id="imageModal" class="modal">
+        <button id="modalPrev" class="modal-nav modal-prev" title="이전 이미지"><i class="fas fa-chevron-left"></i></button>
+        <button id="modalNext" class="modal-nav modal-next" title="다음 이미지"><i class="fas fa-chevron-right"></i></button>
+        <div class="modal-content" style="transition: max-width 0.3s ease, width 0.3s ease;">
+            <span class="close" style="z-index: 10;">&times;</span>
+            <button id="modalZoom"
+                style="display:none; position: absolute; top: 15px; right: 65px; background: none; border: none; color: #aaa; font-size: 22px; cursor: pointer; transition: color 0.2s, transform 0.2s; z-index: 10;"
+                title="전체화면 보기">
+                <i class="fas fa-search-plus"></i>
+            </button>
+            <i class="modal-icon fas fa-image"></i>
+            <h3 id="modalTitle">이미지 영역 기획 안내</h3>
+            <div id="modalImgContainer"
+                style="overflow: auto; max-height: 60vh; margin-top: 1rem; border-radius: 8px; transition: max-height 0.3s ease;">
+                <img id="modalImg"
+                    style="display:none; width:100%; height:auto; border-radius:8px; border:1px solid var(--border-color);"
+                    alt="확대 이미지">
+            </div>
+            <p id="modalDesc" class="modal-desc" style="margin-top: 1.5rem;"></p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // 사이드바 토글 동작
+            const hamburgerBtn = document.getElementById('hamburger-btn');
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('main-content');
+
+            if (hamburgerBtn && sidebar && mainContent) {
+                hamburgerBtn.addEventListener('click', () => {
+                    sidebar.classList.toggle('collapsed');
+                    mainContent.classList.toggle('expanded');
+                });
+            }
+
+            // 스크롤 연동 사이드바 활성화 상태 업데이트
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('main .content-section');
+
+            const onScroll = () => {
+                let currentSectionId = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (window.scrollY >= sectionTop - 150) {
+                        currentSectionId = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    const href = link.getAttribute('href');
+                    if (href && currentSectionId && href.includes(currentSectionId)) {
+                        link.classList.add('active');
+                    }
+                });
+            };
+
+            window.addEventListener('scroll', onScroll);
+            onScroll();
+
+            // 이미지 가이드 확인용 모달 처리
+            const modal = document.getElementById("imageModal");
+            const modalContent = modal.querySelector(".modal-content");
+            const modalTitle = document.getElementById("modalTitle");
+            const modalDesc = document.getElementById("modalDesc");
+            const modalImg = document.getElementById("modalImg");
+            const modalImgContainer = document.getElementById("modalImgContainer");
+            const modalIcon = document.querySelector(".modal-content .modal-icon");
+            const modalZoom = document.getElementById("modalZoom");
+            const placeholders = document.querySelectorAll(".gallery-image-placeholder");
+            const closeBtn = document.querySelector(".modal-content .close");
+
+            // 이미지 이동 버튼
+            const modalPrev = document.getElementById("modalPrev");
+            const modalNext = document.getElementById("modalNext");
+
+            let isZoomed = false;
+            let currentGalleryPlaceholders = [];
+            let currentPlaceholderIndex = -1;
+
+            // 줌 상태 초기화 함수
+            function resetZoom() {
+                isZoomed = false;
+                modal.classList.remove("zoomed");
+                modalContent.style.maxWidth = "";
+                modalContent.style.width = "";
+                modalImgContainer.style.maxHeight = "";
+                modalDesc.style.display = "block";
+                if (modalZoom) {
+                    const icon = modalZoom.querySelector("i");
+                    if (icon) icon.className = "fas fa-search-plus";
+                    modalZoom.title = "전체화면 보기";
+                }
+            }
+
+            // 특정 인덱스의 이미지로 모달 내용 업데이트
+            function updateModalContent(index, keepZoom = false) {
+                if (index < 0 || index >= currentGalleryPlaceholders.length) return;
+                currentPlaceholderIndex = index;
+
+                const placeholder = currentGalleryPlaceholders[index];
+                const title = placeholder.getAttribute('data-img-title');
+                const desc = placeholder.getAttribute('data-img-desc');
+                const img = placeholder.querySelector('.gallery-image');
+                const isMobile = placeholder.getAttribute('data-is-mobile') === 'true';
+
+                if (isMobile) {
+                    modal.classList.add("mobile-modal-mode");
+                } else {
+                    modal.classList.remove("mobile-modal-mode");
+                }
+
+                modalTitle.textContent = title;
+
+                if (!keepZoom) {
+                    resetZoom();
+                }
+
+                // 실제 이미지가 존재해 렌더링된 경우
+                if (img && img.style.display === 'block') {
+                    modalDesc.textContent = desc;
+
+                    if (isZoomed) {
+                        modalDesc.style.display = 'none';
+                    } else {
+                        modalDesc.style.display = 'block';
+                    }
+
+                    modalIcon.style.display = 'none';
+                    modalImg.src = img.src;
+                    modalImg.style.display = 'block';
+                    modalZoom.style.display = 'block';
+
+                    if (modalZoom) {
+                        const icon = modalZoom.querySelector("i");
+                        if (isZoomed) {
+                            if (icon) icon.className = "fas fa-search-minus";
+                            modalZoom.title = "원래 크기로 보기";
+                        } else {
+                            if (icon) icon.className = "fas fa-search-plus";
+                            modalZoom.title = "전체화면 보기";
+                        }
+                    }
+                } else {
+                    modalDesc.textContent = desc;
+                    modalDesc.style.display = 'block';
+                    modalIcon.style.display = 'block';
+                    modalImg.style.display = 'none';
+                    modalZoom.style.display = 'none';
+                    resetZoom();
+                }
+
+                // 화살표 네비게이션 노출 여부 결정
+                const total = currentGalleryPlaceholders.length;
+                if (total <= 1) {
+                    modalPrev.style.display = 'none';
+                    modalNext.style.display = 'none';
+                } else {
+                    if (index === 0) {
+                        modalPrev.style.display = 'none';
+                        modalNext.style.display = 'block';
+                    } else if (index === total - 1) {
+                        modalPrev.style.display = 'block';
+                        modalNext.style.display = 'none';
+                    } else {
+                        modalPrev.style.display = 'block';
+                        modalNext.style.display = 'block';
+                    }
+                }
+            }
+
+            placeholders.forEach(placeholder => {
+                placeholder.addEventListener('click', () => {
+                    const gallery = placeholder.closest('.image-gallery');
+                    if (gallery) {
+                        currentGalleryPlaceholders = Array.from(gallery.querySelectorAll('.gallery-image-placeholder'));
+                    } else {
+                        currentGalleryPlaceholders = [placeholder];
+                    }
+
+                    const index = currentGalleryPlaceholders.indexOf(placeholder);
+                    updateModalContent(index >= 0 ? index : 0, false);
+
+                    modal.style.display = "flex";
+                });
+            });
+
+            // 이전/다음 버튼 클릭 이벤트 바인딩
+            if (modalPrev) {
+                modalPrev.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    if (currentPlaceholderIndex > 0) {
+                        updateModalContent(currentPlaceholderIndex - 1, true);
+                    }
+                });
+            }
+
+            if (modalNext) {
+                modalNext.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    if (currentPlaceholderIndex < currentGalleryPlaceholders.length - 1) {
+                        updateModalContent(currentPlaceholderIndex + 1, true);
+                    }
+                });
+            }
+
+            // 키보드 좌우 방향키 및 ESC 조작 추가
+            document.addEventListener('keydown', (e) => {
+                if (modal.style.display === 'flex') {
+                    if (e.key === 'ArrowLeft') {
+                        if (currentPlaceholderIndex > 0) {
+                            updateModalContent(currentPlaceholderIndex - 1, true);
+                        }
+                    } else if (e.key === 'ArrowRight') {
+                        if (currentPlaceholderIndex < currentGalleryPlaceholders.length - 1) {
+                            updateModalContent(currentPlaceholderIndex + 1, true);
+                        }
+                    } else if (e.key === 'Escape') {
+                        modal.style.display = "none";
+                        resetZoom();
+                    }
+                }
+            });
+
+            // 돋보기 버튼 클릭 시 줌 토글 작동
+            if (modalZoom) {
+                modalZoom.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    isZoomed = !isZoomed;
+                    const icon = modalZoom.querySelector("i");
+
+                    if (isZoomed) {
+                        modal.classList.add("zoomed");
+                        modalDesc.style.display = 'none';
+                        if (icon) icon.className = "fas fa-search-minus";
+                        modalZoom.title = "원래 크기로 보기";
+                    } else {
+                        resetZoom();
+                    }
+                });
+            }
+
+            // 모달 닫기 이벤트들
+            if (closeBtn) {
+                closeBtn.onclick = () => {
+                    modal.style.display = "none";
+                    resetZoom();
+                };
+            }
+            window.onclick = (event) => {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                    resetZoom();
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
