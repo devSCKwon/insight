@@ -40,3 +40,13 @@ https://help.worksmobile.com/ko/use-guides/contacts/company-members/search-organ
 3. **관련 문서 전체 업데이트**:
    - 해당 변경 내용 및 지시서를 Docs 문서(`Docs/naver_works_organization_duty_guide_content.md` 및 `original_instruction.md`)에 업데이트할 것.
 
+---
+
+### 정적페이지 게시 업데이트 가이드 요청 (2026-10-15 3차 지시)
+
+1. **정적페이지 업데이트 가이드 생성**:
+   - 변경된 HTML 내용을 정적페이지로 게시할 수 있도록 Docs 폴더 하단에 명령어 사용에 대한 가이드 MD 파일(`Docs/static_page_update_guide.md`)을 작성할 것.
+2. **사용자 직접 배포 지원**:
+   - 작성된 가이드 문서를 참고하여 사용자가 직접 터미널 명령어를 통해 정적페이지 게시 업데이트를 수행할 수 있도록 절차 및 명령어를 명확히 안내할 것.
+
+

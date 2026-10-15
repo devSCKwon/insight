@@ -25,6 +25,7 @@
 | :--- | :---: | :--- |
 | [**`naver_works_organization_duty_guide.html`**](file:///d:/00_Source/devSCKwon/insight/20261015/naver_works_organization_duty_guide.html) | HTML | 메인 인터랙티브 웹 뷰어 (반응형 사이드바, 갤러리 이미지 모달 팝업, 키워드 테이블, 퀵 액션 배너) |
 | [**`index.html`**](file:///d:/00_Source/devSCKwon/insight/20261015/index.html) | HTML | GitHub Pages 정적 웹 호스팅용 엔트리 파일 (`naver_works_organization_duty_guide.html`과 동일) |
+| [**`Docs/static_page_update_guide.md`**](file:///d:/00_Source/devSCKwon/insight/20261015/Docs/static_page_update_guide.md) | Markdown | **정적 웹페이지 배포 및 업데이트 명령어 사용 가이드 (PowerShell/Bash 명령어 및 절차 매뉴얼)** |
 | [**`Docs/naver_works_organization_duty_guide_content.md`**](file:///d:/00_Source/devSCKwon/insight/20261015/Docs/naver_works_organization_duty_guide_content.md) | Markdown | 텍스트 콘텐츠 수정용 마크다운 파일 (문구 수정, 키워드 추가 후 HTML 동기화 가능) |
 | [**`Docs/original_instruction.md`**](file:///d:/00_Source/devSCKwon/insight/20261015/Docs/original_instruction.md) | Markdown | 사용자 원본 지시문 및 개선 요구사항 히스토리 보관 문서 |
 | [**`Docs/NAVER_WORKS_organization_download.csv`**](file:///d:/00_Source/devSCKwon/insight/20261015/Docs/NAVER_WORKS_organization_download.csv) | CSV | 현행 사내 조직도 다운로드 원본 데이터 |
@@ -41,6 +42,7 @@
 - **온라인 게시 URL**:
   - `https://devsckwon.github.io/insight/20261015/`
   - `https://devsckwon.github.io/insight/20261015/naver_works_organization_duty_guide.html`
+- **배포 가이드 문서**: [Docs/static_page_update_guide.md](file:///d:/00_Source/devSCKwon/insight/20261015/Docs/static_page_update_guide.md)
 
 ---
 
@@ -59,3 +61,7 @@
 ### 2026-10-15 (3차: GitHub Pages 정적 웹페이지 배포)
 - 디렉토리 접근용 `index.html` 생성 및 GitHub Pages 배포 연동.
 - Git 저장소(`origin/dev`) 푸시를 통한 자동 정적 호스팅 개시.
+
+### 2026-10-15 (4차: 정적 페이지 배포 가이드 문서 작성)
+- 원본 HTML 수정 후 간편하게 정적 페이지를 업데이트할 수 있도록 명령어 가이드 문서(`Docs/static_page_update_guide.md`) 작성.
+- 인덱스 동기화, Git 커밋, 원격 푸시 절차 및 트러블슈팅 매뉴얼 완비.
