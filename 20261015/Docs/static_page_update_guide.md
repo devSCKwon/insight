@@ -6,62 +6,38 @@
 
 ## 1. 정적 배포 구조 및 프로세스 개요
 
-1. **원본 문서 수정**: [`naver_works_organization_duty_guide.html`](file:///d:/00_Source/devSCKwon/insight/20261015/naver_works_organization_duty_guide.html) 내용 수정.
-2. **인덱스 동기화**: 디렉터리 경로 접속용 [`index.html`](file:///d:/00_Source/devSCKwon/insight/20261015/index.html)에 원본 HTML 내용을 복사(`cp` 또는 `copy`)하여 덮어쓰기.
+1. **원본 문서 수정**: [`20261015/Docs/naver_works_organization_duty_guide.html`](file:///d:/00_Source/devSCKwon/insight/20261015/Docs/naver_works_organization_duty_guide.html) 내용 수정.
+2. **웹 배포용 파일 동기화**:
+   - `Docs/` 내부 문서는 상대경로가 `../images/`이므로, 웹 호스팅 루트(`20261015/`)에 맞게 이미지 경로(`images/`)로 변환하여 [`20261015/index.html`](file:///d:/00_Source/devSCKwon/insight/20261015/index.html) 및 [`20261015/naver_works_organization_duty_guide.html`](file:///d:/00_Source/devSCKwon/insight/20261015/naver_works_organization_duty_guide.html)에 반영.
 3. **Git 스테이징 및 커밋**: 수정된 파일들을 Git에 기록 (`git add` & `git commit`).
 4. **원격 저장소 푸시 (`origin dev`)**: GitHub의 `dev` 브랜치로 푸시.
 5. **GitHub Actions 자동 배포**: [`.github/workflows/static.yml`](file:///d:/00_Source/devSCKwon/insight/.github/workflows/static.yml) 워크플로우가 자동으로 실행되어 GitHub Pages에 최신 정적 사이트 게시.
 
 ---
 
-## 2. Cmder 전용 원클릭 명령어 (한 번에 실행)
+## 2. 배포 원클릭 명령어 (Cmder / 터미널)
 
-Cmder 콘솔창에 아래 한 줄(One-liner) 또는 순차 명령어를 그대로 복사·붙여넣기(마우스 우클릭 또는 `Ctrl + V`)하여 실행하시면 배포가 한 번에 완료됩니다.
+### ① 원클릭 동기화 및 배포 (추천)
 
-### ① Cmder 한 줄(One-liner) 실행 (가장 추천)
+`Docs/` 문서의 수정 사항을 웹 루트(`index.html` 및 `naver_works_organization_duty_guide.html`)에 이미지 경로와 함께 자동 동기화하고 즉시 GitHub에 푸시합니다:
 
 ```bash
-cp 20261015/naver_works_organization_duty_guide.html 20261015/index.html && git add 20261015/ && git commit -m "docs: update 2026-10-15 naver works duty guide static pages" && git push origin dev
+python -c "c=open(r'20261015/Docs/naver_works_organization_duty_guide.html',encoding='utf-8').read().replace('../images/','images/');open(r'20261015/index.html','w',encoding='utf-8').write(c);open(r'20261015/naver_works_organization_duty_guide.html','w',encoding='utf-8').write(c)" && git add 20261015/ && git commit -m "docs: update 2026-10-15 naver works duty guide static pages" && git push origin dev
 ```
 
 ---
 
-### ② Cmder 단계별 순차 실행
+### ② 수동 동기화 후 배포
+
+루트의 `naver_works_organization_duty_guide.html`을 수정한 경우:
 
 ```bash
-# 1. 원본 HTML을 index.html로 덮어쓰기 복사 (Cmder 내장 cp 명령어)
+# 1. index.html로 복사
 cp 20261015/naver_works_organization_duty_guide.html 20261015/index.html
 
-# 2. 20261015 디렉터리 변경 사항 스테이징
-git add 20261015/
-
-# 3. 커밋 생성
-git commit -m "docs: update 2026-10-15 naver works duty guide static pages"
-
-# 4. GitHub dev 브랜치로 푸시 (자동 배포 실행)
-git push origin dev
+# 2. 20261015 디렉터리 스테이징 및 커밋 & 푸시
+git add 20261015/ && git commit -m "docs: update 2026-10-15 naver works duty guide static pages" && git push origin dev
 ```
-
-> [!NOTE]
-> **Windows 기본 명령 프롬프트(CMD) 구문을 선호하실 경우**:  
-> `cp` 대신 `copy /y 20261015\naver_works_organization_duty_guide.html 20261015\index.html`을 사용하셔도 완벽하게 동작합니다.
-
----
-
-## 3. 단계별 세부 명령어 및 검증 가이드
-
-### STEP 1. 원본 HTML 내용을 `index.html`로 동기화
-
-GitHub Pages는 폴더 URL(`.../20261015/`)로 접근했을 때 자동으로 `index.html`을 찾아 엽니다. 원본 파일 수정 후 반드시 복사를 진행해야 합니다.
-
-- **Cmder (리눅스 호환 모드)**:
-  ```bash
-  cp 20261015/naver_works_organization_duty_guide.html 20261015/index.html
-  ```
-- **Windows CMD 네이티브 방식**:
-  ```cmd
-  copy /y 20261015\naver_works_organization_duty_guide.html 20261015\index.html
-  ```
 
 ---
 

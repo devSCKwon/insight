@@ -593,7 +593,7 @@
             border: 1px solid #dfe1e6;
             padding: 3px 8px;
             border-radius: 4px;
-            font-family: monospace;
+            font-family: inherit;
             color: #0747a6;
             font-weight: 600;
             margin: 4px 0;
@@ -876,7 +876,6 @@
     <!-- 좌측 사이드바 -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <span class="badge-tag">NAVER WORKS GUIDE</span>
             <a href="#">
                 <h1>조직도 담당 업무 가이드</h1>
             </a>
@@ -948,18 +947,12 @@
     <main>
         <!-- 메인 헤더 -->
         <header class="main-header">
-            <div class="category-badge">
-                <i class="fas fa-building"></i> 사내 협업 및 업무 프로세스 개선 제안
-            </div>
             <h1>네이버웍스 조직도 담당 업무 등록 및 검색 개선 가이드</h1>
             <h3>"핵심 키워드 30자로 사내 소통과 업무 담당자 탐색을 한 번에 연결하다"</h3>
             <div class="meta">
-                <span><i class="far fa-calendar-alt"></i> 작성일: 2026년 10월 15일</span>
-                <span><i class="far fa-user"></i> 작성: 경영지원본부 전산팀</span>
-                <span><i class="fas fa-users"></i> 적용 대상: 사내 전 구성원</span>
-                <span><i class="fas fa-link"></i> <a
-                        href="https://help.worksmobile.com/ko/use-guides/contacts/company-members/search-organization-contact/"
-                        target="_blank" style="color: inherit; text-decoration: underline;">네이버웍스 공식 가이드</a></span>
+                <span>작성일: 2026년 10월 15일</span>
+                <span>작성: 경영지원본부 전산팀</span>
+                <span>적용 대상: 사내 전 구성원</span>
             </div>
         </header>
 
@@ -967,7 +960,6 @@
         <section id="summary" class="content-section">
             <div class="content-section-header">
                 <div class="title-left">
-                    <i class="fas fa-bullseye"></i>
                     <span>1. 업무 개선 제안 배경 및 종합 요약</span>
                 </div>
                 <span class="section-badge">Executive Summary</span>
@@ -994,8 +986,7 @@
                     </p>
                     <p style="font-size: 0.95rem; color: var(--text-color-light); line-height: 1.6;">
                         네이버웍스에는 각 구성원의 <strong>'담당 업무'</strong>를 입력하고 이를 조직도 및 검색창에서 즉시 조회할 수 있는 기능이 기본 제공됩니다. 그러나 현재
-                        다수의 프로필 내 담당 업무가 비어있어 좋은 기능이 충분히 활용되지 못하고 있습니다. 이에 전사적 가이드를 통해 본인의 업무를 직접 등록하고 활용하는 개선 방안을
-                        제안합니다.
+                        다수의 프로필 내 담당 업무가 비어있어 좋은 기능이 충분히 활용되지 못하고 있습니다. 이에 가이드를 통해 본인의 업무를 직접 등록하고 활용하는 개선 방안을 제안합니다.
                     </p>
                 </div>
             </div>
@@ -1029,7 +1020,6 @@
         <section id="platform-compare" class="content-section">
             <div class="content-section-header">
                 <div class="title-left">
-                    <i class="fas fa-layer-group"></i>
                     <span>2. 디바이스 환경별 노출 특성 및 UI 비교</span>
                 </div>
                 <span class="section-badge">Platform Analysis</span>
@@ -1124,7 +1114,6 @@
         <section id="image-1" class="content-section">
             <div class="content-section-header">
                 <div class="title-left">
-                    <i class="fas fa-desktop"></i>
                     <span>3. [화면 분석 1] PC앱 조직도 및 멤버 선택 기본 노출</span>
                 </div>
                 <span class="badge badge-success">Default View</span>
@@ -1137,7 +1126,7 @@
             <!-- 이미지 1 카드 -->
             <div class="image-viewer-card">
                 <div class="image-container"
-                    onclick="openModal('images/1.png', '[PC앱 화면] 조직도 및 멤버 선택 창 내 담당 업무 기본(Default) 노출', '좌측 조직도 트리에서 전산팀을 선택하면 우측에 이름/직책/직급, 연락처와 함께 [담당업무] 컬럼이 기본적으로 1~2줄로 명확하게 표시됩니다. 권세창 책임매니저의 \'DB, S/W개발 운영\', 신명관 책임매니저의 \'서버, 네트워크, MES, BOM\'과 같이 약 30자의 키워드로 구성되어 있어 시인성 및 검색이 극대화됩니다.')">
+                    onclick="openModal('images/1.png', '[PC앱 화면] 조직도 및 멤버 선택 창 내 담당 업무 기본(Default) 노출', '좌측 조직도 트리에서 전산팀을 선택하면 우측에 이름/직책/직급, 연락처와 함께 [담당업무] 컬럼이 기본적으로 1~2줄로 명확하게 표시됩니다. 권세창 책임매니저의 \'DB, S/W개발 운영\', 신명관 책임매니저의 \'서버, 네트워크, MES, BOM 등\'과 같이 약 30자의 명쾌한 키워드로 구성되어 있어 시인성이 극대화됩니다.')">
                     <img src="images/1.png" alt="PC앱 조직도 및 멤버 선택 담당업무 기본 노출 화면">
                     <div class="image-overlay-hint">
                         <i class="fas fa-search-plus"></i> 클릭하여 원본 확대 보기
@@ -1147,7 +1136,7 @@
                     <h4><i class="fas fa-info-circle"></i> 이미지 분석 포인트: 한눈에 보이는 담당 업무 컬럼</h4>
                     <p>
                         PC앱은 사내 업무 중 가장 상시로 켜두는 프로그램입니다. 위 화면처럼 <strong>[담당업무]</strong>가 기본 열로 배치되어 있어 부서 내 누가 어떤 업무를
-                        담당하는지 클릭 한 번 없이 스캔할 수 있습니다. 1~2줄(약 30자) 내외로 핵심 단어를 작성했을 때 가장 완벽한 비율로 정보가 전달됩니다.
+                        담당하는지 클릭 한 번 없이 스캔할 수 있습니다. 1~2줄(약 30자) 내외로 핵심 단어를 작성했을 때 가장 손쉽게 정보가 전달됩니다.
                     </p>
                 </div>
             </div>
@@ -1157,7 +1146,6 @@
         <section id="profile-guide" class="content-section">
             <div class="content-section-header">
                 <div class="title-left">
-                    <i class="fas fa-user-edit"></i>
                     <span>4. [가이드 1] 사용자 프로필 직접 등록 방법 (PC웹 기준)</span>
                 </div>
                 <span class="section-badge">How to Register</span>
@@ -1176,7 +1164,7 @@
                     <div class="step-number">1</div>
                     <div class="step-content">
                         <h4>PC웹 로그인 및 프로필 메뉴 클릭</h4>
-                        <p>사내 브라우저에서 네이버웍스 웹 포털에 접속한 후, 우측 상단 상단에 위치한 <strong>본인의 프로필 사진</strong>(또는 사용자 이름)을 클릭합니다.</p>
+                        <p>사내 브라우저에서 네이버웍스 웹 포털에 접속한 후, 우측 상단에 위치한 <strong>본인의 프로필 사진</strong>(또는 사용자 이름)을 클릭합니다.</p>
                         <div class="highlight-path"><i class="fas fa-mouse-pointer"></i> 네이버웍스 PC웹 > 우측 상단 [사용자 프로필 사진
                             아이콘]</div>
                     </div>
@@ -1218,7 +1206,6 @@
         <section id="image-2" class="content-section">
             <div class="content-section-header">
                 <div class="title-left">
-                    <i class="fas fa-sliders-h"></i>
                     <span>5. [화면 분석 2] PC웹 환경설정 - 내 프로필 담당 업무 입력란</span>
                 </div>
                 <span class="badge badge-info">Profile Edit</span>
@@ -1251,7 +1238,6 @@
         <section id="search-guide" class="content-section">
             <div class="content-section-header">
                 <div class="title-left">
-                    <i class="fas fa-search"></i>
                     <span>6. [가이드 2] 조직도 기반 업무 키워드 검색 활용법</span>
                 </div>
                 <span class="section-badge">Search Workflow</span>
@@ -1305,7 +1291,6 @@
         <section id="image-3" class="content-section">
             <div class="content-section-header">
                 <div class="title-left">
-                    <i class="fas fa-search-plus"></i>
                     <span>7. [화면 분석 3] 실전 키워드('DB') 검색 결과 화면</span>
                 </div>
                 <span class="badge badge-success">Search Result</span>
@@ -1328,7 +1313,7 @@
                     <h4><i class="fas fa-magic"></i> 이미지 분석 포인트: 이름이나 부서를 몰라도 1초 만에 매칭</h4>
                     <p>
                         검색창에 오직 <strong>'DB'</strong>라는 두 글자만 입력했음에도, 하단에 <strong>[권세창 책임매니저 / 전산팀 / DB, S/W개발
-                            운영]</strong> 정보가 빨간 박스 하이라이트와 함께 명확히 검색되었습니다. 이것이 바로 담당 업무 등록이 가져다주는 사내 검색 혁신의 핵심입니다.
+                            운영]</strong> 정보가 빨간 박스 하이라이트와 함께 명확히 검색됩니다.
                     </p>
                 </div>
             </div>
@@ -1338,7 +1323,6 @@
         <section id="keyword-examples" class="content-section">
             <div class="content-section-header">
                 <div class="title-left">
-                    <i class="fas fa-tags"></i>
                     <span>8. 세진 조직도 기준 부서별 담당 업무 30자 표준 키워드 추천 예시</span>
                 </div>
                 <span class="section-badge">Sejin Organization Standard</span>
@@ -1517,7 +1501,6 @@
         <section id="benefits" class="content-section">
             <div class="content-section-header">
                 <div class="title-left">
-                    <i class="fas fa-chart-line"></i>
                     <span>9. 업무 개선 추진에 따른 기대효과</span>
                 </div>
                 <span class="section-badge">Expected Impact</span>
