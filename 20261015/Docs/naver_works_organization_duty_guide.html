@@ -593,7 +593,7 @@
             border: 1px solid #dfe1e6;
             padding: 3px 8px;
             border-radius: 4px;
-            font-family: monospace;
+            font-family: inherit;
             color: #0747a6;
             font-weight: 600;
             margin: 4px 0;
@@ -948,16 +948,12 @@
     <main>
         <!-- 메인 헤더 -->
         <header class="main-header">
-            <div class="category-badge">
-                <i class="fas fa-building"></i> 사내 협업 및 업무 프로세스 개선 제안
-            </div>
             <h1>네이버웍스 조직도 담당 업무 등록 및 검색 개선 가이드</h1>
             <h3>"핵심 키워드 30자로 사내 소통과 업무 담당자 탐색을 한 번에 연결하다"</h3>
             <div class="meta">
-                <span><i class="far fa-calendar-alt"></i> 작성일: 2026년 10월 15일</span>
-                <span><i class="far fa-user"></i> 작성: 경영지원본부 전산팀</span>
-                <span><i class="fas fa-users"></i> 적용 대상: 사내 전 구성원</span>
-                <span><i class="fas fa-link"></i> <a href="https://help.worksmobile.com/ko/use-guides/contacts/company-members/search-organization-contact/" target="_blank" style="color: inherit; text-decoration: underline;">네이버웍스 공식 가이드</a></span>
+                <span>작성일: 2026년 10월 15일</span>
+                <span>작성: 경영지원본부 전산팀</span>
+                <span>적용 대상: 사내 전 구성원</span>
             </div>
         </header>
 
@@ -965,7 +961,6 @@
         <section id="summary" class="content-section">
             <div class="content-section-header">
                 <div class="title-left">
-                    <i class="fas fa-bullseye"></i>
                     <span>1. 업무 개선 제안 배경 및 종합 요약</span>
                 </div>
                 <span class="section-badge">Executive Summary</span>
@@ -974,21 +969,25 @@
             <div class="slogan-box">
                 <i class="fas fa-lightbulb"></i>
                 <div>
-                    "전사 구성원이 본인의 주 담당 업무를 30자 핵심 키워드로 등록하여, 사내 누구나 이름이나 부서를 몰라도 업무명 검색만으로 즉시 담당자와 연결되는 스마트 협업 환경을 구축합니다."
+                    "전사 구성원이 본인의 주 담당 업무를 30자 핵심 키워드로 등록하여, 사내 누구나 이름이나 부서를 몰라도 업무명 검색만으로 즉시 담당자와 연결되는 스마트 협업 환경을
+                    구축합니다."
                 </div>
             </div>
 
             <div class="card">
                 <div class="card-header">
-                    <h3><i class="fas fa-exclamation-circle" style="color: var(--info-color);"></i> 업무 개선 추진 배경 및 문제점 분석</h3>
+                    <h3><i class="fas fa-exclamation-circle" style="color: var(--info-color);"></i> 업무 개선 추진 배경 및 문제점 분석
+                    </h3>
                     <span class="badge badge-warning">개선 필요</span>
                 </div>
                 <div class="card-body">
                     <p style="margin-bottom: 1rem; font-size: 0.98rem; color: var(--text-color);">
-                        사내 프로젝트 진행, 시스템 권한 승인, 총무/인사/전산 관련 문의 시 <strong>"해당 업무의 실제 실무 담당자가 누구인지"</strong> 즉시 알기 어려워 메신저 전체방에 묻거나 전화로 여러 사람을 거쳐 확인하는 <strong>커뮤니케이션 지연 및 비효율</strong>이 지속적으로 발생하고 있습니다.
+                        사내 프로젝트 진행, 시스템 권한 승인, 총무/인사/전산 관련 문의 시 <strong>"해당 업무의 실제 실무 담당자가 누구인지"</strong> 즉시 알기 어려워 메신저
+                        전체방에 묻거나 전화로 여러 사람을 거쳐 확인하는 <strong>커뮤니케이션 지연 및 비효율</strong>이 지속적으로 발생하고 있습니다.
                     </p>
                     <p style="font-size: 0.95rem; color: var(--text-color-light); line-height: 1.6;">
-                        네이버웍스에는 각 구성원의 <strong>'담당 업무'</strong>를 입력하고 이를 조직도 및 검색창에서 즉시 조회할 수 있는 기능이 기본 제공됩니다. 그러나 현재 다수의 프로필 내 담당 업무가 비어있어 좋은 기능이 충분히 활용되지 못하고 있습니다. 이에 전사적 가이드를 통해 본인의 업무를 직접 등록하고 활용하는 개선 방안을 제안합니다.
+                        네이버웍스에는 각 구성원의 <strong>'담당 업무'</strong>를 입력하고 이를 조직도 및 검색창에서 즉시 조회할 수 있는 기능이 기본 제공됩니다. 그러나 현재
+                        다수의 프로필 내 담당 업무가 비어있어 좋은 기능이 충분히 활용되지 못하고 있습니다. 이에 가이드를 통해 본인의 업무를 직접 등록하고 활용하는 개선 방안을 제안합니다.
                     </p>
                 </div>
             </div>
@@ -1022,14 +1021,14 @@
         <section id="platform-compare" class="content-section">
             <div class="content-section-header">
                 <div class="title-left">
-                    <i class="fas fa-layer-group"></i>
                     <span>2. 디바이스 환경별 노출 특성 및 UI 비교</span>
                 </div>
                 <span class="section-badge">Platform Analysis</span>
             </div>
 
             <p style="margin-bottom: 1.2rem; font-size: 0.95rem; color: var(--text-color);">
-                네이버웍스는 <strong>PC앱, PC웹, 모바일앱</strong>의 세 가지 사용 환경을 지원합니다. 모든 환경에서 담당 업무 조회가 가능하지만, <strong>화면에 노출되는 기본(Default) 성격</strong>에서 뚜렷한 차이가 있습니다.
+                네이버웍스는 <strong>PC앱, PC웹, 모바일앱</strong>의 세 가지 사용 환경을 지원합니다. 모든 환경에서 담당 업무 조회가 가능하지만, <strong>화면에 노출되는
+                    기본(Default) 성격</strong>에서 뚜렷한 차이가 있습니다.
             </p>
 
             <div class="platform-grid">
@@ -1039,7 +1038,8 @@
                     <div class="platform-title">PC 앱 (PC App)</div>
                     <span class="badge badge-success">기본 노출형 (Default)</span>
                     <ul class="platform-feature-list">
-                        <li><i class="fas fa-check-circle"></i> <span>조직도 트리 클릭 시 <strong>담당업무 열이 기본 화면에 즉시 노출</strong></span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>조직도 트리 클릭 시 <strong>담당업무 열이 기본 화면에 즉시
+                                    노출</strong></span></li>
                         <li><i class="fas fa-check-circle"></i> <span>멤버 선택 창에서 부서원 전체의 업무 분장을 한눈에 파악</span></li>
                         <li><i class="fas fa-check-circle"></i> <span>한 화면에 1~2줄(약 30자) 최적화로 직관적 식별 가능</span></li>
                         <li><i class="fas fa-check-circle"></i> <span>상단 검색창 키워드 실시간 인덱싱 지원</span></li>
@@ -1053,8 +1053,10 @@
                     <span class="badge badge-info">상세 조회형 (Detail)</span>
                     <ul class="platform-feature-list">
                         <li><i class="fas fa-info-circle"></i> <span>조직도 목록에서는 기본 요약 인적사항 우선 표시</span></li>
-                        <li><i class="fas fa-info-circle"></i> <span><strong>구성원을 클릭하여 Detail 팝업</strong>을 열어야 담당업무 노출</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span><strong>개인정보 - 내 프로필 직접 등록/수정</strong>의 핵심 플랫폼</span></li>
+                        <li><i class="fas fa-info-circle"></i> <span><strong>구성원을 클릭하여 Detail 팝업</strong>을 열어야 담당업무
+                                노출</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span><strong>개인정보 - 내 프로필 직접 등록/수정</strong>의 핵심
+                                플랫폼</span></li>
                         <li><i class="fas fa-check-circle"></i> <span>우측 상단 통합 검색창에서 업무 키워드 완벽 검색</span></li>
                     </ul>
                 </div>
@@ -1066,7 +1068,8 @@
                     <span class="badge badge-info">모바일 상세형 (Detail)</span>
                     <ul class="platform-feature-list">
                         <li><i class="fas fa-info-circle"></i> <span>화면 폭 제약으로 주소록 목록에는 기본 프로필만 표시</span></li>
-                        <li><i class="fas fa-info-circle"></i> <span><strong>구성원 터치 시 상세 프로필 화면</strong>에서 담당업무 확인</span></li>
+                        <li><i class="fas fa-info-circle"></i> <span><strong>구성원 터치 시 상세 프로필 화면</strong>에서 담당업무
+                                확인</span></li>
                         <li><i class="fas fa-check-circle"></i> <span>외근/출장 시 스마트폰 검색창으로 즉시 담당자 검색 가능</span></li>
                         <li><i class="fas fa-check-circle"></i> <span>검색 즉시 1:1 메시지 및 사내 무료 통화 원클릭 연결</span></li>
                     </ul>
@@ -1076,25 +1079,31 @@
             <!-- 30자 키워드 필요성 안내 카드 -->
             <div class="card" style="margin-top: 1.5rem; background-color: #f7f9fc;">
                 <div class="card-header">
-                    <h3><i class="fas fa-ruler-combined" style="color: var(--info-color);"></i> 왜 '30자 내외 핵심 키워드' 기반이어야 하는가?</h3>
+                    <h3><i class="fas fa-ruler-combined" style="color: var(--info-color);"></i> 왜 '30자 내외 핵심 키워드' 기반이어야
+                        하는가?</h3>
                     <span class="badge badge-primary">핵심 가이드</span>
                 </div>
                 <div class="card-body">
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem;">
+                    <div
+                        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem;">
                         <div>
                             <h4 style="font-size: 1rem; color: var(--text-color); margin-bottom: 0.4rem;">
-                                <i class="fas fa-text-width" style="color: var(--info-color);"></i> 1. UI 화면 공간의 한계 (1~2줄 표기)
+                                <i class="fas fa-text-width" style="color: var(--info-color);"></i> 1. UI 화면 공간의 한계
+                                (1~2줄 표기)
                             </h4>
                             <p style="font-size: 0.9rem; color: var(--text-color-light); line-height: 1.55;">
-                                PC앱 목록 화면에서 담당업무 컬럼은 정해진 가로 너비 내에서 1~2줄로 축약 표시됩니다. 긴 문장형 서술("전사 시스템 개발 및 유지보수를 수행하며...")은 말줄임(...) 처리되어 핵심 업무가 가려집니다.
+                                PC앱 목록 화면에서 담당업무 컬럼은 정해진 가로 너비 내에서 1~2줄로 축약 표시됩니다. 긴 문장형 서술("전사 시스템 개발 및 유지보수를
+                                수행하며...")은 말줄임(...) 처리되어 핵심 업무가 가려집니다.
                             </p>
                         </div>
                         <div>
                             <h4 style="font-size: 1rem; color: var(--text-color); margin-bottom: 0.4rem;">
-                                <i class="fas fa-search-dollar" style="color: var(--accent-green);"></i> 2. 검색 정확도 및 가독성 극대화
+                                <i class="fas fa-search-dollar" style="color: var(--accent-green);"></i> 2. 검색 정확도 및 가독성
+                                극대화
                             </h4>
                             <p style="font-size: 0.9rem; color: var(--text-color-light); line-height: 1.55;">
-                                동료들이 검색창에 실제로 입력하는 단어는 "DB", "MES", "서버", "급여"와 같은 <strong>명사 키워드</strong>입니다. 쉼표(,)로 구분된 30자 키워드는 눈으로 훑기에도 편하고 검색 엔진 적중률도 가장 높습니다.
+                                동료들이 검색창에 실제로 입력하는 단어는 "DB", "MES", "서버", "급여"와 같은 <strong>명사 키워드</strong>입니다. 쉼표(,)로
+                                구분된 30자 키워드는 눈으로 훑기에도 편하고 검색 엔진 적중률도 가장 높습니다.
                             </p>
                         </div>
                     </div>
@@ -1106,7 +1115,6 @@
         <section id="image-1" class="content-section">
             <div class="content-section-header">
                 <div class="title-left">
-                    <i class="fas fa-desktop"></i>
                     <span>3. [화면 분석 1] PC앱 조직도 및 멤버 선택 기본 노출</span>
                 </div>
                 <span class="badge badge-success">Default View</span>
@@ -1118,7 +1126,8 @@
 
             <!-- 이미지 1 카드 -->
             <div class="image-viewer-card">
-                <div class="image-container" onclick="openModal('../images/1.png', '[PC앱 화면] 조직도 및 멤버 선택 창 내 담당 업무 기본(Default) 노출', '좌측 조직도 트리에서 전산팀을 선택하면 우측에 이름/직책/직급, 연락처와 함께 [담당업무] 컬럼이 기본적으로 1~2줄로 명확하게 표시됩니다. 권세창 책임매니저의 \'DB, S/W개발 운영\', 신명관 책임매니저의 \'서버, 네트워크, MES, BOM 등\'과 같이 약 30자의 명쾌한 키워드로 구성되어 있어 시인성이 극대화됩니다.')">
+                <div class="image-container"
+                    onclick="openModal('../images/1.png', '[PC앱 화면] 조직도 및 멤버 선택 창 내 담당 업무 기본(Default) 노출', '좌측 조직도 트리에서 전산팀을 선택하면 우측에 이름/직책/직급, 연락처와 함께 [담당업무] 컬럼이 기본적으로 1~2줄로 명확하게 표시됩니다. 권세창 책임매니저의 \'DB, S/W개발 운영\', 신명관 책임매니저의 \'서버, 네트워크, MES, BOM 등\'과 같이 약 30자의 명쾌한 키워드로 구성되어 있어 시인성이 극대화됩니다.')">
                     <img src="../images/1.png" alt="PC앱 조직도 및 멤버 선택 담당업무 기본 노출 화면">
                     <div class="image-overlay-hint">
                         <i class="fas fa-search-plus"></i> 클릭하여 원본 확대 보기
@@ -1127,7 +1136,8 @@
                 <div class="image-caption-area">
                     <h4><i class="fas fa-info-circle"></i> 이미지 분석 포인트: 한눈에 보이는 담당 업무 컬럼</h4>
                     <p>
-                        PC앱은 사내 업무 중 가장 상시로 켜두는 프로그램입니다. 위 화면처럼 <strong>[담당업무]</strong>가 기본 열로 배치되어 있어 부서 내 누가 어떤 업무를 담당하는지 클릭 한 번 없이 스캔할 수 있습니다. 1~2줄(약 30자) 내외로 핵심 단어를 작성했을 때 가장 완벽한 비율로 정보가 전달됩니다.
+                        PC앱은 사내 업무 중 가장 상시로 켜두는 프로그램입니다. 위 화면처럼 <strong>[담당업무]</strong>가 기본 열로 배치되어 있어 부서 내 누가 어떤 업무를
+                        담당하는지 클릭 한 번 없이 스캔할 수 있습니다. 1~2줄(약 30자) 내외로 핵심 단어를 작성했을 때 가장 손쉽게 정보가 전달됩니다.
                     </p>
                 </div>
             </div>
@@ -1137,7 +1147,6 @@
         <section id="profile-guide" class="content-section">
             <div class="content-section-header">
                 <div class="title-left">
-                    <i class="fas fa-user-edit"></i>
                     <span>4. [가이드 1] 사용자 프로필 직접 등록 방법 (PC웹 기준)</span>
                 </div>
                 <span class="section-badge">How to Register</span>
@@ -1157,7 +1166,8 @@
                     <div class="step-content">
                         <h4>PC웹 로그인 및 프로필 메뉴 클릭</h4>
                         <p>사내 브라우저에서 네이버웍스 웹 포털에 접속한 후, 우측 상단에 위치한 <strong>본인의 프로필 사진</strong>(또는 사용자 이름)을 클릭합니다.</p>
-                        <div class="highlight-path"><i class="fas fa-mouse-pointer"></i> 네이버웍스 PC웹 > 우측 상단 [사용자 프로필 사진 아이콘]</div>
+                        <div class="highlight-path"><i class="fas fa-mouse-pointer"></i> 네이버웍스 PC웹 > 우측 상단 [사용자 프로필 사진
+                            아이콘]</div>
                     </div>
                 </div>
 
@@ -1165,7 +1175,9 @@
                     <div class="step-number">2</div>
                     <div class="step-content">
                         <h4>환경설정 > 개인정보 > 내 프로필 진입</h4>
-                        <p>팝업 메뉴에서 <strong>[환경설정]</strong>(톱니바퀴)을 선택하거나, 좌측 메뉴에서 <strong>[개인정보]</strong>를 클릭한 후 <strong>[< 내 프로필]</strong> 상세 설정 화면으로 진입합니다.</p>
+                        <p>팝업 메뉴에서 <strong>[환경설정]</strong>(톱니바퀴)을 선택하거나, 좌측 메뉴에서 <strong>[개인정보]</strong>를 클릭한 후
+                            <strong>[< 내 프로필]</strong> 상세 설정 화면으로 진입합니다.
+                        </p>
                         <div class="highlight-path"><i class="fas fa-sliders-h"></i> 환경설정 > 좌측 탭 [개인정보] > [내 프로필]</div>
                     </div>
                 </div>
@@ -1174,7 +1186,8 @@
                     <div class="step-number">3</div>
                     <div class="step-content">
                         <h4>하단 [담당 업무] 입력란에 30자 키워드 직접 입력</h4>
-                        <p>내 프로필 화면 맨 하단에 위치한 <strong>'담당 업무'</strong> 입력 박스를 찾습니다. 본인이 실제로 수행하고 있는 대표 직무, 운영 시스템, 전문 영역을 <strong>쉼표(,) 구분 키워드로 약 30자</strong> 내외 작성합니다.</p>
+                        <p>내 프로필 화면 맨 하단에 위치한 <strong>'담당 업무'</strong> 입력 박스를 찾습니다. 본인이 실제로 수행하고 있는 대표 직무, 운영 시스템, 전문
+                            영역을 <strong>쉼표(,) 구분 키워드로 약 30자</strong> 내외 작성합니다.</p>
                         <div class="highlight-path"><i class="fas fa-edit"></i> [담당 업무] 입력창에 예: "DB, S/W개발 운영" 입력</div>
                     </div>
                 </div>
@@ -1183,7 +1196,8 @@
                     <div class="step-number">4</div>
                     <div class="step-content">
                         <h4>저장 및 즉시 사내 반영 확인</h4>
-                        <p>입력 완료 후 하단의 <strong>[저장]</strong> 버튼을 누르면 실시간으로 조직도 데이터베이스에 등록되며, PC앱/PC웹/모바일앱 모든 구성원에게 즉시 공유됩니다.</p>
+                        <p>입력 완료 후 하단의 <strong>[저장]</strong> 버튼을 누르면 실시간으로 조직도 데이터베이스에 등록되며, PC앱/PC웹/모바일앱 모든 구성원에게 즉시
+                            공유됩니다.</p>
                     </div>
                 </div>
             </div>
@@ -1193,7 +1207,6 @@
         <section id="image-2" class="content-section">
             <div class="content-section-header">
                 <div class="title-left">
-                    <i class="fas fa-sliders-h"></i>
                     <span>5. [화면 분석 2] PC웹 환경설정 - 내 프로필 담당 업무 입력란</span>
                 </div>
                 <span class="badge badge-info">Profile Edit</span>
@@ -1205,7 +1218,8 @@
 
             <!-- 이미지 2 카드 (사이즈 최적화 적용) -->
             <div class="image-viewer-card compact-card">
-                <div class="image-container compact-container" onclick="openModal('../images/2.png', '[PC웹 화면] 개인정보 설정 > 내 프로필 > 담당 업무 직접 입력란', 'PC웹 환경설정의 [개인정보] > [내 프로필] 화면입니다. 하단의 붉은색 강조 박스([담당 업무])에 본인이 직접 키워드(\'DB, S/W개발 운영\')를 입력하고 수정할 수 있습니다. 사용자가 직접 입력하므로 담당 업무의 변경 사항을 가장 빠르고 정확하게 반영할 수 있습니다.')">
+                <div class="image-container compact-container"
+                    onclick="openModal('../images/2.png', '[PC웹 화면] 개인정보 설정 > 내 프로필 > 담당 업무 직접 입력란', 'PC웹 환경설정의 [개인정보] > [내 프로필] 화면입니다. 하단의 붉은색 강조 박스([담당 업무])에 본인이 직접 키워드(\'DB, S/W개발 운영\')를 입력하고 수정할 수 있습니다. 사용자가 직접 입력하므로 담당 업무의 변경 사항을 가장 빠르고 정확하게 반영할 수 있습니다.')">
                     <img src="../images/2.png" alt="PC웹 환경설정 내 프로필 담당 업무 입력 화면">
                     <div class="image-overlay-hint">
                         <i class="fas fa-search-plus"></i> 클릭하여 원본 확대 보기
@@ -1214,7 +1228,8 @@
                 <div class="image-caption-area">
                     <h4><i class="fas fa-check-double"></i> 이미지 분석 포인트: 사용자가 직접 작성하는 개방형 입력창</h4>
                     <p>
-                        붉은색 테두리로 강조된 <strong>[담당 업무]</strong> 필드는 사용자가 자유롭게 수정할 수 있는 입력란입니다. 타 부서 동료들이 나에게 어떤 업무로 문의할지를 고려하여, <strong>가장 찾기 쉬운 명사형 키워드</strong>를 직접 채워 넣으시면 됩니다.
+                        붉은색 테두리로 강조된 <strong>[담당 업무]</strong> 필드는 사용자가 자유롭게 수정할 수 있는 입력란입니다. 타 부서 동료들이 나에게 어떤 업무로 문의할지를
+                        고려하여, <strong>가장 찾기 쉬운 명사형 키워드</strong>를 직접 채워 넣으시면 됩니다.
                     </p>
                 </div>
             </div>
@@ -1224,7 +1239,6 @@
         <section id="search-guide" class="content-section">
             <div class="content-section-header">
                 <div class="title-left">
-                    <i class="fas fa-search"></i>
                     <span>6. [가이드 2] 조직도 기반 업무 키워드 검색 활용법</span>
                 </div>
                 <span class="section-badge">Search Workflow</span>
@@ -1238,26 +1252,35 @@
                 <div class="card-body">
                     <div style="display: flex; flex-direction: column; gap: 1rem;">
                         <div style="display: flex; align-items: flex-start; gap: 12px;">
-                            <div style="background-color: #deebff; color: #0747a6; padding: 8px 12px; border-radius: 8px; font-weight: 700;">STEP 1</div>
+                            <div
+                                style="background-color: #deebff; color: #0747a6; padding: 8px 12px; border-radius: 8px; font-weight: 700;">
+                                STEP 1</div>
                             <div>
                                 <h4 style="font-size: 1rem; color: var(--text-color);">검색창에 찾고자 하는 업무 키워드 입력</h4>
-                                <p style="font-size: 0.9rem; color: var(--text-color-light);">네이버웍스 상단 검색창 또는 대화방 초대/멤버 선택 창에서 찾고자 하는 업무(예: `DB`, `ERP`, `원자재`, `연말정산` 등)를 입력합니다.</p>
+                                <p style="font-size: 0.9rem; color: var(--text-color-light);">네이버웍스 상단 검색창 또는 대화방 초대/멤버
+                                    선택 창에서 찾고자 하는 업무(예: `DB`, `ERP`, `원자재`, `연말정산` 등)를 입력합니다.</p>
                             </div>
                         </div>
 
                         <div style="display: flex; align-items: flex-start; gap: 12px;">
-                            <div style="background-color: #deebff; color: #0747a6; padding: 8px 12px; border-radius: 8px; font-weight: 700;">STEP 2</div>
+                            <div
+                                style="background-color: #deebff; color: #0747a6; padding: 8px 12px; border-radius: 8px; font-weight: 700;">
+                                STEP 2</div>
                             <div>
                                 <h4 style="font-size: 1rem; color: var(--text-color);">실시간 매칭된 담당자 확인</h4>
-                                <p style="font-size: 0.9rem; color: var(--text-color-light);">네이버웍스 인덱스 검색기가 담당 업무 필드에 해당 키워드를 보유한 사내 담당자를 즉시 리스트업합니다.</p>
+                                <p style="font-size: 0.9rem; color: var(--text-color-light);">네이버웍스 인덱스 검색기가 담당 업무 필드에
+                                    해당 키워드를 보유한 사내 담당자를 즉시 리스트업합니다.</p>
                             </div>
                         </div>
 
                         <div style="display: flex; align-items: flex-start; gap: 12px;">
-                            <div style="background-color: #deebff; color: #0747a6; padding: 8px 12px; border-radius: 8px; font-weight: 700;">STEP 3</div>
+                            <div
+                                style="background-color: #deebff; color: #0747a6; padding: 8px 12px; border-radius: 8px; font-weight: 700;">
+                                STEP 3</div>
                             <div>
                                 <h4 style="font-size: 1rem; color: var(--text-color);">클릭 한 번으로 즉시 소통 개시</h4>
-                                <p style="font-size: 0.9rem; color: var(--text-color-light);">검색 결과에서 담당자를 확인하고 [1:1 메시지 대화], [메일 작성], [음성 통화], [일정 조회] 중 필요한 소통 방식을 즉시 실행합니다.</p>
+                                <p style="font-size: 0.9rem; color: var(--text-color-light);">검색 결과에서 담당자를 확인하고 [1:1 메시지
+                                    대화], [메일 작성], [음성 통화], [일정 조회] 중 필요한 소통 방식을 즉시 실행합니다.</p>
                             </div>
                         </div>
                     </div>
@@ -1269,7 +1292,6 @@
         <section id="image-3" class="content-section">
             <div class="content-section-header">
                 <div class="title-left">
-                    <i class="fas fa-search-plus"></i>
                     <span>7. [화면 분석 3] 실전 키워드('DB') 검색 결과 화면</span>
                 </div>
                 <span class="badge badge-success">Search Result</span>
@@ -1281,7 +1303,8 @@
 
             <!-- 이미지 3 카드 -->
             <div class="image-viewer-card">
-                <div class="image-container" onclick="openModal('../images/3.png', '[검색 화면] 키워드(\'DB\') 입력을 통한 담당자 실시간 검색 결과', '상단 검색창에 키워드 \'DB\'를 입력했을 때의 결과입니다. 담당자 이름을 몰라도 담당 업무에 \'DB, S/W개발 운영\'이 등록되어 있으므로 해당 담당자가 즉시 1순위로 정확하게 검색되어 나타납니다.')">
+                <div class="image-container"
+                    onclick="openModal('../images/3.png', '[검색 화면] 키워드(\'DB\') 입력을 통한 담당자 실시간 검색 결과', '상단 검색창에 키워드 \'DB\'를 입력했을 때의 결과입니다. 담당자 이름을 몰라도 담당 업무에 \'DB, S/W개발 운영\'이 등록되어 있으므로 해당 담당자가 즉시 1순위로 정확하게 검색되어 나타납니다.')">
                     <img src="../images/3.png" alt="멤버 검색 창 키워드 DB 검색 결과 화면">
                     <div class="image-overlay-hint">
                         <i class="fas fa-search-plus"></i> 클릭하여 원본 확대 보기
@@ -1290,7 +1313,8 @@
                 <div class="image-caption-area">
                     <h4><i class="fas fa-magic"></i> 이미지 분석 포인트: 이름이나 부서를 몰라도 1초 만에 매칭</h4>
                     <p>
-                        검색창에 오직 <strong>'DB'</strong>라는 두 글자만 입력했음에도, 하단에 <strong>[권세창 책임매니저 / 전산팀 / DB, S/W개발 운영]</strong> 정보가 빨간 박스 하이라이트와 함께 명확히 검색되었습니다. 이것이 바로 담당 업무 등록이 가져다주는 사내 검색 혁신의 핵심입니다.
+                        검색창에 오직 <strong>'DB'</strong>라는 두 글자만 입력했음에도, 하단에 <strong>[권세창 책임매니저 / 전산팀 / DB, S/W개발
+                            운영]</strong> 정보가 빨간 박스 하이라이트와 함께 명확히 검색됩니다.
                     </p>
                 </div>
             </div>
@@ -1300,14 +1324,14 @@
         <section id="keyword-examples" class="content-section">
             <div class="content-section-header">
                 <div class="title-left">
-                    <i class="fas fa-tags"></i>
                     <span>8. 세진 조직도 기준 부서별 담당 업무 30자 표준 키워드 추천 예시</span>
                 </div>
                 <span class="section-badge">Sejin Organization Standard</span>
             </div>
 
             <p style="margin-bottom: 1.2rem; font-size: 0.95rem; color: var(--text-color);">
-                사내 구성원들이 본인의 담당 업무를 쉽게 입력할 수 있도록, <strong>현재 (주)세진의 실제 조직도(경영지원본부, 연구개발본부, 영업구매본부, 생산본부, 품질본부)</strong> 체계에 맞춘 권장 표준 예시를 제공합니다.
+                사내 구성원들이 본인의 담당 업무를 쉽게 입력할 수 있도록, <strong>현재 (주)세진의 실제 조직도(경영지원본부, 연구개발본부, 영업구매본부, 생산본부, 품질본부)</strong>
+                체계에 맞춘 권장 표준 예시를 제공합니다.
             </p>
 
             <div class="data-table-container">
@@ -1323,7 +1347,9 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td rowspan="3" style="vertical-align: middle; background-color: #fafbfc;"><strong>경영지원본부</strong></td>
+                            <td rowspan="3" style="vertical-align: middle; background-color: #fafbfc;">
+                                <strong>경영지원본부</strong>
+                            </td>
                             <td><strong>전산팀</strong></td>
                             <td>소프트웨어 개발 / DB</td>
                             <td><span class="keyword-chip">DB, S/W개발 운영, 사내 웹시스템</span></td>
@@ -1342,7 +1368,9 @@
                             <td>사내 전산 헬프데스크</td>
                         </tr>
                         <tr>
-                            <td rowspan="2" style="vertical-align: middle; background-color: #fafbfc;"><strong>경영지원본부</strong></td>
+                            <td rowspan="2" style="vertical-align: middle; background-color: #fafbfc;">
+                                <strong>경영지원본부</strong>
+                            </td>
                             <td><strong>총무팀</strong></td>
                             <td>사옥 / 자산관리 / 행사</td>
                             <td><span class="keyword-chip">사옥관리, 비품구매, 법인차량, 의전행사</span></td>
@@ -1355,7 +1383,9 @@
                             <td>인사제도 및 복지</td>
                         </tr>
                         <tr>
-                            <td rowspan="2" style="vertical-align: middle; background-color: #fafbfc;"><strong>경영지원본부</strong></td>
+                            <td rowspan="2" style="vertical-align: middle; background-color: #fafbfc;">
+                                <strong>경영지원본부</strong>
+                            </td>
                             <td><strong>재경팀</strong></td>
                             <td>재무회계 / 결산 / 세무</td>
                             <td><span class="keyword-chip">재무회계, 세무신고, 부가세, 월말결산</span></td>
@@ -1368,7 +1398,9 @@
                             <td>비용정산 및 자금</td>
                         </tr>
                         <tr>
-                            <td rowspan="3" style="vertical-align: middle; background-color: #fafbfc;"><strong>연구개발본부</strong></td>
+                            <td rowspan="3" style="vertical-align: middle; background-color: #fafbfc;">
+                                <strong>연구개발본부</strong>
+                            </td>
                             <td><strong>설계팀</strong></td>
                             <td>제품 설계 / CAD</td>
                             <td><span class="keyword-chip">제품설계, 2D/3D CAD, CATIA, 사양관리</span></td>
@@ -1387,7 +1419,9 @@
                             <td>양산품 개선/EO</td>
                         </tr>
                         <tr>
-                            <td rowspan="3" style="vertical-align: middle; background-color: #fafbfc;"><strong>영업구매본부</strong></td>
+                            <td rowspan="3" style="vertical-align: middle; background-color: #fafbfc;">
+                                <strong>영업구매본부</strong>
+                            </td>
                             <td><strong>원가영업1팀</strong></td>
                             <td>고객사 영업 / 수주관리</td>
                             <td><span class="keyword-chip">완성차 영업, 견적/수주, 고객사 대응, 매출정산</span></td>
@@ -1406,7 +1440,9 @@
                             <td>원자재/협력사 발주</td>
                         </tr>
                         <tr>
-                            <td rowspan="5" style="vertical-align: middle; background-color: #fafbfc;"><strong>생산본부</strong></td>
+                            <td rowspan="5" style="vertical-align: middle; background-color: #fafbfc;">
+                                <strong>생산본부</strong>
+                            </td>
                             <td><strong>생산1팀</strong></td>
                             <td>라인 생산관리</td>
                             <td><span class="keyword-chip">생산계획, 제조공정 관리, 가동률 분석, 조립라인</span></td>
@@ -1437,7 +1473,9 @@
                             <td>노무 및 산업안전</td>
                         </tr>
                         <tr>
-                            <td rowspan="3" style="vertical-align: middle; background-color: #fafbfc;"><strong>품질본부</strong></td>
+                            <td rowspan="3" style="vertical-align: middle; background-color: #fafbfc;">
+                                <strong>품질본부</strong>
+                            </td>
                             <td><strong>품질보증1팀</strong></td>
                             <td>양산 품질보증</td>
                             <td><span class="keyword-chip">양산품질(QA), 공정품질 감사, 불량개선, ISO/IATF</span></td>
@@ -1464,7 +1502,6 @@
         <section id="benefits" class="content-section">
             <div class="content-section-header">
                 <div class="title-left">
-                    <i class="fas fa-chart-line"></i>
                     <span>9. 업무 개선 추진에 따른 기대효과</span>
                 </div>
                 <span class="section-badge">Expected Impact</span>
@@ -1518,7 +1555,8 @@
                     <h3>지금 바로 네이버웍스 PC웹에서 내 프로필을 갱신해 보세요!</h3>
                     <p>내 담당 업무 30자 등록은 동료를 배려하는 가장 스마트하고 따뜻한 협업의 시작입니다.</p>
                 </div>
-                <a href="https://help.worksmobile.com/ko/use-guides/contacts/company-members/search-organization-contact/" target="_blank" class="quick-action-btn">
+                <a href="https://help.worksmobile.com/ko/use-guides/contacts/company-members/search-organization-contact/"
+                    target="_blank" class="quick-action-btn">
                     <i class="fas fa-external-link-alt"></i> 네이버웍스 공식 가이드 보기
                 </a>
             </div>
